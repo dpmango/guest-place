@@ -1,6 +1,5 @@
 export default function ({ store, redirect }) {
-  // redirect authenticated users for some pages
-  // like login, signup (no need) and homepage landing (by design)
+  // Check if user is not authenticated
 
   if (store.getters['auth/isAuthenticated']) {
     return redirect('/profile')

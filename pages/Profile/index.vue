@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  middleware: ['restrictedAccess'],
   head: {
     title: 'Профиль | Guest&Place',
   },

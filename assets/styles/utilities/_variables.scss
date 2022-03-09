@@ -6,7 +6,8 @@ $xl: 1200;
 $hd: 1440;
 
 // FONTS
-$baseFont: 'Roboto', sans-serif;
+$baseFont: 'Raleway', sans-serif;
+$fontPoiret: 'Poiret One', cursive;
 $systemFont: -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Ubuntu', 'Cantarell', 'Arial',
   sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
@@ -16,11 +17,12 @@ $ease: ease-in-out;
 
 // COLORS
 // Color-names https://htmlcolorcodes.com/color-names/
-$fontColor: #171818;
+$fontColor: #333333;
 $colorGray: #939598;
-$colorPrimary: #1e88e5;
-$colorPrimaryHover: #0d74cf;
-$colorAccent: teal;
+$colorLight: #a0a0a4;
+$colorPrimary: #0066cc;
+$colorPrimaryHover: #181a1d;
+$colorAccent: #764678;
 $colorGreen: #00ad45;
 $colorRed: #f15525;
 $colorRedHover: lighten($colorRed, 15%);
@@ -50,7 +52,7 @@ $blogger: #fb8f3d;
 $soundcloud: #ff3a00;
 
 // BootStrap 12-col GRID
-$gutter: 12px;
+$gutter: 15px;
 $col1: 8.333333%;
 $col2: 16.666667%;
 $col3: 25%;

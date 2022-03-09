@@ -1,39 +1,55 @@
 // titles
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
 
-.h1-title,
-.h2-title,
-.h3-title,
-.h4-title,
-.h5-title,
-.h6-title {
-  font-weight: 700;
+p + p {
+  margin-top: 1em;
 }
 
 .h1-title {
-  font-size: 52px;
+  font-family: $fontPoiret;
+  font-weight: 400;
+  font-size: 68px;
+  line-height: 1.05;
+  text-transform: uppercase;
 }
 
 .h2-title {
-  font-family: $baseFont;
-  font-weight: 500;
-  font-size: 28px;
+  font-family: $fontPoiret;
+  font-weight: 400;
+  font-size: 42px;
   line-height: 1.5;
+  text-transform: uppercase;
 }
 
 .h3-title {
-  font-size: 36px;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.3;
 }
 
 .h4-title {
-  font-size: 32px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.3;
 }
 
 .h5-title {
-  font-size: 28px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3;
 }
 
 .h6-title {
-  font-size: 22px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.3;
 }
 
 // +r($lg)
@@ -53,29 +69,19 @@
 //     font-size: 36px
 
 // paragraphs
+.p-main {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.16;
+}
+
 .p-regular {
   margin: 0;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 140%;
+  font-size: 18px;
+  line-height: 1.3;
 
   & + p {
     margin-top: 0;
-  }
-}
-
-.page:not(.page--homepage) {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0;
-  }
-
-  p + p {
-    margin-top: 1em;
   }
 }
 

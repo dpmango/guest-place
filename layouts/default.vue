@@ -2,7 +2,6 @@
   <div class="page">
     <LayoutHeader />
     <div class="page__content header-pad">
-      <AuthNotificationConfirmation v-if="showConfirmationNotification" />
       <Nuxt />
     </div>
     <PaymentModals />
@@ -16,13 +15,6 @@ export default {
   middleware: ['default'],
 
   computed: {
-    showConfirmationNotification() {
-      if (!this.$route.name || ['Messages'].includes(this.$route.name)) {
-        return false
-      }
-
-      return true
-    },
     ...mapGetters('chat', ['isConnected']),
   },
   watch: {
@@ -55,6 +47,6 @@ export default {
 
 <style lang="scss">
 .header-pad {
-  padding-top: 56px;
+  padding-top: 146px;
 }
 </style>

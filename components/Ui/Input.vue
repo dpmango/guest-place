@@ -160,16 +160,17 @@ export default {
       -webkit-appearance: none;
       display: block;
       width: 100%;
-      padding: 13px 16px;
+      padding: 14px 20px;
       border: 1px solid transparent;
-      background: #f7f6f7;
-      border-radius: 5px;
+      background: white;
+      border-radius: 50px;
       font-family: $baseFont;
-      font-size: 15px;
+      font-size: 14px;
       font-style: normal;
       font-weight: 400;
       line-height: 1.4;
       color: $fontColor;
+      box-shadow: 0px 4px 15px rgba(105, 78, 75, 0.14);
       transition: border 0.25s $ease, color 0.25s $ease, background 0.25s $ease;
       &::placeholder {
         color: $colorGray;
@@ -198,12 +199,12 @@ export default {
     &.is-iconed {
       input,
       textarea {
-        padding-right: 45px;
+        padding-right: 75px;
       }
       &.left {
         input,
         textarea {
-          padding-left: 45px;
+          padding-left: 75px;
           padding-right: 14px;
         }
       }
@@ -228,19 +229,19 @@ export default {
   &__icon {
     position: absolute;
     z-index: 2;
-    right: 15px;
+    right: 40px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 0;
     pointer-events: none;
     transition: opacity 0.25s $ease, fill 0.25s $ease;
     &.left {
-      left: 15px;
+      left: 40px;
       right: auto;
     }
     .svg-icon {
-      font-size: 16px;
-      color: $colorGray;
+      font-size: 20px;
+      color: $colorLight;
     }
   }
   &__clear {
@@ -287,7 +288,7 @@ export default {
       position: absolute;
       top: 22px;
       left: 16px;
-      font-size: 18px;
+      font-size: 14px;
       z-index: 2;
       pointer-events: none;
       transition: all 0.25s ease-in-out;
@@ -295,8 +296,8 @@ export default {
     .input__input {
       input,
       textarea {
-        padding-top: 25px;
-        padding-bottom: 12px;
+        padding-top: 27px;
+        padding-bottom: 14px;
       }
     }
     &.is-focused {
@@ -313,7 +314,7 @@ export default {
     }
     &.is-iconed {
       .input__label {
-        left: 45px;
+        left: 75px;
       }
     }
   }

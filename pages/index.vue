@@ -1,5 +1,7 @@
 <template>
-  <h1>Homepage</h1>
+  <div class="">
+    <HomepageHero />
+  </div>
 </template>
 
 <script>

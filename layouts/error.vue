@@ -13,7 +13,7 @@
           </template>
 
           <div class="error__cta">
-            <NuxtLink to="/course">
+            <NuxtLink to="/">
               <UiButton theme="primary">Вернуться на главную</UiButton>
             </NuxtLink>
           </div>
@@ -44,7 +44,7 @@ export default {
   &__wrapper {
     position: relative;
     padding: 32px 0 128px;
-    min-height: calc(100vh - 57px);
+    min-height: calc(100vh - 146px);
     display: flex;
     flex-direction: column;
   }

@@ -7,8 +7,10 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <slot />
-    <UiLoader v-if="showLoader" :loading="showLoader" :color="loaderColor" />
+    <span class="button__content">
+      <slot />
+      <UiLoader v-if="showLoader" :loading="showLoader" :color="loaderColor" />
+    </span>
   </component>
 </template>
 
@@ -92,16 +94,15 @@ export default {
 <style lang="scss" scoped>
 .button {
   position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 17px 23px 16px;
-  border: 1px solid transparent;
+  padding: 0;
+  border: 0px solid transparent;
   box-sizing: border-box;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 17px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
   text-align: center;
+  overflow: hidden;
   cursor: pointer;
   box-shadow: none;
   transition: background 0.25s $ease, color 0.25s $ease;
@@ -109,11 +110,55 @@ export default {
   &:active {
     outline: none;
   }
-
-  ::v-deep span {
+  &::before,
+  &::after {
     display: inline-block;
-    margin-right: 7px;
+    content: ' ';
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+
+    // will-change: opacity;
+    // backface-visibility: hidden;
+    transition: opacity 0.25s $ease;
   }
+  &::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('~/assets/img/btn-gradient.png') no-repeat center center;
+    background-size: cover;
+
+    // css is too heavy for performance
+    // transform: translate3d(-50%, -50%, 0);
+    // transform-style: preserve-3d;
+    // // background: conic-gradient(from 180deg at 50% 50%, #8e2dbc 0deg, #ffc5bd 120deg, #db7ae3 240deg, #0066cc 360deg);
+    // filter: blur(36px);
+  }
+  &::after {
+    opacity: 0;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: white;
+    border-radius: 50px;
+  }
+  &__content {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    padding: 22px;
+
+    ::v-deep span {
+      display: inline-block;
+      margin-right: 7px;
+    }
+  }
+
   ::v-deep svg {
     width: 15px;
     vertical-align: middle;
@@ -121,26 +166,33 @@ export default {
   }
 
   &.primary {
-    background: $colorPrimary;
     color: #fff;
-    border-color: transparent;
-    box-shadow: 0 6px 24px -4px rgba(23, 24, 24, 0.1);
-
     &:hover {
-      background: $colorPrimaryHover;
+      background: $colorAccent;
+      &::before {
+        opacity: 0;
+      }
     }
     &:active {
-      background: $colorPrimaryHover;
+      background: $colorAccent;
     }
   }
   &.outline {
-    color: $colorPrimary;
-    background: transparent;
-    border-color: $colorPrimary;
+    color: $fontColor;
+    &::after {
+      opacity: 1;
+    }
+
     &:hover,
     &:active {
-      border-color: $colorPrimaryHover;
-      color: $colorPrimaryHover;
+      background: $colorAccent;
+      color: white;
+      &::after {
+        opacity: 0;
+      }
+      &::before {
+        opacity: 0;
+      }
     }
   }
   &.danger {

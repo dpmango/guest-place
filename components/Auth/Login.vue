@@ -1,10 +1,10 @@
 <template>
   <AuthWrapper>
-    <template #title>Войти</template>
+    <template #title>Авторизация</template>
+    <template #description>Чтобы войти в свой акканут, заполните поля ниже.</template>
 
-    <template #actions>
-      <NuxtLink to="/auth/signup">Зарегистрироваться</NuxtLink>
-      <NuxtLink to="/auth/reset">Забыли пароль?</NuxtLink>
+    <template #image>
+      <img src="~/assets/img/auth-login-illustration.svg" alt="cover illustration" />
     </template>
 
     <template #form>
@@ -15,7 +15,9 @@
           <UiInput
             :value="email"
             theme="dynamic"
-            label="Email"
+            icon="user"
+            icon-position="left"
+            label="Почтовый адрес или номер телефона"
             type="email"
             :error="errors[0]"
             @onChange="(v) => (email = v)"
@@ -25,6 +27,8 @@
           <UiInput
             :value="password"
             theme="dynamic"
+            icon="key"
+            icon-position="left"
             label="Пароль"
             type="password"
             :error="errors[0]"
@@ -32,7 +36,12 @@
           />
         </ValidationProvider>
 
-        <UiButton type="submit" block>Войти</UiButton>
+        <div class="buttons">
+          <UiButton type="submit" block>Войти</UiButton>
+          <NuxtLink to="/auth/signup">
+            <UiButton theme="outline" block>Регистрация</UiButton>
+          </NuxtLink>
+        </div>
       </ValidationObserver>
     </template>
   </AuthWrapper>
@@ -63,7 +72,7 @@ export default {
         .then((_res) => {
           this.error = null
           rebuildSocket(this)
-          this.$router.push('/course')
+          this.$router.push('/profile')
         })
         .catch((err) => {
           const { data, code } = err
@@ -79,3 +88,16 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.login__form {
+  max-width: 445px;
+}
+
+.buttons {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+</style>
