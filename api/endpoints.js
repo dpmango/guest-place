@@ -1,14 +1,14 @@
-const auth = '/rest-auth'
+const auth = '/auth'
 const api = '/api'
 
 export default {
   auth: {
     user: `${auth}/user/`,
-    login: `${auth}/login/`,
+    login: `${auth}/signin/`,
     logout: `${auth}/logout/`,
-    registration: `${auth}/registration/`,
-    verifyEmail: `${auth}/registration/verify/`,
-    refreshToken: `${auth}/token-refresh/`,
+    registration: `${auth}/signup/`,
+    verifyEmail: `${auth}/signup/verify/`,
+    refreshToken: `${auth}/refresh/`,
     passwordChange: `${auth}/password/change/`,
     passwordReset: `${auth}/password/reset/`,
     passwordResetConfirm: `${auth}/password/reset/confirm/`,

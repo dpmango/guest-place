@@ -160,7 +160,7 @@ export default {
       -webkit-appearance: none;
       display: block;
       width: 100%;
-      padding: 14px 20px;
+      padding: 14px 40px;
       border: 1px solid transparent;
       background: white;
       border-radius: 50px;
@@ -287,7 +287,7 @@ export default {
     .input__label {
       position: absolute;
       top: 22px;
-      left: 16px;
+      left: 40px;
       font-size: 14px;
       z-index: 2;
       pointer-events: none;

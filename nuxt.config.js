@@ -43,6 +43,7 @@ export default {
     { src: '~/plugins/socket', mode: 'client' },
     { src: '~/plugins/vee-validate', mode: 'client' },
     { src: '~/plugins/swiper', mode: 'client', ssr: false },
+    { src: '~/plugins/ymapPlugin.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

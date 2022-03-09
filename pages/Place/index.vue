@@ -1,12 +1,11 @@
 <template>
   <div class="">
-    <HomepageHero />
-    <HomepageCategories />
+    <PlaceMap />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: 'Places',
 }
 </script>

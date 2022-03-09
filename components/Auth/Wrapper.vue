@@ -38,6 +38,10 @@ export default {
   align-items: center;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
+  &__content {
+    padding-bottom: 40px;
+  }
+
   &__image {
     margin-top: auto;
     text-align: right;

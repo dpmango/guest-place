@@ -43,6 +43,8 @@
           </NuxtLink>
         </div>
       </ValidationObserver>
+
+      <AuthSocialLogin />
     </template>
   </AuthWrapper>
 </template>
@@ -68,7 +70,7 @@ export default {
       }
 
       const { email, password } = this
-      await this.login({ email, password })
+      await this.login({ login: email, password })
         .then((_res) => {
           this.error = null
           rebuildSocket(this)
@@ -91,6 +93,10 @@ export default {
 
 <style lang="scss" scoped>
 .login__form {
+  max-width: 445px;
+}
+
+::v-deep .socAuth {
   max-width: 445px;
 }
 
