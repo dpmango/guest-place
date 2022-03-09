@@ -4,6 +4,8 @@
     <div class="page__content header-pad">
       <Nuxt />
     </div>
+    <LayoutFooter />
+
     <PaymentModals />
   </div>
 </template>

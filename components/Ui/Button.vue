@@ -223,8 +223,10 @@ export default {
   }
 
   &.small {
-    font-size: 15px;
-    padding: 7px 14px;
+    .button__content {
+      font-size: 14px;
+      padding: 10px 14px;
+    }
   }
   &.block {
     display: block;

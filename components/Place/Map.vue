@@ -28,7 +28,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getLineByStation, getStationByName } from '../../api/moscow-metro.js'
 import locations from '../../api/locations'
 
 import MapBallon from './MapBallon'
