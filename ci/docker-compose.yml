@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  frontend:
+    build:
+      context: ../
+      dockerfile: ci/docker/Dockerfile
+    restart: on-failure
+    volumes:
+      - '../app/:/var/app'
+    environment:
+      BASE_URL: ${BASE_URL}
+      SOCKET_URL: ${SOCKET_URL}
