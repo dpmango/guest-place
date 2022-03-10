@@ -100,6 +100,48 @@ a {
   }
 }
 
+.ul-list,
+.ol-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    position: relative;
+    display: block;
+    margin-bottom: 14px;
+    padding-left: 14px;
+    font-size: 14px;
+    line-height: 16px;
+    &::before {
+      display: inline-block;
+      content: ' ';
+      position: absolute;
+      top: 6px;
+      left: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.ul-list {
+  li {
+    &::before {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: $colorPrimary;
+    }
+  }
+}
+
+.ol-list {
+  li {
+    counter-increment: 1;
+  }
+}
+
 .f-400 {
   font-weight: normal;
 }

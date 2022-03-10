@@ -1,5 +1,5 @@
 <template>
-  <section class="info mt-4 mb-4">
+  <section class="info" :class="className">
     <div class="container">
       <h2 class="h2-title tac">Варианты взаимодействия с <span class="c-primary">GP Platform</span></h2>
 
@@ -48,6 +48,9 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  props: {
+    className: String,
+  },
   methods: {
     // ...mapActions('auth', ['logout']),
   },

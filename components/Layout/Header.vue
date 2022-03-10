@@ -39,10 +39,10 @@
               <NuxtLink to="/about">О платформе</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/about/platforms">Площадкам</NuxtLink>
+              <NuxtLink to="/about/place">Площадкам</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/about/guests">Гостям</NuxtLink>
+              <NuxtLink to="/about/guest">Гостям</NuxtLink>
             </li>
           </ul>
 
@@ -186,7 +186,8 @@ export default {
       display: inline-block;
       padding: 6px;
       transition: color 0.25s $ease;
-      &:hover {
+      &:hover,
+      &.nuxt-link-exact-active {
         color: $colorPrimary;
       }
     }

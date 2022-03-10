@@ -103,19 +103,7 @@ export default {
     middleware: 'global',
   },
 
-  sentry: {
-    dsn: process.env.SENTRY_DNS,
-
-    config: {
-      // Add native Sentry config here
-      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
-    },
-  },
-
   alias: {
     vue: 'vue/dist/vue.min.js',
   },
-
-  // target: 'static',
-  // ssr: false,
 }

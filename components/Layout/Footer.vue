@@ -31,8 +31,8 @@ export default {
     return {
       menu: [
         { to: '/about', label: 'О проекте' },
-        { to: '/about/platforms', label: 'Площадкам' },
-        { to: '/about/guests', label: 'Гостям' },
+        { to: '/about/place', label: 'Площадкам' },
+        { to: '/about/guest', label: 'Гостям' },
         { to: '/about/contacts', label: 'Контакты' },
         { to: '/about/help', label: 'Помощь' },
         { to: '/about/vacancy', label: 'Вакансии' },

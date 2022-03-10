@@ -4,7 +4,7 @@
     <HomepageCategories />
     <PlaceRecents />
     <PlacePopular />
-    <HomepageInfo />
+    <HomepageInfo class-name="mt-6" />
     <BannerSearch class-name="mt-4 mb-8" />
   </div>
 </template>
