@@ -89,6 +89,10 @@
         <div class="ui-group">
           <UiLoader theme="inline" :loading="true" />
         </div>
+
+        <div class="ui-group">
+          <UiStars :rating="3" />
+        </div>
       </div>
     </div>
   </div>

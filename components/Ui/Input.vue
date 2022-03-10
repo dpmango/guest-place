@@ -203,6 +203,7 @@ export default {
     }
     textarea {
       resize: vertical;
+      border-radius: 30px;
     }
     &.is-iconed {
       input,
