@@ -30,7 +30,7 @@ export default {
   .svg-icon {
     font-size: 10px;
     margin: 2px;
-    color: $colorLight;
+    color: $colorLightUltra;
     &.is-active {
       color: $colorPrimary;
     }

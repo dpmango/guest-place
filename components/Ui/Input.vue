@@ -1,7 +1,13 @@
 <template>
   <div
     class="input"
-    :class="[{ 'has-error': error && !isFocused }, { 'is-iconed': icon }, isFocusedOrNotBlank && 'is-focused', theme]"
+    :class="[
+      { 'has-error': error && !isFocused },
+      { 'is-iconed': icon },
+      isFocusedOrNotBlank && 'is-focused',
+      theme,
+      variant,
+    ]"
   >
     <label v-if="label" :for="_uid" class="input__label">{{ getLabel }}</label>
     <div class="input__input" :class="[{ 'is-iconed': icon || clearable, 'is-clearable': isClearable }, iconPosition]">
@@ -61,6 +67,10 @@ export default {
       required: false,
     },
     theme: {
+      type: String,
+      required: false,
+    },
+    variant: {
       type: String,
       required: false,
     },
@@ -313,6 +323,16 @@ export default {
     &.is-iconed {
       .input__label {
         left: 75px;
+      }
+    }
+  }
+
+  &.clear {
+    .input__input input,
+    .input__input textarea {
+      box-shadow: none;
+      &:hover {
+        border-color: transparent;
       }
     }
   }

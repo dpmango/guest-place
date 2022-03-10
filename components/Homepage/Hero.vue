@@ -22,6 +22,15 @@
             </div>
           </div>
         </div>
+
+        <div class="hero__searchbar">
+          <PlaceSearchbar />
+        </div>
+
+        <div class="hero__actions">
+          <UiButton @click="handleShowOnMapClick">Показать на карте</UiButton>
+          <UiButton theme="outline">Показать списком</UiButton>
+        </div>
       </div>
     </div>
   </section>
@@ -36,6 +45,9 @@ export default {
   },
 
   methods: {
+    handleShowOnMapClick() {
+      this.$router.push('/place')
+    },
     // ...mapActions('auth', ['logout']),
   },
 }
@@ -44,6 +56,7 @@ export default {
 <style lang="scss" scoped>
 .hero {
   position: relative;
+  padding-top: 16px;
   .container {
     position: relative;
   }
@@ -58,13 +71,14 @@ export default {
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center top;
     }
   }
   &__wrapper {
     position: relative;
     z-index: 2;
+    padding-bottom: 40px;
   }
   &__main-row {
     align-items: center;
@@ -77,6 +91,15 @@ export default {
     img {
       max-width: 100%;
     }
+  }
+  &__searchbar {
+    margin-top: 18px;
+  }
+  &__actions {
+    margin-top: 28px;
+    display: flex;
+    justify-content: flex-end;
+    grid-gap: 12px;
   }
 }
 

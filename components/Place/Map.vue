@@ -1,5 +1,11 @@
 <template>
   <div class="map">
+    <div class="map__searchbar">
+      <div class="container">
+        <PlaceSearchbar />
+      </div>
+    </div>
+
     <yandex-map
       :coords="map.coords"
       :zoom="map.zoom"
@@ -96,6 +102,7 @@ export default {
   height: calc(100vh - 146px);
   display: flex;
   flex-direction: column;
+  background: $colorLightUltra;
   ::v-deep .ymap-container {
     flex: 1 1 auto;
   }
@@ -107,6 +114,18 @@ export default {
     transition: filter 0.25s $ease;
     &:hover {
       filter: none;
+    }
+  }
+
+  &__searchbar {
+    position: absolute;
+    z-index: 3;
+    top: 16px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    .bar {
+      pointer-events: all;
     }
   }
 }

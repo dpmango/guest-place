@@ -36,6 +36,7 @@ export default {
     '~/plugins/refresh',
     '~/plugins/filters',
     '~/plugins/lightbox',
+    '~/plugins/select',
     { src: '~/plugins/legacy', mode: 'client' },
     { src: '~/plugins/toast', mode: 'client' },
     { src: '~/plugins/mask', mode: 'client' },

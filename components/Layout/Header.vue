@@ -30,7 +30,7 @@
     <div class="header__main">
       <div class="container">
         <div class="header__wrapper">
-          <NuxtLink to="/ui" class="header__logo">
+          <NuxtLink to="/" class="header__logo">
             <img src="~/assets/img/logo.svg" alt="logo" />
           </NuxtLink>
 
@@ -43,6 +43,9 @@
             </li>
             <li>
               <NuxtLink to="/about/guest">Гостям</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/ui">UI</NuxtLink>
             </li>
           </ul>
 
