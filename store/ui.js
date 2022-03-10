@@ -1,34 +1,18 @@
 export const state = () => ({
-  modalPaymentStart: false,
-  modalPaymentStart2: false,
-  modalPaymentModal: false,
+  modal: null,
+  modalParams: null,
 })
 
 export const mutations = {
-  setModalPaymentStart(state, val) {
-    state.modalPaymentStart = val
-    if (val) {
-      state.modalPaymentStart2 = false
-      state.modalPaymentModal = false
-    }
+  setModal(state, { name, params }) {
+    state.modal = name || null
+
+    state.modalParams = params || null
   },
-  setModalPaymentStart2(state, val) {
-    state.modalPaymentStart2 = val
-    if (val) {
-      state.modalPaymentStart = false
-      state.modalPaymentModal = false
-    }
-  },
-  setModalPaymentModal(state, val) {
-    state.modalPaymentModal = val
-    if (val) {
-      state.modalPaymentStart = false
-      state.modalPaymentStart2 = false
-    }
-  },
+
   resetModals(state) {
-    state.modalPaymentStart = false
-    state.modalPaymentStart2 = false
-    state.modalPaymentModal = false
+    state.modal = null
+
+    state.modalParams = null
   },
 }

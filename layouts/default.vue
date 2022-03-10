@@ -6,7 +6,8 @@
     </div>
     <LayoutFooter />
 
-    <PaymentModals />
+    <ModalShared />
+    <portal-target name="modals" />
   </div>
 </template>
 

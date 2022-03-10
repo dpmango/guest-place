@@ -11,6 +11,8 @@
         </div>
       </div>
     </div>
+
+    <portal-target name="modals" />
   </div>
 </template>
 

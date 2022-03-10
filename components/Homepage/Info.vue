@@ -28,7 +28,7 @@
             С помощью удобного фильтра и карты подбираете места и сами связываетесь с ними через чат, запрос или
             звоните. Данную опцию можно использовать без на платформе (за исключением чата).
           </p>
-          <UiButton theme="outline">Каталог поиска</UiButton>
+          <UiButton theme="outline">Получить помошь</UiButton>
         </div>
 
         <div class="">
@@ -37,22 +37,24 @@
             С помощью удобного фильтра и карты подбираете места и сами связываетесь с ними через чат, запрос или
             звоните. Данную опцию можно использовать без на платформе (за исключением чата).
           </p>
-          <UiButton theme="outline">Каталог поиска</UiButton>
+          <UiButton theme="outline" @click="() => setModal({ name: 'help' })">Получить помошь</UiButton>
         </div>
       </div>
     </div>
+
+    <ModalHelp />
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
     className: String,
   },
   methods: {
-    // ...mapActions('auth', ['logout']),
+    ...mapMutations('ui', ['setModal']),
   },
 }
 </script>

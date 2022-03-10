@@ -74,6 +74,15 @@
             @onChange="(v) => (inputVal = v)"
           />
         </div>
+
+        <div class="ui-group">
+          <UiSelect
+            :value="select"
+            placeholder="Удобное время для звонка"
+            :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
+            @onSelect="(v) => (select = v)"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -85,6 +94,7 @@ export default {
   data() {
     return {
       inputVal: '',
+      select: null,
 
       icons: [
         'arrow-left',

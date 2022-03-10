@@ -37,6 +37,7 @@ export default {
     '~/plugins/filters',
     '~/plugins/lightbox',
     '~/plugins/select',
+    '~/plugins/teleport',
     { src: '~/plugins/legacy', mode: 'client' },
     { src: '~/plugins/toast', mode: 'client' },
     { src: '~/plugins/mask', mode: 'client' },
