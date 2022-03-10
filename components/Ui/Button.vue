@@ -38,7 +38,7 @@ export default {
       default: 'regular',
       validator: (theme) => ['regular', 'small'].includes(theme),
     },
-    isLoading: {
+    loading: {
       type: Boolean,
       required: false,
     },
@@ -77,7 +77,7 @@ export default {
     },
   },
   watch: {
-    isLoading(newV, _oldV) {
+    loading(newV, _oldV) {
       if (newV) {
         this.timer = setTimeout(() => {
           this.showLoader = true

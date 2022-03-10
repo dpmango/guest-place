@@ -45,6 +45,8 @@
           <UiButton theme="outline">Кнопка outline</UiButton>
           <UiButton size="small">Кнопка primary</UiButton>
           <UiButton size="small" theme="outline">Кнопка outline</UiButton>
+
+          <UiButton :loading="loaderStatus" loader-color="#FFF">Кнпока с загрузкой</UiButton>
         </div>
       </div>
 
@@ -83,6 +85,10 @@
             @onSelect="(v) => (select = v)"
           />
         </div>
+
+        <div class="ui-group">
+          <UiLoader theme="inline" :loading="true" />
+        </div>
       </div>
     </div>
   </div>
@@ -95,7 +101,7 @@ export default {
     return {
       inputVal: '',
       select: null,
-
+      loaderStatus: false,
       icons: [
         'arrow-left',
         'camera',
@@ -134,6 +140,11 @@ export default {
   },
   head: {
     title: 'Интерфейс | Guest&Place',
+  },
+  mounted() {
+    setInterval(() => {
+      this.loaderStatus = !this.loaderStatus
+    }, 2000)
   },
 }
 </script>
