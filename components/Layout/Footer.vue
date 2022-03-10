@@ -1,5 +1,11 @@
 <template>
   <footer class="footer">
+    <div class="footer__decor --left">
+      <img src="~/assets/img/footer-decor-left.svg" alt="decor image" />
+    </div>
+    <div class="footer__decor --right">
+      <img src="~/assets/img/footer-decor-right.svg" alt="decor image" />
+    </div>
     <div class="container">
       <div class="footer__wrapper">
         <div class="footer__logo">
@@ -46,6 +52,8 @@ export default {
   padding: 52px 0 54px;
   border-top: 1px solid rgba($fontColor, 0.1);
   &__wrapper {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -54,6 +62,7 @@ export default {
     flex: 0 0 auto;
     font-size: 0;
     margin-bottom: 20px;
+    margin-right: 30px;
     img {
       max-width: 100%;
     }
@@ -79,6 +88,35 @@ export default {
       transition: color 0.25s $ease;
       &:hover {
         color: $colorPrimary;
+      }
+    }
+  }
+
+  &__decor {
+    position: absolute;
+    z-index: 1;
+    top: -4px;
+    font-size: 0;
+    pointer-events: none;
+    user-select: none;
+
+    img {
+      max-width: 100%;
+    }
+    &.--left {
+      left: 0;
+    }
+    &.--right {
+      right: 20px;
+    }
+  }
+}
+
+@include r($hd) {
+  .footer {
+    &__decor {
+      &.--right {
+        display: none;
       }
     }
   }
