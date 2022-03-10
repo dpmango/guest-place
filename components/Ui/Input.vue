@@ -95,9 +95,7 @@ export default {
     document.addEventListener('onautocomplete', this.handleAutocompleate, false)
   },
   beforeDestroy() {
-    if (this.$refs.dialogs) {
-      document.removeEventListener('onautocomplete', this.handleAutocompleate, false)
-    }
+    document.removeEventListener('onautocomplete', this.handleAutocompleate, false)
   },
   methods: {
     setValue(e) {

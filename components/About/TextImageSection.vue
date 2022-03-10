@@ -31,7 +31,6 @@ export default {
     className: String,
     reverse: Boolean,
   },
-  data() {},
   methods: {
     // ...mapActions('auth', ['logout']),
   },

@@ -115,7 +115,7 @@ export default {
         'shopping-cart',
         'social-facebook',
         'social-google',
-        'vk',
+        'social-vk',
         'star',
         'user',
         'wallet',
