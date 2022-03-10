@@ -1,9 +1,11 @@
 <template>
   <div class="">
-    <PlaceHero title="Банкетный зал лофт Форест Холл" />
+    <PlaceDetailHero :title="`${id} Банкетный зал лофт Форест Холл`" />
+    <PlaceDetailScope />
+    <PlaceDetailTabs class-name="mt-8 mb-8" />
 
-    <PlaceRecents />
-    <PlacePopular />
+    <PlaceGridRecents class-name="mt-8" />
+    <PlaceGridPopular class-name="mt-8 mb-8" />
   </div>
 </template>
 
@@ -13,7 +15,8 @@ export default {
   asyncData(context) {
     const pageParams = context.route.params
 
-    console.log(pageParams)
+    // return id from URL
+    return pageParams
     // return query_params
   },
 }

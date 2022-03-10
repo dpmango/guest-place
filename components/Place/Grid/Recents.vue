@@ -1,5 +1,5 @@
 <template>
-  <section class="recents mt-8 mb-5">
+  <section class="recents" :class="className">
     <div class="container">
       <h2 class="h2-title">Последние <span class="c-primary">добавленные</span></h2>
 
@@ -18,6 +18,9 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  props: {
+    className: String,
+  },
   data() {
     return {
       places: [

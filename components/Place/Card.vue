@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :data-id="data.id">
+  <NuxtLink :to="`/place/${data.id}`" class="card" :data-id="data.id">
     <div class="card__image">
       <img :src="data.img" :alt="data.title" />
     </div>
@@ -34,7 +34,7 @@
         <UiButton theme="outline" size="small">Подробнее</UiButton>
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script>
@@ -53,6 +53,14 @@ export default {
 <style lang="scss" scoped>
 .card {
   position: relative;
+  &:hover {
+    .card__image img {
+      filter: contrast(120%);
+    }
+    .card__title {
+      color: $colorPrimary;
+    }
+  }
   &__image {
     position: relative;
     z-index: 1;
@@ -61,6 +69,8 @@ export default {
     border-radius: 30px;
     img {
       width: 100%;
+      will-change: filter;
+      transition: filter 0.25s $ease;
     }
   }
   &__content {
@@ -68,6 +78,10 @@ export default {
   }
   &__rating {
     margin-top: 16px;
+  }
+
+  &__title {
+    transition: color 0.25s $ease;
   }
 
   &__stat {

@@ -28,10 +28,10 @@
         <h2 class="section__title h2-title">Цвета (_colors.scss)</h2>
 
         <h3 class="c-font mt-1">Font $fontColor</h3>
-        <h3 class="c-primary mt-1">Primary $colorPrimary</h3>
         <h3 class="c-gray mt-1">Gray $colorGray</h3>
         <h3 class="c-light mt-1">Light $colorLight</h3>
 
+        <h3 class="c-primary mt-1">Primary $colorPrimary</h3>
         <h3 class="c-accent mt-1">Accent $colorAccent</h3>
         <h3 class="c-green mt-1">Green $colorGreen</h3>
         <h3 class="c-red mt-1">Red $colorRed</h3>

@@ -80,7 +80,8 @@ export default {
       document.getElementById('marker').removeEventListener('click', () => this.onClickCta(marker))
     },
     onClickCta(marker) {
-      this.moveMapToCoords(marker)
+      // this.moveMapToCoords(marker)
+      this.$router.push(`/place/${marker.id}`)
     },
     moveMapToCoords({ lat, lng, id }) {
       this.mapInstance.setCenter([lat, lng])

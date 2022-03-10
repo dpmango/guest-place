@@ -20,6 +20,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
+    className: String,
     title: String,
   },
   data() {
