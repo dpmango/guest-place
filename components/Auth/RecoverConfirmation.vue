@@ -2,10 +2,6 @@
   <AuthWrapper>
     <template #title>Смена пароля</template>
 
-    <template #actions>
-      <NuxtLink to="/auth/login">Войти</NuxtLink>
-    </template>
-
     <template #form>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
         <UiError :error="error" />

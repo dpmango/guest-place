@@ -5,12 +5,47 @@
     <!--section -->
     <div class="step__section">
       <div class="step__section-label h4-title">Добавьте фото и/или видео вашей площадки</div>
+      <p class="p-label tac">
+        Первое фото будет главным. Вы можете перемещать фотографии, чтобы изменить их очередность.
+      </p>
+
+      <div class="step__grid">
+        <UiUploader
+          v-for="(photo, idx) in photos"
+          :key="idx"
+          :file="photo.file"
+          :allowed-mime="['image']"
+          :max-size="5"
+          :include-reader="true"
+          @onReader="(img) => (photo.blob = img)"
+          @onChange="(f) => (photo.file = f)"
+        >
+          <template #preview="slotProps">
+            <div class="uploader-trigger">
+              <div class="uploader-trigger__box" @click="slotProps.trigger">
+                <div v-if="!photo.blob" class="uploader-trigger__plus">
+                  <UiSvgIcon name="uploader-add" />
+                </div>
+                <div v-else class="uploader-trigger__img">
+                  <img :src="photo.blob" :alt="photo.file.name" />
+                </div>
+              </div>
+              <input
+                :value="photo.desc"
+                class="uploader-trigger__info"
+                placeholder="Добавить описание.."
+                @change="(e) => handleDescChange({ photo, val: e.target.value })"
+              />
+            </div>
+          </template>
+        </UiUploader>
+      </div>
     </div>
 
     <div class="step__cta">
       <UiButton theme="outline" @click="() => $emit('onStepChange', 1)">Назад</UiButton>
 
-      <UiButton type="submit">Далее</UiButton>
+      <UiButton @click="handleSubmit">Далее</UiButton>
     </div>
   </div>
 </template>
@@ -21,13 +56,22 @@ export default {
   data() {
     return {
       error: '',
+      photos: Array.from({ length: 10 }, (_, i) => ({
+        id: i + 1,
+        file: null,
+        blob: null,
+        desc: '',
+      })),
     }
   },
   methods: {
-    async handleSubmit() {
-      const isValid = await this.$refs.form.validate()
-      // if (!isValid) {
-      // }
+    handleDescChange({ photo, val }) {
+      this.photos = [...this.photos.map((x) => (x.id === photo.id ? { ...x, desc: val } : { ...x }))]
+    },
+    handleSubmit() {
+      // const isValid = await this.$refs.form.validate()
+      // // if (!isValid) {
+      // // }
 
       this.$emit('onStepChange', 3)
       // await this.login({ step: 1 })
@@ -73,10 +117,87 @@ export default {
       min-width: 190px;
     }
   }
+
+  &__grid {
+    display: grid;
+    margin-top: 25px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px 30px;
+    .uploader {
+      width: 100%;
+      ::v-deep .uploader__file {
+        display: none;
+      }
+    }
+  }
 }
 
 .form {
   position: relative;
   // .ui-group{}
+}
+
+.uploader-trigger {
+  position: relative;
+  padding-bottom: 24px;
+
+  &__box {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-bottom: 100%;
+    justify-content: center;
+    background: #ecf4fd;
+    border: 1px dashed #aba7af;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.25s $ease, border 0.25s $ease;
+    &:hover {
+      border-color: $colorPrimary;
+      background: white;
+    }
+  }
+  &__img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__info {
+    position: relative;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 8px 0;
+    font-size: 14px;
+    line-height: 1.35;
+    text-align: center;
+    color: $colorLight;
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transition: color 0.25s $ease;
+    &::placeholder {
+      color: $colorLight;
+    }
+  }
+  &__plus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .svg-icon {
+      font-size: 34px;
+      color: $colorPrimary;
+    }
+  }
 }
 </style>

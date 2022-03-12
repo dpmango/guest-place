@@ -23,7 +23,7 @@
         </div>
       </slot>
 
-      <slot :trigger="triggerUploadWindow" name="button">
+      <slot :trigger="triggerUploadWindow" :error="uploaderError" name="preview">
         <UiButton type="button" pad="light" @click="triggerUploadWindow">
           <template v-if="buttonText">{{ buttonText }}</template>
           <template v-else-if="uploadError || file"> Загрузите еще </template>
@@ -170,7 +170,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    input {
+    > input {
       position: absolute;
       left: 0;
       top: 0;

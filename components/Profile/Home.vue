@@ -23,7 +23,7 @@
                     <template #error="slotProps">
                       <span v-if="slotProps.error">{{ slotProps.error }}</span>
                     </template>
-                    <template #button="slotProps">
+                    <template #preview="slotProps">
                       <div class="profile__avatar-uploader-trigger" @click="slotProps.trigger">
                         <UiSvgIcon name="camera" />
                       </div>
