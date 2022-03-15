@@ -118,17 +118,17 @@ export default {
       }
       const { firstName, lastName, phone, email, password } = this
       await this.signup({
-        first_name: firstName,
-        last_name: lastName,
+        firstName,
+        lastName,
         email,
-        phone,
+        phoneNumber: phone,
         password,
       })
         .then((_res) => {
-          this.verifyPost()
+          // this.verifyPost()
           this.error = null
-          rebuildSocket(this)
-          this.$router.push('/profile')
+          this.$toast.global.success({ message: `Успешная регистрация ${email}` })
+          this.$router.push('/auth/login')
         })
         .catch((err) => {
           const { data, code } = err

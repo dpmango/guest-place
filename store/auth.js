@@ -16,11 +16,9 @@ export const state = () => ({
   token: null,
   user: {
     email: null,
-    first_name: null,
-    last_name: null,
-    repl_it_username: null,
+    firstName: null,
+    lastName: null,
     avatar: null,
-    thumbnail_avatar: null,
     email_notifications: undefined,
     email_confirmed: undefined,
     dialog: null,
@@ -44,11 +42,9 @@ export const mutations = {
     state.token = null
     state.user = {
       email: null,
-      first_name: null,
-      last_name: null,
-      repl_it_username: null,
+      firstName: null,
+      lastName: null,
       avatar: null,
-      thumbnail_avatar: null,
       email_notifications: undefined,
       email_confirmed: undefined,
       dialog: null,
@@ -58,6 +54,7 @@ export const mutations = {
     this.$api.setToken(false)
   },
   updateToken(state, token) {
+    console.log('updating token', token)
     if (token) {
       state.token = token
 
@@ -103,10 +100,10 @@ export const actions = {
 
     if (err) throw err
 
-    const { token, user } = result
+    const { token } = result
 
     commit('updateToken', token)
-    commit('updateUser', user)
+    // commit('updateUser', user)
 
     return result
   },
@@ -115,10 +112,10 @@ export const actions = {
 
     if (err) throw err
 
-    const { token, user } = result
+    // const { token, user } = result
 
-    commit('updateToken', token)
-    commit('updateUser', user)
+    // commit('updateToken', token)
+    // commit('updateUser', user)
 
     return result
   },

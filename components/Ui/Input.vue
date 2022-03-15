@@ -16,6 +16,7 @@
         :id="_uid"
         :value="value"
         :placeholder="placeholder"
+        :type="currentInputType"
         v-bind="$attrs"
         v-on="$listeners"
         @input="setValue"
@@ -26,6 +27,9 @@
 
       <span v-if="icon" class="input__icon" :class="[iconPosition]">
         <UiSvgIcon :name="icon" />
+      </span>
+      <span v-if="isPassword" class="input__eye" :class="[passwordVisible && 'active']" @click="handlePasswordClick">
+        <UiSvgIcon name="eye" />
       </span>
       <span v-if="clearable" class="input__clear" @click="clearInput">
         <span>Отмена</span>
@@ -49,6 +53,10 @@ export default {
     placeholder: {
       type: String,
       required: false,
+    },
+    type: {
+      type: String,
+      default: 'text',
     },
     icon: {
       type: String,
@@ -75,14 +83,26 @@ export default {
       required: false,
     },
   },
+
   data() {
     return {
+      passwordVisible: false,
       isFocused: false,
     }
   },
   computed: {
     isTextArea() {
       return this.$attrs.textarea !== undefined
+    },
+    isPassword() {
+      return this.type === 'password'
+    },
+    currentInputType() {
+      if (this.isPassword) {
+        return this.passwordVisible ? 'text' : 'password'
+      }
+
+      return this.type
     },
     isFocusedOrNotBlank() {
       if (this.value && this.value.trim().length > 0) {
@@ -133,6 +153,9 @@ export default {
       //   // this.focus();
       // }
     },
+    handlePasswordClick() {
+      this.passwordVisible = !this.passwordVisible
+    },
     clearInput() {
       if (this.isClearable) {
         this.$emit('onChange', '')
@@ -172,7 +195,7 @@ export default {
       border: 1px solid transparent;
       background: white;
       border-radius: 50px;
-      font-family: $baseFont;
+      font-family: $systemFont;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -235,22 +258,40 @@ export default {
       }
     }
   }
-  &__icon {
+  &__icon,
+  &__eye {
     position: absolute;
     z-index: 2;
     right: 40px;
     top: 50%;
-    transform: translateY(-50%);
     font-size: 0;
-    pointer-events: none;
-    transition: opacity 0.25s $ease, fill 0.25s $ease;
+    transform: translateY(-50%);
     &.left {
       left: 40px;
       right: auto;
     }
+  }
+
+  &__icon {
+    pointer-events: none;
+    transition: opacity 0.25s $ease, fill 0.25s $ease;
     .svg-icon {
       font-size: 20px;
       color: $colorLight;
+    }
+  }
+  &__eye {
+    cursor: pointer;
+    color: $colorLight;
+    transition: opacity 0.25s $ease, color 0.25s $ease;
+    .svg-icon {
+      font-size: 15px;
+    }
+    &:hover {
+      color: $colorPrimary;
+    }
+    &.active {
+      color: $colorRed;
     }
   }
   &__clear {
