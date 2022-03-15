@@ -60,7 +60,7 @@
                       type="text"
                       placeholder="Имя"
                       :error="errors[0]"
-                      icon="name"
+                      icon="user"
                       icon-position="left"
                       @onChange="(v) => (name = v)"
                     />
@@ -76,17 +76,6 @@
                       icon="email"
                       icon-position="left"
                       @onChange="(v) => null"
-                    />
-                  </ValidationProvider>
-
-                  <ValidationProvider v-slot="{ errors }">
-                    <UiInput
-                      :value="repl_it"
-                      type="text"
-                      placeholder="Replit"
-                      icon="repl"
-                      icon-position="left"
-                      @onChange="(v) => (repl_it = v)"
                     />
                   </ValidationProvider>
 
@@ -120,7 +109,6 @@ export default {
       isLoading: false,
       email: null,
       name: null,
-      repl_it: null,
       avatar: null,
       notifications: null,
       avatarFile: null,
@@ -148,8 +136,7 @@ export default {
       const user = this.user
 
       this.email = user.email
-      this.name = `${clear(user.first_name)} ${clear(user.middle_name)} ${clear(user.last_name)}`.trim()
-      this.repl_it = user.repl_it_username
+      this.name = `${clear(user.firstName)} ${clear(user.lastName)}`.trim()
       this.avatar = user.avatar
       this.notifications = user.email_notifications
     },
@@ -177,7 +164,7 @@ export default {
         }
       }
 
-      const { first_name, middle_name, last_name } = formatName(name)
+      const { first_name, last_name } = formatName(name)
 
       // build form data with optional avatar image
       const formData = new FormData()
@@ -186,16 +173,9 @@ export default {
       if (first_name) {
         formData.append('first_name', first_name)
       }
-      if (middle_name) {
-        formData.append('middle_name', middle_name)
-      }
       if (last_name) {
         formData.append('last_name', last_name)
       }
-      if (repl_it) {
-        formData.append('repl_it_username', repl_it)
-      }
-
       if (this.avatarFile) {
         formData.append('avatar', avatarFile)
       }
@@ -211,7 +191,7 @@ export default {
         .then((_res) => {
           this.error = null
           // this.avatarBlob = null;
-          this.$toast.global.default({ message: 'Изменения сохранены' })
+          this.$toast.global.success({ message: 'Изменения сохранены' })
         })
         .catch((err) => {
           const { data, code } = err

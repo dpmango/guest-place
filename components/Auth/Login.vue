@@ -36,6 +36,12 @@
           />
         </ValidationProvider>
 
+        <div class="cta-row">
+          <UiCheckbox name="authRemember" :value="remember" @onChange="(v) => (remember = v)">
+            Запомнить меня
+          </UiCheckbox>
+        </div>
+
         <div class="buttons">
           <UiButton type="submit" block>Войти</UiButton>
           <NuxtLink to="/auth/signup">
@@ -58,6 +64,7 @@ export default {
     return {
       email: null,
       password: null,
+      remember: false,
       error: null,
     }
   },
@@ -70,7 +77,7 @@ export default {
       }
 
       const { email, password } = this
-      await this.login({ login: email, password })
+      await this.login({ emailOrPhoneNumber: email, password })
         .then((_res) => {
           this.error = null
           rebuildSocket(this)
@@ -98,6 +105,12 @@ export default {
 
 ::v-deep .socAuth {
   max-width: 445px;
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .buttons {

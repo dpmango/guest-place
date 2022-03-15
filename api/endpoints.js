@@ -3,11 +3,11 @@ const api = '/api'
 
 export default {
   auth: {
-    user: `${auth}/user/`,
+    user: 'user/',
     login: `${auth}/signin/`,
     logout: `${auth}/logout/`,
     registration: `${auth}/signup/`,
-    verifyEmail: `${auth}/signup/verify/`,
+    // verifyEmail: `${auth}/signup/verify/`,
     refreshToken: `${auth}/refresh/`,
     passwordChange: `${auth}/password/change/`,
     passwordReset: `${auth}/password/reset/`,

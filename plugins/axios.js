@@ -23,7 +23,7 @@ export default function ({ $axios, $sentry, store, $config, redirect }, inject) 
     const token = store.state.auth.token
     const isOpenEndpoint = ['constants'].find((v) => x.url.includes(v))
 
-    if (!isOpenEndpoint && token) x.headers.common.Authorization = `JWT ${token}`
+    if (!isOpenEndpoint && token) x.headers.common.Authorization = `${token}`
 
     return x
   })
