@@ -7,7 +7,6 @@
     <LayoutFooter />
 
     <ModalShared />
-    <portal-target name="modals" />
   </div>
 </template>
 

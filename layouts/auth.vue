@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <portal-target name="modals" />
+    <ModalShared />
   </div>
 </template>
 

@@ -70,6 +70,8 @@ export default {
     '@nuxtjs/toast',
     // https://github.com/microcipcip/cookie-universal/tree/master/packages/cookie-universal-nuxt
     'cookie-universal-nuxt',
+    // https://github.com/LinusBorg/portal-vue
+    'portal-vue/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -1,5 +1,5 @@
 <template>
-  <portal :key="name" to="modals">
+  <portal :key="name" :to="`modal-${name}`">
     <div class="modal" :class="[modal === name && 'is-active']" v-bind="$attrs" v-on="$listeners">
       <div class="modal__overlay" @click="hide"></div>
 
