@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="h2-title">Последние <span class="c-primary">добавленные</span></h2>
 
-      <div class="recents__grid mt-4">
+      <div class="recents__grid mt-4 mt-sm-2">
         <PlaceCard v-for="place in places" :key="place.id" :data="place" />
       </div>
 
@@ -85,5 +85,18 @@ export default {
 }
 
 @include r($md) {
+  .recents {
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@include r($sm) {
+  .recents {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
 }
 </style>

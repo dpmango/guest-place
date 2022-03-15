@@ -57,14 +57,25 @@
               <NuxtLink to="/create/place">+ Добавить место</NuxtLink>
             </li>
           </ul>
+
+          <NuxtLink to="/profile" class="header__action header__action--menu">
+            <UiSvgIcon name="user" />
+          </NuxtLink>
+
+          <button class="header__button-burger" @click="() => setModal({ name: 'nav' })">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </div>
+    <ModalNav />
   </header>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -86,6 +97,7 @@ export default {
         .catch((_err) => {})
     },
     ...mapActions('auth', ['logout']),
+    ...mapMutations('ui', ['setModal']),
   },
 }
 </script>
@@ -98,13 +110,34 @@ export default {
   left: 0;
   right: 0;
   background: #fff;
+
+  &__button-burger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+
+    span {
+      width: 18px;
+      height: 1px;
+      border-radius: 1px;
+      background-color: $fontColor;
+      display: block;
+    }
+  }
   &__topbar {
     padding: 8px 0;
     border-bottom: 1px solid rgba($fontColor, 0.1);
   }
+
   &__topbar-wrapper {
     display: flex;
   }
+
   &__geolocation {
     display: inline-flex;
     align-items: center;
@@ -123,6 +156,7 @@ export default {
     align-items: center;
     margin-right: -5px;
   }
+
   &__action {
     position: relative;
     display: inline-block;
@@ -135,7 +169,14 @@ export default {
     .svg-icon {
       font-size: 20px;
     }
+
+    &--menu {
+      display: none;
+      margin: 0;
+      margin-left: auto;
+    }
   }
+
   &__action-count {
     position: absolute;
     top: 0;
@@ -158,6 +199,7 @@ export default {
   &__main {
     padding: 34px 0;
   }
+
   &__wrapper {
     display: flex;
     align-items: center;
@@ -208,11 +250,40 @@ export default {
   }
 }
 
+@include r($xl) {
+  .header {
+    &__button-burger {
+      display: flex;
+    }
+    &__menu {
+      margin-right: 0;
+      &--cta {
+        display: none;
+      }
+    }
+  }
+}
+
 @include r($md) {
-  // .header {
-  //   // &__logo {
-  //   //   order: 1;
-  //   // }
-  // }
+  .header {
+    &__actions {
+      display: none;
+    }
+    &__geolocation {
+      margin: 0 auto;
+    }
+    &__action {
+      &--menu {
+        display: inline-block;
+      }
+    }
+
+    &__button-burger {
+      display: flex;
+    }
+    &__menu {
+      display: none;
+    }
+  }
 }
 </style>

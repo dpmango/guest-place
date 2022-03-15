@@ -116,7 +116,7 @@ export default {
   .vs__search,
   .vs__search:focus {
     margin: 0;
-    padding: 12px 20px;
+    padding: 12px 0 12px 20px;
     font-family: $baseFont;
     font-size: 14px;
     font-style: normal;
@@ -150,9 +150,6 @@ export default {
       margin-left: -6px;
       padding-left: 0;
     }
-  }
-  .vs__actions {
-    padding: 0 14px 0 0px;
   }
   .vs__open-indicator {
     flex: 0 0 auto;
@@ -247,6 +244,26 @@ export default {
     .vs__selected,
     .vs__search {
       padding: 26px 10px;
+    }
+  }
+  &.polymorph {
+    box-shadow: none;
+    .vs__dropdown-toggle {
+      box-shadow: 0px 4px 15px rgba(105, 78, 75, 0.14);
+      transition: border 0.25s $ease, color 0.25s $ease, background 0.25s $ease, border-radius 0.25s $ease;
+      border: 50px;
+      border: 1px solid transparent;
+      &:hover {
+        border-color: #585f66;
+      }
+    }
+    .vs__actions {
+      padding-right: 25px;
+    }
+    .vs--open {
+      .vs__dropdown-toggle {
+        border-radius: 25px 25px 0px 0px;
+      }
     }
   }
 }

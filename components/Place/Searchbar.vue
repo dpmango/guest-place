@@ -41,6 +41,10 @@
         @onSelect="(v) => (price = v)"
       />
     </div>
+
+    <button class="bar__options-button">
+      <UiSvgIcon name="filter" />
+    </button>
   </div>
 </template>
 
@@ -71,12 +75,32 @@ export default {
     flex: 0 0 30%;
   }
   &__options {
+    padding-right: 60px;
     flex: 0 0 70%;
     display: flex;
     align-items: center;
+    width: 100%;
+    gap: 10px;
+    justify-content: space-between;
     .select {
-      flex: 0 0 20%;
-      padding-right: 20px;
+      max-width: 130px;
+      width: 100%;
+    }
+  }
+  &__options-button {
+    display: none;
+  }
+}
+
+@include r($lg) {
+  .bar {
+    &__options {
+      display: none;
+    }
+    &__options-button {
+      display: block;
+      margin-left: auto;
+      margin-right: 25px;
     }
   }
 }

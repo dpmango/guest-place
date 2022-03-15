@@ -177,3 +177,17 @@ a {
 .tar {
   text-align: right;
 }
+
+@include r($md) {
+  .h1-title {
+    font-size: 36px;
+  }
+
+  .h2-title {
+    font-size: 26px;
+  }
+
+  .h3-title {
+    font-size: 24px;
+  }
+}

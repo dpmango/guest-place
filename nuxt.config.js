@@ -2,8 +2,8 @@ export default {
   // Vue config:  https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-vue-config
   vue: {
     config: {
-      productionTip: true,
-      // devtools: false,
+      productionTip: false,
+      devtools: true,
     },
   },
 

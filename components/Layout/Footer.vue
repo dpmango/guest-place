@@ -10,7 +10,10 @@
       <div class="footer__wrapper">
         <div class="footer__logo">
           <img src="~/assets/img/logo.svg" alt="logo" />
-          <div class="footer__logo-label">Интерактивная платформа</div>
+          <div class="footer__logo-label">
+            Интерактивная <br />
+            платформа
+          </div>
         </div>
 
         <ul class="footer__menu">
@@ -57,6 +60,7 @@ export default {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+    justify-content: center;
   }
   &__logo {
     flex: 0 0 auto;
@@ -71,6 +75,9 @@ export default {
     margin-top: 5px;
     font-size: 14px;
     line-height: 1.35;
+    br {
+      display: none;
+    }
   }
   &__menu {
     display: flex;
@@ -118,6 +125,31 @@ export default {
       &.--right {
         display: none;
       }
+    }
+  }
+}
+
+@include r($lg) {
+  .footer {
+    &__logo-label {
+      text-align: center;
+    }
+
+    &__menu {
+      margin: 8px auto 0;
+      gap: 10px 0;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@include r($md) {
+  .footer {
+    &__menu {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
   }
 }

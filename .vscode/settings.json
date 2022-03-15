@@ -1,0 +1,8 @@
+{
+  "clockify.tracking.workspaceId": "61eee7ee7f668f6b1a890b7e",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  }
+}

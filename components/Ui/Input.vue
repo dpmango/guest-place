@@ -295,7 +295,7 @@ export default {
   &.dynamic {
     .input__label {
       position: absolute;
-      top: 22px;
+      top: 29px;
       left: 40px;
       font-size: 14px;
       z-index: 2;
@@ -305,7 +305,7 @@ export default {
     .input__input {
       input,
       textarea {
-        padding: 27px 40px 14px;
+        padding: 27px 20px 24px 40px;
       }
       &.is-iconed {
         input,
@@ -356,5 +356,30 @@ input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-results-button,
 input[type='search']::-webkit-search-results-decoration {
   -webkit-appearance: none;
+}
+
+@include r($md) {
+  .input {
+    &.dynamic {
+      .input__label {
+        top: 15px;
+        left: 30px;
+      }
+
+      .input__input {
+        input,
+        textarea {
+          padding: 13px 10px 13px 30px;
+        }
+      }
+
+      &.is-focused {
+        .input__label {
+          top: 0px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 </style>

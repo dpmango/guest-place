@@ -31,7 +31,7 @@ export default {
     theme: {
       type: String,
       default: 'primary',
-      validator: (theme) => ['primary', 'outline', 'danger', 'success'].includes(theme),
+      validator: (theme) => ['primary', 'outline', 'outline-gradient', 'danger', 'success'].includes(theme),
     },
     size: {
       type: String,
@@ -110,6 +110,7 @@ export default {
   &:active {
     outline: none;
   }
+
   &::before,
   &::after {
     display: inline-block;
@@ -122,6 +123,7 @@ export default {
     // backface-visibility: hidden;
     transition: opacity 0.25s $ease;
   }
+
   &::before {
     top: 0;
     left: 0;
@@ -136,6 +138,7 @@ export default {
     // // background: conic-gradient(from 180deg at 50% 50%, #8e2dbc 0deg, #ffc5bd 120deg, #db7ae3 240deg, #0066cc 360deg);
     // filter: blur(36px);
   }
+
   &::after {
     opacity: 0;
     top: 2px;
@@ -145,6 +148,7 @@ export default {
     background: white;
     border-radius: 50px;
   }
+
   &__content {
     position: relative;
     display: inline-flex;
@@ -192,6 +196,23 @@ export default {
       }
       &::before {
         opacity: 0;
+      }
+    }
+  }
+  &.outline-gradient {
+    color: $fontColor;
+    &::after {
+      opacity: 1;
+    }
+
+    &:hover,
+    &:active {
+      color: white;
+      &::after {
+        opacity: 0;
+      }
+      &::before {
+        opacity: 1;
       }
     }
   }
@@ -247,6 +268,14 @@ export default {
   }
   &.is-loading {
     color: transparent !important;
+  }
+}
+
+@include r($md) {
+  .button {
+    &__content {
+      padding: 16px 30px;
+    }
   }
 }
 </style>

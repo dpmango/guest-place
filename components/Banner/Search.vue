@@ -2,10 +2,13 @@
   <section class="banner" :class="className">
     <div class="container">
       <div class="banner__box">
-        <h3 class="h3-title">Для быстрого поиска Вы можете пользоваться всеми вариантами одновременно.</h3>
+        <h3 class="h3-title">
+          Для быстрого поиска Вы можете пользоваться всеми вариантами <span class="c-primary"> одновременно </span>.
+        </h3>
 
-        <h4 class="h4-title c-primary">
-          GP Платформа позволяет общаться напрямую здесь и сейчас. Мы за «прозрачные отношения»
+        <h4 class="h4-title mt-md-1">
+          <span class="c-primary"> GP Платформа </span> позволяет общаться напрямую здесь и сейчас. Мы за «прозрачные
+          отношения»
         </h4>
       </div>
     </div>
@@ -38,5 +41,20 @@ export default {
 }
 
 @include r($md) {
+  .banner {
+    &__box {
+      padding: 40px 14px;
+    }
+
+    .h3-title {
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    .h4-title {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+  }
 }
 </style>

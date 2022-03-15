@@ -104,5 +104,14 @@ export default {
 }
 
 @include r($md) {
+  .hero {
+    .p-main {
+      font-size: 20px;
+      text-align: center;
+    }
+    &__actions {
+      flex-direction: column;
+    }
+  }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <UiModal name="help" content-class="mt-1">
-    <template #title>Нужна <span class="c-primary">помощь?</span> </template>
+  <UiModal name="expert" content-class="mt-1">
+    <template #title>помощь <span class="c-primary">эксперта</span> </template>
 
     <template #decor>
-      <img src="~/assets/img/modal-help-decor.svg" alt="background image" />
+      <img src="~/assets/img/modal-help-decor-2.svg" alt="background image" />
     </template>
 
     <template #content>
@@ -21,7 +21,7 @@
           <UiInput
             v-mask="'+7 (###) ###-####'"
             :value="phone"
-            placeholder="Ваше номер телефона"
+            placeholder="Ваш номер телефона"
             type="tel"
             :error="errors[0]"
             @onChange="(v) => (phone = v)"
@@ -38,7 +38,6 @@
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
           <UiSelect
             :value="time"
-            theme="polymorph"
             placeholder="Удобное время для звонка"
             :error="errors[0]"
             :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
@@ -50,7 +49,6 @@
           <div class="col col-6">
             <UiSelect
               :value="date"
-              theme="polymorph"
               placeholder="Удобное время для звонка"
               :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
               @onSelect="(v) => (date = v)"

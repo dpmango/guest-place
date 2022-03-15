@@ -3,11 +3,11 @@
     <div class="container">
       <h2 class="h2-title">Места <span class="c-primary">по категориям</span></h2>
 
-      <div class="categories__grid mt-4">
+      <div class="categories__grid mt-4 mt-sm-2">
         <NuxtLink v-for="(category, idx) in list" :key="category.id || idx" :to="category.slug" class="category">
-          <div class="category__title">
+          <h3 class="category__title h3-title">
             {{ category.label }}
-          </div>
+          </h3>
           <div class="category__image">
             <img :src="category.img" :alt="category.label" />
           </div>
@@ -71,13 +71,15 @@ export default {
   transition: box-shadow 0.25s $ease;
   &__title {
     flex: 0 0 50%;
-    font-size: 32px;
-    line-height: 130%;
+    // font-size: 32px;
+    // line-height: 130%;
     padding: 30px;
+    position: relative;
+    z-index: 2;
   }
   &__image {
     position: relative;
-    flex: 0 0 50%;
+    margin-left: auto;
     text-align: center;
     font-size: 0;
     padding-right: 30px;
@@ -85,7 +87,7 @@ export default {
       display: inline-block;
       content: ' ';
       position: absolute;
-      width: 400px;
+      width: 150%;
       height: 400px;
       top: 50%;
       left: 60%;
@@ -112,5 +114,25 @@ export default {
 }
 
 @include r($md) {
+  .categories {
+    &__grid {
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
+  }
+  .category {
+    min-height: 130px;
+    &__image {
+      &::before {
+        width: 200px;
+        height: 200px;
+      }
+
+      img {
+        max-width: 110px;
+        max-height: 110px;
+      }
+    }
+  }
 }
 </style>
