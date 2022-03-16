@@ -9,7 +9,7 @@
 
     <template #form>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
-        <UiError :error="error" />
+        <UiError class="mb-1" :error="error" />
 
         <div class="row">
           <div class="col col-6">
@@ -131,13 +131,9 @@ export default {
           this.$router.push('/auth/login')
         })
         .catch((err) => {
-          const { data, code } = err
+          const { data, message } = err
 
-          if (data && code === 400) {
-            Object.keys(data).forEach((key) => {
-              this.error = data[key][0]
-            })
-          }
+          this.error = message
         })
     },
     ...mapActions('auth', ['signup', 'verifyPost']),

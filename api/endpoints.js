@@ -7,11 +7,10 @@ export default {
     login: `${auth}/signin/`,
     logout: `${auth}/logout/`,
     registration: `${auth}/signup/`,
-    // verifyEmail: `${auth}/signup/verify/`,
+    verifyEmail: `${auth}/verify/`,
     refreshToken: `${auth}/refresh/`,
-    passwordChange: `${auth}/password/change/`,
-    passwordReset: `${auth}/password/reset/`,
-    passwordResetConfirm: `${auth}/password/reset/confirm/`,
+    passwordReset: `${auth}/password/reset/`, // request
+    passwordRecovery: `${auth}/password/recovery/`, // set
   },
   chat: {
     files: `${api}/files/`,

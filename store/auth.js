@@ -3,9 +3,7 @@ import {
   signupService,
   refreshTokenService,
   verifyGetService,
-  verifyPostService,
   recoverService,
-  recoverConfirmationService,
   passwordChangeService,
   logoutService,
   userService,
@@ -54,7 +52,6 @@ export const mutations = {
     this.$api.setToken(false)
   },
   updateToken(state, token) {
-    console.log('updating token', token)
     if (token) {
       state.token = token
 
@@ -142,24 +139,8 @@ export const actions = {
 
     return result
   },
-  async verifyPost({ commit }, request) {
-    const [err, result] = await verifyPostService(this.$api, request)
-
-    if (err) throw err
-
-    return result
-  },
   async recover({ commit, _dispatch }, request) {
     const [err, result] = await recoverService(this.$api, request)
-
-    if (err) throw err
-
-    const { detail } = result
-
-    return result
-  },
-  async recoverConfirmation({ commit, _dispatch }, request) {
-    const [err, result] = await recoverConfirmationService(this.$api, request)
 
     if (err) throw err
 
