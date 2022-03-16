@@ -28,8 +28,8 @@
         </div>
 
         <div class="hero__actions">
-          <UiButton @click="handleShowOnMapClick">Показать на карте</UiButton>
-          <UiButton theme="outline">Показать списком</UiButton>
+          <UiButton @click="() => handleShowClick('map')">Показать на карте</UiButton>
+          <UiButton theme="outline" @click="() => handleShowClick('list')">Показать списком</UiButton>
         </div>
       </div>
     </div>
@@ -45,8 +45,12 @@ export default {
   },
 
   methods: {
-    handleShowOnMapClick() {
-      this.$router.push('/place')
+    handleShowClick(type) {
+      let url = '/place'
+      if (type === 'list') {
+        url = `${url}?view=list`
+      }
+      this.$router.push(url)
     },
     // ...mapActions('auth', ['logout']),
   },

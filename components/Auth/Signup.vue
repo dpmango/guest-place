@@ -128,7 +128,7 @@ export default {
           // this.verifyPost()
           this.error = null
           this.$toast.global.success({ message: `Успешная регистрация ${email}` })
-          this.$router.push('/auth/login')
+          this.$router.push('/success/account')
         })
         .catch((err) => {
           const { data, message } = err

@@ -71,7 +71,7 @@ export default {
         .then((res) => {
           this.error = null
           this.$toast.global.success({ message: 'Пароль успешно изменен' })
-          this.$router.push('/profile')
+          this.$router.push('/success/password')
         })
         .catch((err) => {
           const { data, message } = err

@@ -2,6 +2,32 @@
   <div class="ui">
     <div class="container">
       <div class="section">
+        <h2 class="section__title h2-title">Pagelist</h2>
+
+        <div v-for="section in pages" :key="section.label" class="mt-2">
+          <div class="h3-title f-700">{{ section.label }}</div>
+          <ul class="pagelist">
+            <li v-for="(page, idx) in section.list" :key="idx">
+              <NuxtLink :to="page.to"
+                >{{ idx + 1 }}. {{ page.label }} <small>{{ page.to }}</small></NuxtLink
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section__title h2-title">Модальные</h2>
+
+        <div class="btns">
+          <UiButton v-for="modal in modals" :key="modal" @click="() => setModal({ name: modal })">{{ modal }}</UiButton>
+        </div>
+
+        <ModalExpert />
+        <ModalHelp />
+      </div>
+
+      <div class="section">
         <h2 class="section__title h2-title">Типографика (typography.scss)</h2>
 
         <h1 class="h1-title">H1 title</h1>
@@ -94,26 +120,13 @@
           <UiStars :rating="3" />
         </div>
       </div>
-
-      <div class="section">
-        <h2 class="section__title h2-title">Pagelist</h2>
-
-        <div v-for="section in pages" :key="section.label" class="mt-2">
-          <div class="h3-title f-700">{{ section.label }}</div>
-          <ul class="pagelist">
-            <li v-for="(page, idx) in section.list" :key="idx">
-              <NuxtLink :to="page.to"
-                >{{ idx + 1 }}. {{ page.label }} <small>{{ page.to }}</small></NuxtLink
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 export default {
   name: 'UiPage',
   data() {
@@ -121,14 +134,15 @@ export default {
       inputVal: '',
       select: null,
       loaderStatus: false,
+      modals: ['expert', 'help', 'nav'],
       pages: [
         {
           label: 'Статика',
           list: [
             { to: '/', label: 'Главная' },
             { to: '/about', label: 'О нас' },
-            { to: '/about/place', label: '(about) - Площадкам' },
-            { to: '/about/guest', label: '(about) - Гостям' },
+            { to: '/about/place', label: 'Площадкам' },
+            { to: '/about/guest', label: 'Гостям' },
           ],
         },
         {
@@ -146,6 +160,7 @@ export default {
           label: 'Places',
           list: [
             { to: '/place', label: 'Места на карте' },
+            { to: '/place?view=list', label: 'Места списком' },
             { to: '/place/1', label: 'Place Карточка' },
             { to: '/create/place', label: '(form) Create Place' },
           ],
@@ -210,6 +225,9 @@ export default {
       this.loaderStatus = !this.loaderStatus
     }, 2000)
   },
+  methods: {
+    ...mapMutations('ui', ['setModal']),
+  },
 }
 </script>
 
@@ -249,9 +267,10 @@ export default {
 
 .pagelist {
   margin: 10px 0;
+  max-width: 920px;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0px 30px;
   li {
     display: block;
