@@ -3,14 +3,15 @@
     <template #title>помощь <span class="c-primary">эксперта</span> </template>
 
     <template #decor>
-      <img src="~/assets/img/modal-help-decor-2.svg" alt="background image" />
+      <img src="~/assets/img/modal-help-decor-2.svg" alt="background image" class="modal__decor modal__decor--pc" />
+      <img
+        src="~/assets/img/modal-help-decor-2--mobile.svg"
+        alt="background image"
+        class="modal__decor modal__decor--mobile"
+      />
     </template>
 
     <template #content>
-      <div class="h5-title tac">
-        <span class="c-primary">Воспользуйтесь услугой по подбору от GP!</span><br />
-        Стоимость услуги — 1000 р.
-      </div>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
         <UiError :error="error" />
 
@@ -38,6 +39,7 @@
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
           <UiSelect
             :value="time"
+            theme="polymorph"
             placeholder="Удобное время для звонка"
             :error="errors[0]"
             :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
@@ -46,20 +48,21 @@
         </ValidationProvider>
 
         <div class="row">
-          <div class="col col-6">
+          <div class="col col-6 col-md-12">
             <UiSelect
               :value="date"
+              theme="polymorph"
               placeholder="Удобное время для звонка"
               :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
               @onSelect="(v) => (date = v)"
             />
           </div>
-          <div class="col col-6">
+          <div class="col col-6 col-md-12">
             <UiInput :value="guests" placeholder="Кол-во гостей" type="text" @onChange="(v) => (guests = v)" />
           </div>
         </div>
 
-        <div class="mt-2 tac">
+        <div class="mt-2 tac mt-md-1 modal__button">
           <UiButton type="submit">Перейти к оплате</UiButton>
         </div>
       </ValidationObserver>
@@ -107,6 +110,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal {
+  &__decor {
+    &--mobile {
+      display: none;
+    }
+  }
+}
 .form {
   margin-top: 10px;
   max-width: 345px;
@@ -115,6 +125,51 @@ export default {
   .ui-group {
     display: block;
     margin-bottom: 20px;
+  }
+}
+
+@include r($md) {
+  .modal {
+    &__decor {
+      &--pc {
+        display: none;
+      }
+      &--mobile {
+        display: block;
+      }
+    }
+    &__button {
+      width: 100%;
+      button {
+        width: 100%;
+      }
+    }
+  }
+  .row {
+    margin: 0;
+  }
+  .col {
+    margin-top: 20px;
+    width: 100%;
+    padding: 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@include r($md) {
+  .modal {
+    .input__input {
+      height: 38px;
+      input {
+        padding: 10px 25px;
+        height: 38px;
+        line-height: 1.35;
+      }
+    }
   }
 }
 </style>

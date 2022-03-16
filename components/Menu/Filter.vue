@@ -1,0 +1,116 @@
+<template>
+  <UiMenu name="filter" class="fixed">
+    <div class="filter">
+      <div class="filter__header">
+        <h3 class="h3-title">Фильтрация поиска</h3>
+        <button @click="() => setMenu({ name: null })">
+          <UiSvgIcon name="close" />
+        </button>
+      </div>
+      <div class="filter__select">
+        <p class="filter__select-title">Тип площадки</p>
+        <UiSelect
+          :value="type"
+          theme="polymorph"
+          placeholder="Выберите варианты"
+          :options="['option 1', 'option 2', 'option 3']"
+          @onSelect="(v) => (type = v)"
+        />
+      </div>
+      <div class="filter__select">
+        <p class="filter__select-title">Особенности</p>
+        <UiSelect
+          :value="features"
+          theme="polymorph"
+          placeholder="Выберите варианты"
+          :options="['option 1', 'option 2', 'option 3']"
+          @onSelect="(v) => (features = v)"
+        />
+      </div>
+      <div class="filter__select">
+        <p class="filter__select-title">Вместимость</p>
+        <UiSelect
+          :value="capacity"
+          theme="polymorph"
+          placeholder="Выберите варианты"
+          :options="['option 1', 'option 2', 'option 3']"
+          @onSelect="(v) => (capacity = v)"
+        />
+      </div>
+      <div class="filter__select">
+        <p class="filter__select-title">Стоимость</p>
+        <!-- Выдает ошибку -->
+        <!-- <vue-slider v-model="value" /> -->
+      </div>
+      <div class="mt-2">
+        <UiButton class="filter__button">Показать результаты (185)</UiButton>
+      </div>
+    </div>
+  </UiMenu>
+</template>
+
+<script>
+import { mapMutations } from 'vuex'
+//! Выдает ошибку
+
+// import VueSlider from 'vue-slider-component'
+// import 'vue-slider-component/theme/antd.css'
+
+export default {
+  // components: {
+  //   VueSlider
+  // },
+  data() {
+    return {
+      type: null,
+      features: null,
+      capacity: null,
+      value: null,
+    }
+  },
+  methods: {
+    ...mapMutations('ui', ['setMenu']),
+    close() {
+      this.setMenu({ name: null })
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.filter {
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+  height: 576vh;
+  box-shadow: 0px 0px 15px rgba(105, 78, 75, 0.14);
+  max-width: 600px;
+  background-color: #fff;
+  padding: 30px 15px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  &__select {
+    margin-bottom: 20px;
+  }
+  &__select-title {
+    margin-bottom: 7px;
+  }
+  &__button {
+    width: 100%;
+  }
+}
+
+@include r($sm) {
+  .filter {
+    max-width: 100%;
+  }
+}
+</style>

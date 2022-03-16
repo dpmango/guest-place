@@ -62,7 +62,7 @@
             <UiSvgIcon name="user" />
           </NuxtLink>
 
-          <button class="header__button-burger" @click="() => setModal({ name: 'nav' })">
+          <button class="header__button-burger" @click="mobileNav">
             <span></span>
             <span></span>
             <span></span>
@@ -71,12 +71,12 @@
       </div>
     </div>
 
-    <ModalNav />
+    <MenuNav />
   </header>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   data() {
@@ -97,14 +97,23 @@ export default {
         })
         .catch((_err) => {})
     },
+    mobileNav() {
+      if (this.menu() !== 'nav') {
+        this.setMenu({ name: 'nav' })
+      } else {
+        this.setMenu({ name: null })
+      }
+    },
     ...mapActions('auth', ['logout']),
-    ...mapMutations('ui', ['setModal']),
+    ...mapMutations('ui', ['setMenu']),
+    ...mapState('ui', ['menu']),
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .header {
+  overflow: hidden;
   position: absolute;
   z-index: 99;
   top: 0;
