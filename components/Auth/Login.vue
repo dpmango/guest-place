@@ -40,6 +40,8 @@
           <UiCheckbox name="authRemember" :value="remember" @onChange="(v) => (remember = v)">
             Запомнить меня
           </UiCheckbox>
+
+          <NuxtLink to="/auth/recover" class="cta-row__link">Забыли свой пароль?</NuxtLink>
         </div>
 
         <div class="buttons">
@@ -110,7 +112,16 @@ export default {
 .cta-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 30px;
+  &__link {
+    font-size: 14px;
+    transition: color 0.25s $ease;
+    color: $colorPrimary;
+    &:hover {
+      color: $colorPrimaryHover;
+    }
+  }
 }
 
 .buttons {

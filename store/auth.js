@@ -112,6 +112,9 @@ export const actions = {
 
     if (err) throw err
 
+    // TODO - BAD API behaviour non sending responce
+    // @param result is empty
+
     // const { token, user } = result
 
     // commit('updateToken', token)

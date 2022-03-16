@@ -4,8 +4,9 @@
   </div>
   <!--  -->
 </template>
+
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   props: {},
@@ -14,9 +15,15 @@ export default {
       modals: ['expert', 'help', 'nav'],
     }
   },
-  methods: {
-    ...mapMutations('ui', ['setModal']),
-  },
 }
 </script>
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+.shared-modals {
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+</style>

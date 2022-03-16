@@ -94,6 +94,21 @@
           <UiStars :rating="3" />
         </div>
       </div>
+
+      <div class="section">
+        <h2 class="section__title h2-title">Pagelist</h2>
+
+        <div v-for="section in pages" :key="section.label" class="mt-2">
+          <div class="h3-title f-700">{{ section.label }}</div>
+          <ul class="pagelist">
+            <li v-for="(page, idx) in section.list" :key="idx">
+              <NuxtLink :to="page.to"
+                >{{ idx + 1 }}. {{ page.label }} <small>{{ page.to }}</small></NuxtLink
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -106,6 +121,51 @@ export default {
       inputVal: '',
       select: null,
       loaderStatus: false,
+      pages: [
+        {
+          label: 'Статика',
+          list: [
+            { to: '/', label: 'Главная' },
+            { to: '/about', label: 'О нас' },
+            { to: '/about/place', label: '(about) - Площадкам' },
+            { to: '/about/guest', label: '(about) - Гостям' },
+          ],
+        },
+        {
+          label: 'Авторизация',
+          list: [
+            { to: '/auth/login', label: 'Авторизация - Логин' },
+            { to: '/auth/signup', label: 'Авторизация - Регистрация' },
+            { to: '/auth/recover', label: 'Авторизация - Восстановить пароль' },
+            { to: '/auth/password', label: 'Авторизация - Сменить пароль' },
+            { to: '/auth/verify', label: 'Авторизация - Email верификация' },
+          ],
+        },
+
+        {
+          label: 'Places',
+          list: [
+            { to: '/place', label: 'place - Места на карте' },
+            { to: '/place/1', label: 'Place Карточка' },
+            { to: '/create/place', label: '(form) Create Place - Создать место' },
+          ],
+        },
+
+        {
+          label: 'Сервисные',
+          list: [
+            { to: '/success/account', label: '(success) Account - Аккаунт' },
+            { to: '/success/password', label: '(success) Password - Пароль' },
+            { to: '/success/feedback', label: '(success) Feedback - Обратная свзяь' },
+            { to: '/success/create', label: '(success) Create - Создано' },
+            { to: '/success/question', label: '(success) Question - Вопрос' },
+            { to: '/success/moderation', label: '(success) Moderation - Добро пожаловать' },
+            { to: '/success/message', label: '(success) Message - Сообщение' },
+            { to: '/success/expert-request', label: '(success) Expert - Запрос эксперта' },
+            { to: '/success/payment', label: '(success) Expert - Платеж' },
+          ],
+        },
+      ],
       icons: [
         'arrow-left',
         'camera',
@@ -184,6 +244,40 @@ export default {
   max-width: 720px;
   .svg-icon {
     font-size: 32px;
+  }
+}
+
+.pagelist {
+  margin: 10px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0px 30px;
+  li {
+    display: block;
+    &:last-child {
+      a {
+        border-bottom: 0;
+      }
+    }
+  }
+  a {
+    display: inline-block;
+    padding: 12px 5px;
+    font-size: 18px;
+    line-height: 1.2;
+    transition: color 0.25s $ease, border 0.25s $ease;
+    border-bottom: 1px solid rgba($fontColor, 0.1);
+    small {
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+      color: $colorLight;
+    }
+    &:hover {
+      color: $colorPrimary;
+      border-bottom-color: $colorPrimary;
+    }
   }
 }
 </style>

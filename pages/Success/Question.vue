@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper container">
     <AuthWrapper>
-      <template #title>Ваш <span class="c-primary">аккаунт</span> создан!</template>
+      <template #title>Ваш <span class="c-primary">вопрос</span> отправлен!</template>
       <template #description>
         <p class="p-main">
-          Теперь вы можете добавлять и редактировать информацию о себе в
-          <NuxtLink to="/profile">личном кабинете</NuxtLink>
+          Спасибо за ваш вопрос! Ответ придет в
+          <NuxtLink to="/profile">чат личного кабинета</NuxtLink>
         </p>
       </template>
 
@@ -15,12 +15,8 @@
 
       <template #form>
         <div class="buttons">
-          <NuxtLink to="/profile">
-            <UiButton type="submit" block>В личный кабинет</UiButton>
-          </NuxtLink>
-
           <NuxtLink to="/">
-            <UiButton theme="outline" block>На главную</UiButton>
+            <UiButton type="submit">На главную</UiButton>
           </NuxtLink>
         </div>
       </template>
@@ -32,7 +28,7 @@
 export default {
   // middleware: ['restrictedAccess'],
   head: {
-    title: 'Успех - аккаунт создан | Guest&Place',
+    title: 'Успех - Вопрос отправлен | Guest&Place',
   },
 }
 </script>
@@ -40,10 +36,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   ::v-deep .buttons {
-    margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    grid-gap: 30px;
+    margin-top: 40px;
     .button {
       min-width: 190px;
     }

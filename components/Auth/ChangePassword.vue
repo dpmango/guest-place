@@ -1,49 +1,40 @@
 <template>
   <AuthWrapper>
     <template #title>Смена пароля</template>
+    <template #description> Чтобы войти в свой акканут, заполните поля ниже. </template>
 
-    <template #actions>
-      <NuxtLink to="/profile">Вернуться</NuxtLink>
+    <template #image>
+      <img src="~/assets/img/auth-login-illustration.svg" alt="cover illustration" />
     </template>
 
     <template #form>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
         <UiError :error="error" />
-        <ValidationProvider v-slot="{ errors }" rules="required|min:8" vid="password">
-          <UiInput
-            :value="passwordCurrent"
-            theme="dynamic"
-            name="password"
-            label="Старый пароль"
-            type="password"
-            :error="errors[0]"
-            @onChange="(v) => (passwordCurrent = v)"
-          />
-        </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" rules="required|min:8" vid="password">
+
+        <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:8" vid="password">
           <UiInput
             :value="password"
             theme="dynamic"
             name="password"
-            label="Новый пароль"
+            label="Введите новый пароль"
             type="password"
             :error="errors[0]"
             @onChange="(v) => (password = v)"
           />
         </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" rules="required|confirmed:password">
+        <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|confirmed:password">
           <UiInput
             :value="passwordConfirm"
             theme="dynamic"
             name="password"
-            label="Повторите пароль"
+            label="Подтвердите пароль"
             type="password"
             :error="errors[0]"
             @onChange="(v) => (passwordConfirm = v)"
           />
         </ValidationProvider>
 
-        <UiButton type="submit" block>Сменить пароль</UiButton>
+        <UiButton class="mt-2" type="submit" block>Сменить пароль</UiButton>
       </ValidationObserver>
     </template>
   </AuthWrapper>
@@ -55,13 +46,17 @@ import { mapActions } from 'vuex'
 export default {
   data() {
     return {
-      passwordCurrent: null,
       password: null,
       passwordConfirm: null,
+      query: null,
       error: null,
     }
   },
   computed: {},
+  created() {
+    // store in state is much safer
+    this.query = this.$route.query
+  },
   methods: {
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
@@ -69,10 +64,9 @@ export default {
         return
       }
 
-      await this.passwordChange({
-        old_password: this.passwordCurrent,
-        new_password1: this.password,
-        new_password2: this.passwordConfirm,
+      await this.recoverConfirmation({
+        ...{ new_password1: this.password, new_password2: this.passwordConfirm },
+        ...this.query,
       })
         .then((res) => {
           this.error = null
@@ -89,7 +83,13 @@ export default {
           }
         })
     },
-    ...mapActions('auth', ['passwordChange']),
+    ...mapActions('auth', ['recoverConfirmation']),
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.login__form {
+  max-width: 540px;
+}
+</style>

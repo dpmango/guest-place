@@ -70,7 +70,7 @@ export default {
     bottom: 0;
     left: 0;
     opacity: 0;
-    background: rgba($fontColor, 0.7);
+    background: rgba($fontColor, 0.8);
     transition: opacity 0.25s $ease;
   }
   &__box {

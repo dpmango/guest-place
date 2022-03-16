@@ -1,12 +1,12 @@
 <template>
-  <ProfilePassword />
+  <AuthChangePassword />
 </template>
 
 <script>
 export default {
   layout: 'auth',
   head: {
-    title: 'Сменить пароль | Guest&Place',
+    title: 'Смена пароля | Guest&Place',
   },
 }
 </script>

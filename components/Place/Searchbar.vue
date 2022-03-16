@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'UiPage',
+  name: 'Searchbar',
   data() {
     return {
       search: '',

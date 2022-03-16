@@ -1,9 +1,14 @@
 <template>
   <AuthWrapper>
-    <template #title>Восстановить пароль</template>
+    <template #title>Забыли пароль?</template>
 
-    <template #actions>
-      <NuxtLink to="/auth/login">Войти</NuxtLink>
+    <template #description>
+      Не расстраивайтесь! Укажите свой <span class="c-primary">почтовый адрес</span>, и мы отправим вам письмо, в
+      котором будет ссылка для смены пароля.
+    </template>
+
+    <template #image>
+      <img src="~/assets/img/auth-login-illustration.svg" alt="cover illustration" />
     </template>
 
     <template #form>
@@ -14,14 +19,14 @@
           <UiInput
             :value="email"
             theme="dynamic"
-            label="Email"
+            label="Почтовый адрес"
             type="email"
             :error="errors[0]"
             @onChange="(v) => (email = v)"
           />
         </ValidationProvider>
 
-        <UiButton type="submit" block>Отправить новый пароль</UiButton>
+        <UiButton class="mt-2" type="submit" block>Отправить новый</UiButton>
       </ValidationObserver>
     </template>
   </AuthWrapper>
