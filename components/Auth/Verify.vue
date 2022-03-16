@@ -7,7 +7,7 @@
       </div>
       <template v-else-if="error">
         <div class="verification__status-text verification__status-text--error">{{ error }}</div>
-        <NuxtLink to="/" class="verification__status-link"> Вернуться на главную </NuxtLink>
+        <UiButton class="mt-2"> Вернуться на главную </UiButton>
       </template>
       <template v-else>
         <UiLoader :loading="true" theme="block" />
@@ -41,20 +41,15 @@ export default {
         .then((res) => {
           this.error = null
           this.verified = true
-          this.$toast.global.default({ message: res.detail })
+          this.$toast.global.success({ message: 'Email успешно подтвержден' })
           setTimeout(() => {
-            this.$router.push('/course')
-          }, 500)
+            this.$router.push('/')
+          }, 800)
         })
         .catch((err) => {
-          const { data, code } = err
+          const { data, message } = err
 
-          if (data && code === 400) {
-            Object.keys(data).forEach((key) => {
-              this.error = data[key][0]
-              this.$toast.global.error({ message: data[key][0] })
-            })
-          }
+          this.error = message
         })
     },
     ...mapActions('auth', ['verifyGet']),
@@ -72,18 +67,10 @@ export default {
   }
   &__status-text {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 20px;
+    color: $colorPrimary;
     &--error {
       color: $colorRed;
-    }
-  }
-  &__status-link {
-    display: block;
-    margin-top: 16px;
-    color: $colorPrimary;
-    transition: color 0.25s $ease;
-    &:hover {
-      color: $fontColor;
     }
   }
 }

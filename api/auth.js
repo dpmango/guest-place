@@ -36,18 +36,9 @@ export const refreshTokenService = async ($api, request) => {
 }
 
 export const verifyGetService = async ($api, params) => {
+  console.log({ params })
   try {
-    const { data } = await $api.patch(endpoints.auth.verifyEmail, params)
-
-    return [null, mapData(data)]
-  } catch (error) {
-    return [mapApiError(error), null]
-  }
-}
-
-export const verifyPostService = async ($api, request) => {
-  try {
-    const { data } = await $api.post(endpoints.auth.verifyEmail, request)
+    const { data } = await $api.get(endpoints.auth.verifyEmail, { params })
 
     return [null, mapData(data)]
   } catch (error) {
@@ -67,21 +58,9 @@ export const recoverService = async ($api, request) => {
   }
 }
 
-export const recoverConfirmationService = async ($api, request) => {
-  try {
-    const { data } = await $api.post(endpoints.auth.passwordResetConfirm, {
-      ...request,
-    })
-
-    return [null, mapData(data)]
-  } catch (error) {
-    return [mapApiError(error), null]
-  }
-}
-
 export const passwordChangeService = async ($api, request) => {
   try {
-    const { data } = await $api.post(endpoints.auth.passwordChange, {
+    const { data } = await $api.post(endpoints.auth.passwordRecovery, {
       ...request,
     })
 

@@ -13,7 +13,7 @@
 
     <template #form>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
-        <UiError :error="error" />
+        <UiError class="mb-1" :error="error" />
 
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="email|required">
           <UiInput
@@ -50,19 +50,17 @@ export default {
         return
       }
 
-      await this.recover({ email: this.email })
+      await this.recover({ emailOrPhoneNumber: this.email })
         .then((res) => {
           this.error = null
-          this.$toast.global.default({ message: res.detail })
-          this.$router.push('/auth/login')
+          this.$toast.global.success({ message: 'Запрос на смену пароля отправлен на ваш email' })
+          this.$router.push('/')
         })
         .catch((err) => {
           const { data, code } = err
 
           if (data && code === 400) {
-            Object.keys(data).forEach((key) => {
-              this.error = data[key][0]
-            })
+            this.error = data.details[0]
           }
           if (data && code === 404) {
             this.error = data.detail
@@ -73,3 +71,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.login__form {
+  max-width: 445px;
+}
+</style>

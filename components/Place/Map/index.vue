@@ -34,9 +34,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import locations from '../../api/locations'
-
 import MapBallon from './MapBallon'
+import locations from '~/api/locations'
 
 export default {
   components: { MapBallon },

@@ -1,14 +1,27 @@
 export const mapApiError = (error) => {
-  let message = error.data
+  let data = error.data
+  let message = data.details[0] || data.detail || ''
 
-  // TODO - refactor to case switch
-  if (error.status === 500) {
-    message = 'Ошибка сервера'
+  switch (error.status) {
+    case 500:
+      data = 'Ошибка сервера'
+      message = 'Сервер ответил ошибкой'
+      break
+
+    case 404:
+      data = 'Не найдено'
+      message = 'На сервере не найдено'
+      break
+
+    default:
+      break
   }
 
   return {
-    data: message,
+    data,
+    message,
     code: error.status,
+    exception: data.exception,
   }
 }
 

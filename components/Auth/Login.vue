@@ -9,7 +9,7 @@
 
     <template #form>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
-        <UiError :error="error" />
+        <UiError class="mb-1" :error="error" />
 
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="email|required">
           <UiInput
@@ -86,13 +86,9 @@ export default {
           this.$router.push('/profile')
         })
         .catch((err) => {
-          const { data, code } = err
+          const { data, message } = err
 
-          if (data && code === 401) {
-            Object.keys(data).forEach((key) => {
-              this.error = data[key]
-            })
-          }
+          this.error = message
         })
     },
     ...mapActions('auth', ['login']),

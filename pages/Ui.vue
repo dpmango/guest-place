@@ -2,6 +2,30 @@
   <div class="ui">
     <div class="container">
       <div class="section">
+        <div v-for="section in pages" :key="section.label" class="mt-2">
+          <div class="h3-title f-700">{{ section.label }}</div>
+          <ul class="pagelist">
+            <li v-for="(page, idx) in section.list" :key="idx">
+              <NuxtLink :to="page.to"
+                >{{ idx + 1 }}. {{ page.label }} <small>{{ page.to }}</small></NuxtLink
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section__title h2-title">Модальные</h2>
+
+        <div class="btns">
+          <UiButton v-for="modal in modals" :key="modal" @click="() => setModal({ name: modal })">{{ modal }}</UiButton>
+        </div>
+
+        <ModalExpert />
+        <ModalHelp />
+      </div>
+
+      <div class="section">
         <h2 class="section__title h2-title">Типографика (typography.scss)</h2>
 
         <h1 class="h1-title">H1 title</h1>
@@ -51,6 +75,18 @@
       </div>
 
       <div class="section">
+        <h2 class="section__title h2-title">Бейдж</h2>
+
+        <div class="btns">
+          <UiBadge>Бейдж primary</UiBadge>
+          <UiBadge theme="accent">Бейдж accent</UiBadge>
+          <UiBadge theme="gray">Бейдж gray</UiBadge>
+          <UiBadge theme="success">Кнопка success</UiBadge>
+          <UiBadge theme="danger">Кнопка danger</UiBadge>
+        </div>
+      </div>
+
+      <div class="section">
         <h2 class="section__title h2-title">Интерфейс</h2>
 
         <div class="ui-group">
@@ -94,26 +130,13 @@
           <UiStars :rating="3" />
         </div>
       </div>
-
-      <div class="section">
-        <h2 class="section__title h2-title">Pagelist</h2>
-
-        <div v-for="section in pages" :key="section.label" class="mt-2">
-          <div class="h3-title f-700">{{ section.label }}</div>
-          <ul class="pagelist">
-            <li v-for="(page, idx) in section.list" :key="idx">
-              <NuxtLink :to="page.to"
-                >{{ idx + 1 }}. {{ page.label }} <small>{{ page.to }}</small></NuxtLink
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 export default {
   name: 'UiPage',
   data() {
@@ -121,48 +144,57 @@ export default {
       inputVal: '',
       select: null,
       loaderStatus: false,
+      modals: ['expert', 'help', 'nav'],
       pages: [
         {
           label: 'Статика',
           list: [
             { to: '/', label: 'Главная' },
             { to: '/about', label: 'О нас' },
-            { to: '/about/place', label: '(about) - Площадкам' },
-            { to: '/about/guest', label: '(about) - Гостям' },
+            { to: '/about/place', label: 'Площадкам' },
+            { to: '/about/guest', label: 'Гостям' },
           ],
         },
         {
           label: 'Авторизация',
           list: [
-            { to: '/auth/login', label: 'Авторизация - Логин' },
-            { to: '/auth/signup', label: 'Авторизация - Регистрация' },
-            { to: '/auth/recover', label: 'Авторизация - Восстановить пароль' },
-            { to: '/auth/password', label: 'Авторизация - Сменить пароль' },
-            { to: '/auth/verify', label: 'Авторизация - Email верификация' },
+            { to: '/auth/login', label: 'Логин' },
+            { to: '/auth/signup', label: 'Регистрация' },
+            { to: '/auth/recover', label: 'Восстановить пароль' },
+            { to: '/auth/password', label: 'Сменить пароль' },
+            { to: '/auth/verify', label: 'Email верификация' },
           ],
         },
 
         {
           label: 'Places',
           list: [
-            { to: '/place', label: 'place - Места на карте' },
+            { to: '/place', label: 'Места на карте' },
+            { to: '/place?view=list', label: 'Места списком' },
             { to: '/place/1', label: 'Place Карточка' },
-            { to: '/create/place', label: '(form) Create Place - Создать место' },
+            { to: '/create/place', label: '(form) Create Place' },
           ],
         },
-
+        {
+          label: 'Кабинет',
+          list: [
+            { to: '/profile', label: 'Профиль' },
+            { to: '/profile/favorites', label: 'Избранное' },
+            { to: '/profile/messages', label: 'Чат' },
+          ],
+        },
         {
           label: 'Сервисные',
           list: [
-            { to: '/success/account', label: '(success) Account - Аккаунт' },
-            { to: '/success/password', label: '(success) Password - Пароль' },
-            { to: '/success/feedback', label: '(success) Feedback - Обратная свзяь' },
-            { to: '/success/create', label: '(success) Create - Создано' },
-            { to: '/success/question', label: '(success) Question - Вопрос' },
-            { to: '/success/moderation', label: '(success) Moderation - Добро пожаловать' },
-            { to: '/success/message', label: '(success) Message - Сообщение' },
-            { to: '/success/expert-request', label: '(success) Expert - Запрос эксперта' },
-            { to: '/success/payment', label: '(success) Expert - Платеж' },
+            { to: '/success/account', label: 'Account - Аккаунт' },
+            { to: '/success/password', label: 'Password - Пароль' },
+            { to: '/success/feedback', label: 'Feedback - Обратная свзяь' },
+            { to: '/success/create', label: 'Create - Создано' },
+            { to: '/success/question', label: 'Question - Вопрос' },
+            { to: '/success/moderation', label: 'Moderation - Добро пожаловать' },
+            { to: '/success/message', label: 'Message - Сообщение' },
+            { to: '/success/expert-request', label: 'Expert - Запрос эксперта' },
+            { to: '/success/payment', label: 'Expert - Платеж' },
           ],
         },
       ],
@@ -210,6 +242,9 @@ export default {
       this.loaderStatus = !this.loaderStatus
     }, 2000)
   },
+  methods: {
+    ...mapMutations('ui', ['setModal']),
+  },
 }
 </script>
 
@@ -249,17 +284,13 @@ export default {
 
 .pagelist {
   margin: 10px 0;
+  max-width: 920px;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0px 30px;
   li {
     display: block;
-    &:last-child {
-      a {
-        border-bottom: 0;
-      }
-    }
   }
   a {
     display: inline-block;

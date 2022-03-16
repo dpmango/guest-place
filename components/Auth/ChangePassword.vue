@@ -9,7 +9,7 @@
 
     <template #form>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
-        <UiError :error="error" />
+        <UiError class="mb-1" :error="error" />
 
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:8" vid="password">
           <UiInput
@@ -64,32 +64,28 @@ export default {
         return
       }
 
-      await this.recoverConfirmation({
-        ...{ new_password1: this.password, new_password2: this.passwordConfirm },
+      await this.passwordChange({
+        ...{ newPassword: this.passwordConfirm },
         ...this.query,
       })
         .then((res) => {
           this.error = null
-          this.$toast.global.default({ message: res.detail })
-          this.$router.push('/profile')
+          this.$toast.global.success({ message: 'Пароль успешно изменен' })
+          this.$router.push('/success/password')
         })
         .catch((err) => {
-          const { data, code } = err
+          const { data, message } = err
 
-          if (data && code === 400) {
-            Object.keys(data).forEach((key) => {
-              this.error = data[key][0]
-            })
-          }
+          this.error = message
         })
     },
-    ...mapActions('auth', ['recoverConfirmation']),
+    ...mapActions('auth', ['passwordChange']),
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .login__form {
-  max-width: 540px;
+  max-width: 445px;
 }
 </style>
