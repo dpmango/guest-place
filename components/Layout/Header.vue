@@ -13,10 +13,10 @@
             <NuxtLink to="/profile" class="header__action">
               <UiSvgIcon name="user" />
             </NuxtLink>
-            <NuxtLink to="/favorites" class="header__action">
+            <NuxtLink to="/profile/favorites" class="header__action">
               <UiSvgIcon name="like" />
             </NuxtLink>
-            <NuxtLink to="/messages" class="header__action">
+            <NuxtLink to="/profile/messages" class="header__action">
               <UiSvgIcon name="chat-circle" />
               <div v-if="notificationDialogsCount" class="header__action-count">
                 <span>{{ notificationDialogsCount }}</span>

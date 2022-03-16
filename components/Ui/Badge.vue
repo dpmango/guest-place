@@ -1,7 +1,7 @@
 <template>
   <component
     :is="getElement"
-    :class="['badge', theme, size, isBlock, noPadding, { 'is-loading': showLoader }]"
+    :class="['badge', theme, isBlock, noPadding, { 'is-loading': showLoader }]"
     :href="href"
     :to="to"
     v-bind="$attrs"
@@ -32,11 +32,6 @@ export default {
       type: String,
       default: 'primary',
       validator: (theme) => ['primary', 'accent', 'gray', 'danger', 'success'].includes(theme),
-    },
-    size: {
-      type: String,
-      default: 'regular',
-      validator: (theme) => ['regular', 'small'].includes(theme),
     },
     loading: {
       type: Boolean,
@@ -98,8 +93,7 @@ export default {
   border: 0px solid transparent;
   box-sizing: border-box;
   border-radius: 20px;
-  font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.35;
   text-align: center;
   overflow: hidden;
@@ -114,8 +108,7 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: 2;
-    padding: 22px;
-
+    padding: 6px 20px;
     ::v-deep span {
       display: inline-block;
       margin-right: 7px;
@@ -169,12 +162,6 @@ export default {
     }
   }
 
-  &.small {
-    .badge__content {
-      font-size: 14px;
-      padding: 10px 14px;
-    }
-  }
   &.block {
     display: block;
     width: 100%;

@@ -1,13 +1,7 @@
 <template>
   <div class="list">
     <div class="container">
-      <div v-if="breadcrumbs" class="list__breadcrumbs">
-        <UiCrumbs :list="breadcrumbs" />
-      </div>
-
-      <h2 class="h2-title tac">Найдено <span class="c-primary">123 площадки</span></h2>
-
-      <div class="list__searchbar">
+      <div v-if="includeSearchbar" class="list__searchbar">
         <PlaceSearchbar />
       </div>
 
@@ -20,14 +14,18 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { mockPlaces } from './mockData'
+import { mockPlaces } from '../mockData'
 
 export default {
+  props: {
+    includeSearchbar: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       places: mockPlaces,
-
-      breadcrumbs: [{ to: '', label: 'Поиск (показать списком)' }],
     }
   },
 }
@@ -36,14 +34,7 @@ export default {
 <style lang="scss" scoped>
 .list {
   position: relative;
-  margin-top: 22px;
-  padding-bottom: 120px;
-  &__wrapper {
-    text-align: center;
-  }
-  &__breadcrumbs {
-    margin-bottom: 36px;
-  }
+  margin-bottom: 120px;
   &__searchbar {
     margin-top: 50px;
   }

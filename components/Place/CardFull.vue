@@ -20,9 +20,9 @@
 
     <div class="card__content">
       <NuxtLink :to="`/place/${data.id}`" class="card__title h3-title">{{ data.title }}</NuxtLink>
-      <div class="card__rating">
+      <div v-if="data.rating" class="card__rating">
         <UiStars :rating="data.rating" />
-        <span>({{ data.reviewCount }})</span>
+        <span v-if="data.reviewCount">({{ data.reviewCount }})</span>
       </div>
 
       <div class="card__wysiwyg mt-1" v-html="data.content" />

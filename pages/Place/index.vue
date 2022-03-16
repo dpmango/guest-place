@@ -1,7 +1,10 @@
 <template>
   <div class="">
     <PlaceMap v-if="!viewList" />
-    <PlaceList v-else />
+    <template v-else>
+      <PlaceListHero :title="`Найдено <span class='c-primary'>123 площадки</span>`" :breadcrumbs="breadcrumbs" />
+      <PlaceList />
+    </template>
   </div>
 </template>
 
@@ -12,6 +15,11 @@ export default {
     // return id from URL
     return {
       query: context.route.query,
+    }
+  },
+  data() {
+    return {
+      breadcrumbs: [{ to: '', label: 'Избранное' }],
     }
   },
   head: {

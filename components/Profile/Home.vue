@@ -86,9 +86,6 @@
                   />
 
                   <UiButton :is-loading="isLoading" type="submit" block>Сохранить изменения</UiButton>
-                  <NuxtLink to="/profile/password">
-                    <UiButton theme="outline" block>Сменить пароль</UiButton>
-                  </NuxtLink>
                 </ValidationObserver>
               </client-only>
             </div>

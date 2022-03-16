@@ -2,8 +2,6 @@
   <div class="ui">
     <div class="container">
       <div class="section">
-        <h2 class="section__title h2-title">Pagelist</h2>
-
         <div v-for="section in pages" :key="section.label" class="mt-2">
           <div class="h3-title f-700">{{ section.label }}</div>
           <ul class="pagelist">
@@ -73,6 +71,18 @@
           <UiButton size="small" theme="outline">Кнопка outline</UiButton>
 
           <UiButton :loading="loaderStatus" loader-color="#FFF">Кнпока с загрузкой</UiButton>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section__title h2-title">Бейдж</h2>
+
+        <div class="btns">
+          <UiBadge>Бейдж primary</UiBadge>
+          <UiBadge theme="accent">Бейдж accent</UiBadge>
+          <UiBadge theme="gray">Бейдж gray</UiBadge>
+          <UiBadge theme="success">Кнопка success</UiBadge>
+          <UiBadge theme="danger">Кнопка danger</UiBadge>
         </div>
       </div>
 
@@ -165,7 +175,14 @@ export default {
             { to: '/create/place', label: '(form) Create Place' },
           ],
         },
-
+        {
+          label: 'Кабинет',
+          list: [
+            { to: '/profile', label: 'Профиль' },
+            { to: '/profile/favorites', label: 'Избранное' },
+            { to: '/profile/messages', label: 'Чат' },
+          ],
+        },
         {
           label: 'Сервисные',
           list: [
@@ -274,11 +291,6 @@ export default {
   grid-gap: 0px 30px;
   li {
     display: block;
-    &:last-child {
-      a {
-        border-bottom: 0;
-      }
-    }
   }
   a {
     display: inline-block;
