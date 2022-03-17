@@ -118,4 +118,12 @@ export default {
     }
   }
 }
+
+@include r($sm) {
+  .hero {
+    &__title {
+      text-align: center;
+    }
+  }
+}
 </style>

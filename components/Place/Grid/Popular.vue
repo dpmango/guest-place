@@ -84,6 +84,14 @@ export default {
   }
 }
 
+@include r($lg) {
+  .recents {
+    &__grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
 @include r($md) {
   .recents {
     &__grid {

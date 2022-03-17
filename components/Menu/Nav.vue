@@ -1,33 +1,35 @@
 <template>
-  <div class="nav">
-    <div class="nav__wrapper container">
-      <ul class="nav__menu">
-        <li>
-          <NuxtLink to="/about">О платформе</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/about/place">Площадкам</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/about/guest">Гостям</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/messages">Чат</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/favorites">Избранное</NuxtLink>
-        </li>
-      </ul>
-      <ul class="nav__menu nav__menu--cta">
-        <li>
-          <NuxtLink to="/create/request">+ Разместить запрос</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/create/place">+ Добавить место</NuxtLink>
-        </li>
-      </ul>
+  <UiMenu name="nav" class="fixed">
+    <div class="nav">
+      <div class="nav__wrapper container">
+        <ul class="nav__menu">
+          <li>
+            <NuxtLink to="/about">О платформе</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/about/place">Площадкам</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/about/guest">Гостям</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/messages">Чат</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/favorites">Избранное</NuxtLink>
+          </li>
+        </ul>
+        <ul class="nav__menu nav__menu--cta">
+          <li>
+            <NuxtLink to="/create/request">+ Разместить запрос</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/create/place">+ Добавить место</NuxtLink>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </UiMenu>
 </template>
 
 <style lang="scss" scoped>
@@ -35,12 +37,14 @@
   display: block;
   background-color: white;
   position: absolute;
-  top: 100%;
+  top: 147px;
   height: calc(100vh - 100%);
-  width: 100%;
-  left: 0;
+  width: 340px;
+  right: 0;
+  border-radius: 0 0 0 25px;
+  box-shadow: 0px 15px 15px rgba(105, 78, 75, 0.14);
   &__menu {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     list-style: none;
@@ -65,6 +69,7 @@
     }
     &--cta {
       margin-top: 25px;
+      display: flex;
       text-align: center;
       a {
         font-weight: 500;
@@ -74,6 +79,15 @@
         }
       }
     }
+  }
+}
+@include r($sm) {
+  .nav {
+    &__menu {
+      display: flex;
+    }
+    border-radius: 0;
+    width: 100%;
   }
 }
 </style>

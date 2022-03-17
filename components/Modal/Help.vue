@@ -3,7 +3,12 @@
     <template #title>Нужна <span class="c-primary">помощь?</span> </template>
 
     <template #decor>
-      <img src="~/assets/img/modal-help-decor.svg" alt="background image" />
+      <img src="~/assets/img/modal-help-decor.svg" alt="background image" class="modal__decor modal__decor--pc" />
+      <img
+        src="~/assets/img/modal-help-decor--mobile.svg"
+        alt="background image"
+        class="modal__decor modal__decor--mobile"
+      />
     </template>
 
     <template #content>
@@ -47,7 +52,7 @@
         </ValidationProvider>
 
         <div class="row">
-          <div class="col col-6">
+          <div class="col col-6 col-md-12">
             <UiSelect
               :value="date"
               theme="polymorph"
@@ -56,12 +61,12 @@
               @onSelect="(v) => (date = v)"
             />
           </div>
-          <div class="col col-6">
+          <div class="col col-6 col-md-12">
             <UiInput :value="guests" placeholder="Кол-во гостей" type="text" @onChange="(v) => (guests = v)" />
           </div>
         </div>
 
-        <div class="mt-2 tac">
+        <div class="mt-2 tac mt-md-1 modal__button">
           <UiButton type="submit">Перейти к оплате</UiButton>
         </div>
       </ValidationObserver>
@@ -117,6 +122,51 @@ export default {
   .ui-group {
     display: block;
     margin-bottom: 20px;
+  }
+}
+
+@include r($md) {
+  .modal {
+    &__decor {
+      &--pc {
+        display: none;
+      }
+      &--mobile {
+        display: block;
+      }
+    }
+    &__button {
+      width: 100%;
+      button {
+        width: 100%;
+      }
+    }
+  }
+  .row {
+    margin: 0;
+  }
+  .col {
+    margin-top: 20px;
+    width: 100%;
+    padding: 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@include r($md) {
+  .modal {
+    .input__input {
+      height: 38px;
+      input {
+        padding: 10px 25px;
+        height: 38px;
+        line-height: 1.35;
+      }
+    }
   }
 }
 </style>

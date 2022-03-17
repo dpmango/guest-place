@@ -42,13 +42,17 @@
       />
     </div>
 
-    <button class="bar__options-button">
+    <button class="bar__options-button" @click="() => setMenu({ name: 'filter' })">
       <UiSvgIcon name="filter" />
     </button>
+
+    <MenuFilter />
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'Searchbar',
   data() {
@@ -59,6 +63,9 @@ export default {
       capacity: null,
       price: null,
     }
+  },
+  methods: {
+    ...mapMutations('ui', ['setMenu']),
   },
 }
 </script>

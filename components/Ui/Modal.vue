@@ -128,4 +128,46 @@ export default {
     }
   }
 }
+
+@include r($md) {
+  .modal {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    &__decor {
+      top: 20px;
+      left: 15px;
+      bottom: auto;
+      width: 45px;
+      height: 45px;
+    }
+    &__close {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      top: 30px;
+      svg {
+        width: 17px !important;
+        height: 17px !important;
+      }
+    }
+    &__box {
+      min-height: 0px;
+      max-width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      border-radius: 0;
+      padding: 70px 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &__content {
+      margin: 0 !important;
+    }
+  }
+}
 </style>

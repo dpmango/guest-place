@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   middleware: ['default'],
@@ -30,6 +30,10 @@ export default {
   mounted() {
     // console.log('default mounted  -connect ?', !this.isConnected);
 
+    window.addEventListener('scroll', () => {
+      this.setMenu({ name: null })
+    })
+
     if (!this.isConnected) {
       this.connect()
     } else {
@@ -43,6 +47,7 @@ export default {
   },
   methods: {
     ...mapActions('chat', ['connect', 'getDialogs', 'getNotificationCount']),
+    ...mapMutations('ui', ['setMenu']),
   },
 }
 </script>
