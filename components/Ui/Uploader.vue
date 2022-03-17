@@ -23,7 +23,7 @@
         </div>
       </slot>
 
-      <slot :trigger="triggerUploadWindow" :error="uploaderError" name="preview">
+      <slot :trigger="triggerUploadWindow" :error="uploadError" name="preview">
         <UiButton type="button" pad="light" @click="triggerUploadWindow">
           <template v-if="buttonText">{{ buttonText }}</template>
           <template v-else-if="uploadError || file"> Загрузите еще </template>

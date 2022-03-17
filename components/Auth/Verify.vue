@@ -43,7 +43,7 @@ export default {
           this.verified = true
           this.$toast.global.success({ message: 'Email успешно подтвержден. Задайте пароль для аккаунта' })
           setTimeout(() => {
-            this.$router.push(`/auth/password?userId=${res.id}`)
+            this.$router.push(`/auth/password?userId=${res.id}&passwordToken=${this.query.passwordToken}`)
           }, 800)
         })
         .catch((err) => {
