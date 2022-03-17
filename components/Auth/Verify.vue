@@ -41,9 +41,9 @@ export default {
         .then((res) => {
           this.error = null
           this.verified = true
-          this.$toast.global.success({ message: 'Email успешно подтвержден' })
+          this.$toast.global.success({ message: 'Email успешно подтвержден. Задайте пароль для аккаунта' })
           setTimeout(() => {
-            this.$router.push('/')
+            this.$router.push(`/auth/password?userId=${res.id}`)
           }, 800)
         })
         .catch((err) => {

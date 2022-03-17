@@ -36,9 +36,20 @@ export const refreshTokenService = async ($api, request) => {
 }
 
 export const verifyGetService = async ($api, params) => {
-  console.log({ params })
   try {
     const { data } = await $api.get(endpoints.auth.verifyEmail, { params })
+
+    return [null, mapData(data)]
+  } catch (error) {
+    return [mapApiError(error), null]
+  }
+}
+
+export const passwordSetService = async ($api, request) => {
+  try {
+    const { data } = await $api.post(endpoints.auth.passwordSet, {
+      ...request,
+    })
 
     return [null, mapData(data)]
   } catch (error) {

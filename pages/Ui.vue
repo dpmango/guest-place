@@ -160,8 +160,9 @@ export default {
           list: [
             { to: '/auth/login', label: 'Логин' },
             { to: '/auth/signup', label: 'Регистрация' },
+            { to: '/auth/password', label: 'Установить пароль' },
             { to: '/auth/recover', label: 'Восстановить пароль' },
-            { to: '/auth/password', label: 'Сменить пароль' },
+            { to: '/auth/changepassword', label: 'Сменить пароль' },
             { to: '/auth/verify', label: 'Email верификация' },
           ],
         },

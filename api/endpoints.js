@@ -9,8 +9,9 @@ export default {
     registration: `${auth}/signup/`,
     verifyEmail: `${auth}/verify/`,
     refreshToken: `${auth}/refresh/`,
-    passwordReset: `${auth}/password/reset/`, // request
-    passwordRecovery: `${auth}/password/recovery/`, // set
+    passwordSet: `${auth}/password/set`, // set with userId (initial)
+    passwordReset: `${auth}/password/reset/`, // request reset
+    passwordRecovery: `${auth}/password/recovery/`, // set with email token
   },
   chat: {
     files: `${api}/files/`,

@@ -3,6 +3,7 @@ import {
   signupService,
   refreshTokenService,
   verifyGetService,
+  passwordSetService,
   recoverService,
   passwordChangeService,
   logoutService,
@@ -13,6 +14,7 @@ import {
 export const state = () => ({
   token: null,
   user: {
+    id: null,
     email: null,
     firstName: null,
     lastName: null,
@@ -39,6 +41,7 @@ export const mutations = {
   logOut(state) {
     state.token = null
     state.user = {
+      id: null,
       email: null,
       firstName: null,
       lastName: null,
@@ -67,7 +70,8 @@ export const mutations = {
     //   state.user[key] = user[key];
     // });
   },
-  verifyUserEmail(state) {
+  verifyUserEmail(state, id) {
+    state.user.id = id
     state.user.email_confirmed = true
   },
   // updateUserPhoto(state, user) {
@@ -112,10 +116,10 @@ export const actions = {
     // TODO - BAD API behaviour non sending responce
     // @param result is empty
 
-    // const { token, user } = result
+    const { id } = result
 
     // commit('updateToken', token)
-    // commit('updateUser', user)
+    commit('updateUser', { id })
 
     return result
   },
@@ -135,7 +139,20 @@ export const actions = {
 
     if (err) throw err
 
-    commit('verifyUserEmail')
+    const { id } = result
+
+    commit('verifyUserEmail', id)
+
+    return result
+  },
+  async passwordSet({ commit, _dispatch }, request) {
+    const [err, result] = await passwordSetService(this.$api, request)
+
+    if (err) throw err
+
+    const { token } = result
+
+    commit('updateToken', token)
 
     return result
   },

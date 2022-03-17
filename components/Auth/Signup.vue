@@ -1,7 +1,7 @@
 <template>
   <AuthWrapper>
     <template #title>Регистрация</template>
-    <template #description>Чтобы cоздать акканут, заполните поля ниже.</template>
+    <template #description>Чтобы cоздать акканут, введите свой и перейдите по ссылке подтверждения.</template>
 
     <template #image>
       <img src="~/assets/img/auth-login-illustration.svg" alt="cover illustration" />
@@ -12,7 +12,7 @@
         <UiError class="mb-1" :error="error" />
 
         <div class="row">
-          <div class="col col-6">
+          <!-- <div class="col col-6">
             <ValidationProvider v-slot="{ errors }" rules="required">
               <UiInput
                 :value="firstName"
@@ -35,9 +35,9 @@
               type="text"
               @onChange="(v) => (lastName = v)"
             />
-          </div>
+          </div> -->
 
-          <div class="col col-6">
+          <!-- <div class="col col-6">
             <ValidationProvider v-slot="{ errors }" rules="tel|required">
               <UiInput
                 v-mask="'+7 (###) ###-####'"
@@ -50,8 +50,8 @@
                 @onChange="(v) => (phone = v)"
               />
             </ValidationProvider>
-          </div>
-          <div class="col col-6">
+          </div> -->
+          <div class="col col-12">
             <ValidationProvider v-slot="{ errors }" rules="email|required">
               <UiInput
                 :value="email"
@@ -64,7 +64,7 @@
               />
             </ValidationProvider>
           </div>
-          <div class="col col-12">
+          <!-- <div class="col col-12">
             <ValidationProvider v-slot="{ errors }" rules="required|min:8" vid="password">
               <UiInput
                 :value="password"
@@ -76,7 +76,7 @@
                 @onChange="(v) => (password = v)"
               />
             </ValidationProvider>
-          </div>
+          </div> -->
         </div>
 
         <div class="buttons">
@@ -116,19 +116,15 @@ export default {
       if (!isValid) {
         return
       }
-      const { firstName, lastName, phone, email, password } = this
+      const { email } = this
       await this.signup({
-        firstName,
-        lastName,
         email,
-        phoneNumber: phone,
-        password,
       })
         .then((_res) => {
           // this.verifyPost()
           this.error = null
           this.$toast.global.success({ message: `Успешная регистрация ${email}` })
-          this.$router.push('/success/account')
+          this.$router.push('/auth/login')
         })
         .catch((err) => {
           const { data, message } = err
