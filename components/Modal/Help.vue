@@ -114,6 +114,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal {
+  &__decor {
+    &--mobile {
+      display: none;
+    }
+  }
+}
 .form {
   margin-top: 10px;
   max-width: 345px;

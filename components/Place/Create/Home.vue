@@ -83,4 +83,12 @@ export default {
     }
   }
 }
+
+@include r($md) {
+  .create {
+    &__box {
+      padding: 40px 15px;
+    }
+  }
+}
 </style>

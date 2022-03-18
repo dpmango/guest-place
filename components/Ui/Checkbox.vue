@@ -1,19 +1,20 @@
 <template>
   <div class="input" :class="[{ 'has-error': error }, theme, variant]">
     <div class="input__input">
-      <input
-        :id="_uid"
-        :value="value"
-        :placeholder="placeholder"
-        :type="type"
-        v-bind="$attrs"
-        v-on="$listeners"
-        @input="setValue"
-      />
-      <span class="input__box" :class="value && 'checked'">
-        <UiSvgIcon name="checkmark" />
-      </span>
       <label :for="_uid" class="input__label">
+        <input
+          :id="_uid"
+          :value="value"
+          :placeholder="placeholder"
+          :type="type"
+          v-bind="$attrs"
+          v-on="$listeners"
+          @input="setValue"
+        />
+        <span class="input__box" :class="value && 'checked'">
+          <UiSvgIcon name="checkmark" />
+        </span>
+
         <slot />
       </label>
     </div>
@@ -63,7 +64,8 @@ export default {
 .input {
   position: relative;
   &__label {
-    display: block;
+    display: flex;
+    align-items: center;
     font-size: 14px;
     line-height: 16px;
     font-family: $baseFont;
@@ -92,6 +94,7 @@ export default {
       }
     }
   }
+
   &__box {
     position: relative;
     display: block;
@@ -115,12 +118,13 @@ export default {
       pointer-events: none;
       transition: opacity 0.25s $ease;
     }
-    &.checked {
-      background: $colorPrimary;
-      border-color: $colorPrimary;
-      .svg-icon {
-        opacity: 1;
-      }
+  }
+
+  input:checked + &__box {
+    background: $colorPrimary;
+    border-color: $colorPrimary;
+    .svg-icon {
+      opacity: 1;
     }
   }
 
@@ -131,6 +135,22 @@ export default {
     .input__label {
       color: $colorRed;
     }
+  }
+
+  input[type='radio'] + & {
+    &__box {
+      border-radius: 50% !important;
+      box-shadow: inset 0px 0px 0px 3px white;
+      .svg-icon {
+        display: none;
+      }
+    }
+  }
+
+  input[type='radio']:checked + &__box {
+    box-shadow: inset 0px 0px 0px 3px white;
+    // background: $colorPrimary;
+    // border-color: $colorPrimary;
   }
 }
 </style>

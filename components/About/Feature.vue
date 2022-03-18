@@ -48,5 +48,8 @@ export default {
 }
 
 @include r($md) {
+  .featureBox {
+    padding: 40px 15px;
+  }
 }
 </style>

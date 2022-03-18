@@ -227,6 +227,7 @@ export default {
     textarea {
       resize: vertical;
       border-radius: 30px;
+      min-height: 60px;
     }
     &.is-iconed {
       input,
@@ -390,6 +391,22 @@ export default {
       }
     }
   }
+
+  &.description & {
+    &__input {
+      height: 60px;
+      input {
+        height: 60px;
+      }
+    }
+  }
+}
+input:disabled {
+  color: white;
+  background-color: #c6c6cc;
+  &::placeholder {
+    color: white;
+  }
 }
 
 input[type='search']::-webkit-search-decoration,
@@ -418,6 +435,15 @@ input[type='search']::-webkit-search-results-decoration {
         .input__label {
           top: 0px;
           font-size: 12px;
+        }
+      }
+    }
+
+    &.description & {
+      &__input {
+        height: 38px;
+        input {
+          height: 38px;
         }
       }
     }

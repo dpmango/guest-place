@@ -118,5 +118,13 @@ export default {
 }
 
 @include r($md) {
+  .features {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+    &__decor {
+      display: none;
+    }
+  }
 }
 </style>
