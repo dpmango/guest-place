@@ -8,7 +8,13 @@
     </template>
 
     <template #form>
-      <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="login__form" @submit.prevent="handleSubmit">
+      <ValidationObserver
+        ref="form"
+        v-slot="{ invalid }"
+        tag="form"
+        class="login__form mt-md-2"
+        @submit.prevent="handleSubmit"
+      >
         <UiError class="mb-1" :error="error" />
 
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:8" vid="password">

@@ -306,5 +306,31 @@ export default {
       height: 60px;
     }
   }
+
+  &.request {
+    box-shadow: none;
+    .vs__dropdown-toggle {
+      background-color: white;
+      height: 38px;
+      box-shadow: 0px 4px 15px rgba(105, 78, 75, 0.14);
+      transition: border 0.25s $ease, color 0.25s $ease, background 0.25s $ease, border-radius 0.25s $ease;
+      border: 50px;
+      border: 1px solid transparent;
+    }
+    .vs__actions {
+      padding-right: 25px;
+    }
+    .vs--open {
+      .vs__dropdown-toggle {
+        border-radius: 25px 25px 0px 0px;
+      }
+    }
+    .vs__selected {
+      height: 38px;
+    }
+    .vs__dropdown-option {
+      padding: 8px 20px;
+    }
+  }
 }
 </style>

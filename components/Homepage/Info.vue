@@ -28,7 +28,7 @@
               <span class="info__more" @click="openText(0)">подробнее</span>
             </span>
           </p>
-          <UiButton theme="outline-gradient">Разместить запрос</UiButton>
+          <UiButton theme="outline-gradient" @click="() => setModal({ name: 'request' })">Разместить запрос</UiButton>
         </div>
 
         <div class="info__item">
@@ -82,6 +82,7 @@
 
     <ModalExpert />
     <ModalHelp />
+    <ModalRequest />
   </section>
 </template>
 

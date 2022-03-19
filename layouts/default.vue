@@ -56,4 +56,10 @@ export default {
 .header-pad {
   padding-top: 146px;
 }
+
+@include r($md) {
+  .header-pad {
+    padding-top: 106px;
+  }
+}
 </style>

@@ -30,4 +30,23 @@ export default {}
     flex-direction: column;
   }
 }
+
+@include r($md) {
+  .auth {
+    &__page {
+      padding-top: 0;
+    }
+  }
+  .header-pad {
+    padding-top: 106px;
+  }
+}
+
+@include rhmin(568) {
+  .page {
+    &__content {
+      overflow: hidden;
+    }
+  }
+}
 </style>

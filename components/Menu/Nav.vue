@@ -81,11 +81,17 @@
     }
   }
 }
-@include r($sm) {
+@include r($md) {
   .nav {
+    top: 106px;
     &__menu {
       display: flex;
     }
+  }
+}
+
+@include r($sm) {
+  .nav {
     border-radius: 0;
     width: 100%;
   }

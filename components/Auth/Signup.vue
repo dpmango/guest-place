@@ -4,7 +4,7 @@
     <template #description>Чтобы cоздать акканут, введите свой и перейдите по ссылке подтверждения.</template>
 
     <template #image>
-      <img src="~/assets/img/auth-login-illustration.svg" alt="cover illustration" />
+      <img src="~/assets/img/auth-login-illustration.svg" alt="cover illustration" class="auth__img" />
     </template>
 
     <template #form>
@@ -151,5 +151,11 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
+}
+
+@include r($md) {
+  .auth__img {
+    display: none !important;
+  }
 }
 </style>

@@ -400,6 +400,15 @@ export default {
       }
     }
   }
+
+  &.request & {
+    &__input {
+      height: 38px;
+      input {
+        height: inherit;
+      }
+    }
+  }
 }
 input:disabled {
   color: white;
@@ -420,14 +429,15 @@ input[type='search']::-webkit-search-results-decoration {
   .input {
     &.dynamic {
       .input__label {
-        top: 15px;
-        left: 30px;
+        top: 10px;
+        left: 25px;
       }
 
       .input__input {
         input,
         textarea {
-          padding: 13px 10px 13px 30px;
+          padding: 10px 25px;
+          height: 38px;
         }
       }
 

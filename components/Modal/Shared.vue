@@ -12,7 +12,7 @@ export default {
   props: {},
   data() {
     return {
-      modals: ['expert', 'help', 'nav'],
+      modals: ['expert', 'help', 'nav', 'request'],
     }
   },
 }

@@ -276,6 +276,9 @@ export default {
 
 @include r($md) {
   .header {
+    &__main {
+      padding: 19px 0;
+    }
     &__actions {
       display: none;
     }

@@ -1,6 +1,6 @@
 <template>
   <portal :key="name" :to="`modal-${name}`">
-    <div class="modal" :class="[modal === name && 'is-active']" v-bind="$attrs" v-on="$listeners">
+    <div class="modal" :class="[modal === name && 'is-active', theme]" v-bind="$attrs" v-on="$listeners">
       <div class="modal__overlay" @click="hide"></div>
 
       <div class="modal__box">
@@ -32,6 +32,10 @@ export default {
   props: {
     name: String,
     contentClass: String,
+    theme: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     ...mapState('ui', ['modal', 'modalParams']),
@@ -125,6 +129,11 @@ export default {
     }
     &:hover {
       color: $colorRed;
+    }
+  }
+  &.request & {
+    &__box {
+      min-height: 690px;
     }
   }
 }

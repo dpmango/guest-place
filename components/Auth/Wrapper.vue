@@ -13,7 +13,7 @@
           <UiLoader :loading="true" theme="block" />
         </template>
 
-        <slot name="form"></slot>
+        <slot name="form" class="auth__login"></slot>
       </client-only>
     </div>
 
@@ -66,6 +66,47 @@ export default {
 @include r($md) {
   .auth {
     grid-template-columns: 1fr;
+    &__content {
+      padding-bottom: 0;
+      max-width: 540px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    &__image {
+      position: relative;
+      img {
+        position: absolute;
+        top: -50px;
+        width: 100%;
+        margin: 0 auto;
+        display: block;
+        max-height: 400px;
+      }
+    }
+    &__description,
+    &__title {
+      text-align: center;
+    }
+  }
+}
+
+@include rh(568) {
+  .auth {
+    &__image {
+      img {
+        top: 0;
+      }
+    }
+  }
+}
+</style>
+<style lang="scss">
+@include r($md) {
+  .login__form {
+    width: 100%;
   }
 }
 </style>
