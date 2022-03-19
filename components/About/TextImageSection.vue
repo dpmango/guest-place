@@ -71,7 +71,30 @@ export default {
     }
   }
 }
-
+@include r($lg) {
+  .section {
+    &__content {
+      text-align: center;
+    }
+    &__image-holder {
+      margin: 0 auto;
+    }
+    &__content-wrapper {
+      margin: 0 auto;
+    }
+  }
+}
 @include r($md) {
+  .section {
+    &.reverse {
+      .section__content {
+        order: 1;
+      }
+
+      .section__image {
+        order: 2;
+      }
+    }
+  }
 }
 </style>

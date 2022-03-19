@@ -185,6 +185,7 @@ export default {
     opacity: 1;
     visibility: visible;
     transition: color 0.25s $ease;
+    background-color: transparent;
     &::placeholder {
       color: $colorLight;
     }
@@ -197,6 +198,32 @@ export default {
     .svg-icon {
       font-size: 34px;
       color: $colorPrimary;
+    }
+  }
+}
+
+@include r($lg) {
+  .step {
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// @include r($md) {
+//   .step {
+//     padding: 40px 15px;
+
+//   }
+// }
+@include r($sm) {
+  .step {
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    &__cta {
+      flex-direction: column-reverse;
+      gap: 15px;
     }
   }
 }

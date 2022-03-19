@@ -241,6 +241,8 @@ export default {
         'star',
         'user',
         'wallet',
+        'noun-solution',
+        'cup',
       ],
     }
   },

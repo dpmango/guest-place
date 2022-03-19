@@ -169,6 +169,7 @@ export default {
     z-index: 1;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     > input {
       position: absolute;

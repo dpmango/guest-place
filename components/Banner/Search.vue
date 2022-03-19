@@ -6,7 +6,7 @@
           Для быстрого поиска Вы можете пользоваться всеми вариантами <span class="c-primary"> одновременно </span>.
         </h3>
 
-        <h4 class="h4-title mt-md-1">
+        <h4 class="h4-title mt-md-1 mt-2">
           <span class="c-primary"> GP Платформа </span> позволяет общаться напрямую здесь и сейчас. Мы за «прозрачные
           отношения»
         </h4>
@@ -37,6 +37,11 @@ export default {
     border-radius: 40px;
     padding: 60px;
     text-align: center;
+  }
+  .h3-title,
+  .h4-title {
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 

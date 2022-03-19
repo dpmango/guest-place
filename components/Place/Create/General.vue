@@ -13,6 +13,7 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Название площадки на русском языке/кириллицей"
                 placeholder="Ресторан Версаль"
                 :value="name"
@@ -25,6 +26,7 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Название площадки на русском языке/кириллицей"
                 placeholder="Restaurant Versal"
                 :value="nameEng"
@@ -38,8 +40,9 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Время работы"
-                placeholer="Пн - Чт: с 12:00 до 22:00, Пт - Вс: с 10:00 до 24:00"
+                placeholder="Пн - Чт: с 12:00 до 22:00, Пт - Вс: с 10:00 до 24:00"
                 :value="time"
                 type="text"
                 :error="errors[0]"
@@ -50,6 +53,7 @@
           <div class="col col-6 col-md-12">
             <div class="ui-group">
               <UiInput
+                theme="description"
                 label="Количество залов"
                 placeholder="Укажите количество"
                 :value="space"
@@ -63,14 +67,42 @@
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
                 v-mask="'+7 (###) ###-####'"
+                theme="description"
                 label="*Контактный номер телефона"
-                placeholer="+7(111)-111-11-11"
-                :value="time"
+                placeholder="+7(111)-111-11-11"
+                :value="phone"
                 type="text"
                 :error="errors[0]"
-                @onChange="(v) => (time = v)"
+                @onChange="(v) => (phone = v)"
               />
             </ValidationProvider>
+          </div>
+
+          <div class="col col-6 col-md-12">
+            <div class="ui-group">
+              <label for="" class="radio__label">Онлайн показ:</label>
+              <div class="radio__row">
+                <UiCheckbox
+                  label="Есть"
+                  name="onlineView"
+                  :checked="true"
+                  :value="true"
+                  type="radio"
+                  @onChange="() => (onlineView = true)"
+                >
+                  Есть
+                </UiCheckbox>
+                <UiCheckbox
+                  label="Нет"
+                  name="onlineView"
+                  :value="false"
+                  type="radio"
+                  @onChange="() => (onlineView = false)"
+                >
+                  Нет
+                </UiCheckbox>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -83,6 +115,7 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Город, в котором находится площадка"
                 placeholder="Название города"
                 :value="city"
@@ -95,6 +128,7 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Название улицы"
                 placeholder="Название улицы"
                 :value="street"
@@ -108,8 +142,9 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Номер здания"
-                placeholer="Номер здания"
+                placeholder="Номер здания"
                 :value="building"
                 type="text"
                 :error="errors[0]"
@@ -120,6 +155,7 @@
           <div class="col col-6 col-md-12">
             <div class="ui-group">
               <UiInput
+                theme="description"
                 label="Ближайшая станция метро (можно несколько)"
                 placeholder="Название станции (станций) метро"
                 :value="metro"
@@ -139,6 +175,7 @@
           <div class="col col-3 col-md-6 col-sm-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="Средний чек, р."
                 placeholder="Сумма (в рублях)"
                 :value="price"
@@ -151,6 +188,7 @@
           <div class="col col-3 col-md-6 col-sm-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Название улицы"
                 placeholder="Сумма (в рублях)"
                 :value="banqetue"
@@ -161,11 +199,12 @@
             </ValidationProvider>
           </div>
 
-          <div class="col-3 col-md-6 col-sm-12">
+          <div class="col col-3 col-md-6 col-sm-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                theme="description"
                 label="*Цена аренды, р./час"
-                placeholer="Сумма (в рублях)"
+                placeholder="Сумма (в рублях)"
                 :value="rent"
                 type="text"
                 :error="errors[0]"
@@ -173,11 +212,24 @@
               />
             </ValidationProvider>
           </div>
-          <div class="col-3 col-md-6 col-sm-12">
+          <div class="col col-3 col-md-6 col-sm-12">
             <div class="ui-group">
-              <label for="">Пробковый сбор:</label>
-              <UiRadio label="Есть" name="corkage" :value="corkage" type="text" @onChange="(v) => (corkage = v)" />
-              <UiRadio label="Нет" name="corkage" :value="!corkage" type="text" @onChange="(v) => (corkage = v)" />
+              <label for="" class="radio__label">Пробковый сбор:</label>
+              <div class="radio__row">
+                <UiCheckbox
+                  label="Есть"
+                  name="corkage"
+                  :checked="true"
+                  :value="true"
+                  type="radio"
+                  @onChange="() => (corkage = true)"
+                >
+                  Есть
+                </UiCheckbox>
+                <UiCheckbox label="Нет" name="corkage" :value="false" type="radio" @onChange="() => (corkage = false)">
+                  Нет
+                </UiCheckbox>
+              </div>
             </div>
           </div>
         </div>
@@ -202,6 +254,7 @@ export default {
       time: '',
       space: '',
       phone: '',
+      onlineView: true,
 
       // section 2
       city: '',
@@ -213,7 +266,7 @@ export default {
       price: '',
       banqetue: '',
       rent: '',
-      corkage: null,
+      corkage: true,
     }
   },
   methods: {
@@ -243,6 +296,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.radio {
+  &__label {
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'Raleway', sans-serif;
+    color: #585f66;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__row {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 30px;
+  }
+}
 .step {
   &__title {
     margin-bottom: 50px;
