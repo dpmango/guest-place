@@ -129,6 +129,10 @@
         <div class="ui-group">
           <UiStars :rating="3" />
         </div>
+
+        <div class="ui-group">
+          <UiPagination :meta="pagination" @onChange="paginationSelect" />
+        </div>
       </div>
     </div>
   </div>
@@ -144,6 +148,11 @@ export default {
       inputVal: '',
       select: null,
       loaderStatus: false,
+      pagination: {
+        page: 1,
+        count: 120,
+        limit: 10,
+      },
       modals: ['expert', 'help', 'nav'],
       pages: [
         {
@@ -244,6 +253,9 @@ export default {
     }, 2000)
   },
   methods: {
+    paginationSelect(page) {
+      this.pagination.page = page
+    },
     ...mapMutations('ui', ['setModal']),
   },
 }
