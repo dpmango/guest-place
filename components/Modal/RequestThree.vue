@@ -116,26 +116,8 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // const isValid = await this.$refs.form.validate()
-      // // if (!isValid) {
-      // // }
-
       this.$emit('onStepChange', 4)
-      // await this.login({ step: 1 })
-      //   .then((_res) => {
-      //     this.error = null
-      //   })
-      //   .catch((err) => {
-      //     const { data, code } = err
-
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
     },
-    // ...mapActions('auth', ['login']),
   },
 }
 </script>
@@ -143,6 +125,8 @@ export default {
 <style lang="scss" scoped>
 .request {
   &__cta {
+    flex-wrap: wrap;
+    gap: 15px 20px;
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
@@ -176,6 +160,18 @@ export default {
     align-items: center;
     .ui-group {
       width: 100%;
+    }
+  }
+}
+
+@include r(440) {
+  .request {
+    &__cta {
+      flex-direction: column-reverse;
+      .button {
+        max-width: 100%;
+        width: 100%;
+      }
     }
   }
 }

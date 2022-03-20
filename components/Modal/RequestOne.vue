@@ -217,7 +217,6 @@ export default {
       width: 100%;
       box-shadow: 0px 8px 10px 0px #694e4b24;
       border-radius: 0px 0px 40px 40px;
-      // padding: 18px 23px;
       border: 0;
     }
   }
@@ -226,8 +225,6 @@ export default {
     padding: 0;
     margin: 0;
     box-shadow: none;
-  }
-  .vc-nav-popover-container {
   }
 }
 </style>

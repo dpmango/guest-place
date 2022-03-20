@@ -85,6 +85,7 @@ export default {
   }
   &__wrapper {
     max-width: 520px;
+    width: 100%;
     margin: 0 auto;
   }
 }
@@ -97,6 +98,9 @@ export default {
         width: 100%;
       }
     }
+  }
+  .create__box {
+    max-width: 400px;
   }
 }
 </style>
