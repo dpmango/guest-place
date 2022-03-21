@@ -2,7 +2,7 @@
   <section class="scope" :class="className">
     <div class="container">
       <div class="row">
-        <div class="scope__gallery col col-6">
+        <div class="scope__gallery col col-6 col-md-12">
           <client-only>
             <template slot="placeholder">
               <UiLoader :loading="true" theme="block" />
@@ -39,9 +39,9 @@
           </client-only>
         </div>
 
-        <div class="scope__content col col-6">
-          <div class="row">
-            <div class="col col-6">
+        <div class="scope__content col col-6 col-md-12">
+          <div class="scope__row row">
+            <div class="col col-6 col-sm-12">
               <p class="h5-title">
                 <span class="c-light">Адрес:</span>
                 г. Москва Волоколамское шоссе, д.13
@@ -66,17 +66,11 @@
                 <span class="c-light">Телефон: </span>
                 +7 (495) 125 25 25
               </p>
-
-              <UiButton>Оставить заявку</UiButton>
             </div>
-            <div class="col col-6">
+            <div class="col col-6 col-sm-12">
               <p class="h5-title">
                 <span class="c-light">Количество залов: :</span>
                 3
-              </p>
-              <p class="h5-title">
-                <span class="c-light">Метро:</span>
-                банкет 20/40/60, фуршет 40/80/120, конференция 60/100/140
               </p>
               <p class="h5-title">
                 <span class="c-light">Количество мест: </span>
@@ -94,8 +88,39 @@
                 <span class="c-light">Аренда от: </span>
                 +3000 р./час
               </p>
-
-              <UiButton theme="outline">начать чат</UiButton>
+            </div>
+          </div>
+          <div class="scope__row scope__row--button row mt-1">
+            <div class="col col-6 col-sm-12">
+              <UiButton class="button">Оставить заявку</UiButton>
+            </div>
+            <div class="col col-6 col-sm-12">
+              <UiButton class="button" theme="outline">начать чат</UiButton>
+            </div>
+          </div>
+          <div class="scope__info-row row mt-1">
+            <div class="col col6">
+              <div class="scope__info">
+                <h5 class="scope__info-title h5-title">
+                  <UiSvgIcon name="monitor-play" class="scope__icon" />
+                  Онлайн-показ
+                </h5>
+                <p class="scope__text">
+                  Вы можете посмотреть площадку не выходя из дома! Менеджер площадки проведет онлайн-показ при помощи
+                  видеозвонка.
+                </p>
+              </div>
+            </div>
+            <div class="col col6">
+              <div class="scope__info">
+                <h5 class="scope__info-title h5-title">
+                  <UiSvgIcon name="question" class="scope__icon" />
+                  Помощь эксперта
+                </h5>
+                <p class="scope__text">
+                  Не хотите тратить время на самостоятельный поиск? Эксперт платформы бесплатно поможет подобрать место.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -174,6 +199,47 @@ export default {
   position: relative;
   margin-top: 80px;
   margin-bottom: 120px;
+  &__row {
+    min-height: unset;
+    margin: 0;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding-bottom: 16px;
+
+    .col {
+      width: 100%;
+      padding: 0;
+    }
+    &--button {
+      min-height: unset;
+    }
+  }
+  &__info-title {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+  }
+  &__icon {
+    width: 26px !important;
+    height: 26px;
+  }
+  &__info-row {
+    flex-wrap: nowrap;
+    gap: 50px;
+    .col {
+      max-width: 237px;
+      width: 100%;
+    }
+  }
+  &__text {
+    margin-top: 5px;
+    font-size: 12px;
+    color: $colorLight;
+  }
+}
+
+.button {
+  margin-top: auto;
 }
 
 .thumb {
@@ -224,6 +290,20 @@ export default {
   }
 }
 
-@include r($md) {
+@include r($sm) {
+  .scope {
+    &__info-row {
+      gap: 20px;
+      margin: 0;
+      .col {
+        padding: 0;
+      }
+    }
+    &__content {
+      .row {
+        flex-wrap: wrap;
+      }
+    }
+  }
 }
 </style>
