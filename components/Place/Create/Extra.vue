@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <h2 class="step__title h2-title tac">шаг 4/4. <span class="c-primary"> Дополнительная информация</span></h2>
+    <h2 class="step__title h2-title tac">шаг 3/5. <span class="c-primary"> Дополнительная информация</span></h2>
 
     <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
       <UiError :error="error" />
@@ -443,7 +443,7 @@
       </div>
 
       <div class="step__cta">
-        <UiButton theme="outline" @click="() => $emit('onStepChange', 3)">Назад</UiButton>
+        <UiButton theme="outline" @click="() => $emit('onNext', 3)">Назад</UiButton>
 
         <UiButton type="submit">Отправить</UiButton>
       </div>
@@ -506,7 +506,7 @@ export default {
       // if (!isValid) {
       // }
 
-      // this.$emit('onStepChange', 4)
+      this.$emit('onNext')
 
       this.$toast.global.default({ message: 'emit compleation' })
 

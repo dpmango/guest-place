@@ -111,7 +111,7 @@
       </div>
 
       <div class="request__cta">
-        <!-- <UiButton theme="outline" @click="() => $emit('onStepChange', 1)">Назад</UiButton> -->
+        <!-- <UiButton theme="outline" @click="() => $emit('onNext', 1)">Назад</UiButton> -->
 
         <UiButton @click="handleSubmit">Далее</UiButton>
       </div>
@@ -148,7 +148,7 @@ export default {
       // // if (!isValid) {
       // // }
 
-      this.$emit('onStepChange', 2)
+      this.$emit('onNext', 2)
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null

@@ -177,7 +177,7 @@ export default {
     line-height: 16px;
     font-family: $baseFont;
     color: $colorGray;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -204,7 +204,7 @@ export default {
       box-shadow: 0px 4px 15px rgba(105, 78, 75, 0.14);
       transition: border 0.25s $ease, color 0.25s $ease, background 0.25s $ease;
       &::placeholder {
-        color: $colorGray;
+        color: $colorLight;
       }
       &:focus,
       &:active {
@@ -213,7 +213,7 @@ export default {
       }
       &:hover {
         // background-color: #f7f6f7;
-        border-color: $colorGray;
+        border-color: $colorLight;
       }
       &[readonly],
       &[disabled] {

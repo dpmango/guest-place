@@ -1,6 +1,6 @@
 <template>
   <div class="step">
-    <h2 class="step__title h2-title tac">шаг 3/4. <span class="c-primary"> описание</span></h2>
+    <h2 class="step__title h2-title tac">шаг 2/5. <span class="c-primary"> описание</span></h2>
 
     <!--section -->
     <div class="step__section">
@@ -209,7 +209,7 @@
     </div>
 
     <div class="step__cta">
-      <UiButton theme="outline" @click="() => $emit('onStepChange', 2)">Назад</UiButton>
+      <UiButton theme="outline" @click="() => $emit('onNext', 2)">Назад</UiButton>
 
       <UiButton type="submit">Далее</UiButton>
     </div>
@@ -249,7 +249,7 @@ export default {
       // if (!isValid) {
       // }
 
-      this.$emit('onStepChange', 4)
+      this.$emit('onNext')
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null

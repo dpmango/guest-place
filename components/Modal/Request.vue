@@ -19,10 +19,10 @@
           </div>
         </div>
         <div class="create__box">
-          <ModalRequestOne v-if="activeStep === 1" @onStepChange="handleStepChange" />
-          <ModalRequestTwo v-if="activeStep === 2" @onStepChange="handleStepChange" />
-          <ModalRequestThree v-if="activeStep === 3" @onStepChange="handleStepChange" />
-          <ModalRequestFour v-if="activeStep === 4" @onStepChange="handleStepChange" />
+          <ModalRequestOne v-if="activeStep === 1" @onNext="handleStepChange" />
+          <ModalRequestTwo v-if="activeStep === 2" @onNext="handleStepChange" />
+          <ModalRequestThree v-if="activeStep === 3" @onNext="handleStepChange" />
+          <ModalRequestFour v-if="activeStep === 4" @onNext="handleStepChange" />
         </div>
       </div>
     </template>

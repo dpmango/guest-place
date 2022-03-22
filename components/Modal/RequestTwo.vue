@@ -49,7 +49,7 @@
       </div>
 
       <div class="request__cta">
-        <UiButton theme="outline" @click="() => $emit('onStepChange', 1)">Назад</UiButton>
+        <UiButton theme="outline" @click="() => $emit('onNext', 1)">Назад</UiButton>
 
         <UiButton @click="handleSubmit">Далее</UiButton>
       </div>
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$emit('onStepChange', 3)
+      this.$emit('onNext', 3)
     },
   },
 }

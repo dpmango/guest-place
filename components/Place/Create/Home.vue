@@ -18,13 +18,16 @@
         <span @click="() => (activeStep = 2)">step 2</span>
         <span @click="() => (activeStep = 3)">step 3</span>
         <span @click="() => (activeStep = 4)">step 4</span>
+        <span @click="() => (activeStep = 5)">step 5</span>
       </div>
 
       <div class="create__box">
-        <PlaceCreateGeneral v-if="activeStep === 1" @onStepChange="handleStepChange" />
-        <PlaceCreatePhotos v-if="activeStep === 2" @onStepChange="handleStepChange" />
-        <PlaceCreateDescription v-if="activeStep === 3" @onStepChange="handleStepChange" />
-        <PlaceCreateExtra v-if="activeStep === 4" @onStepChange="handleStepChange" />
+        <PlaceCreateGeneral v-if="activeStep === 1" @onNext="onNext" />
+        <PlaceCreateDescription v-if="activeStep === 2" @onNext="onNext" @onBack="onBack" />
+        <PlaceCreateExtra v-if="activeStep === 3" @onNext="onNext" @onBack="onBack" />
+        <PlaceCreatePhotos v-if="activeStep === 4" @onNext="onNext" @onBack="onBack" />
+
+        <!-- <PlaceCreateExtra v-if="activeStep === 5" @onNext="handleStepChange" @onBack="onBack" /> -->
       </div>
     </div>
   </div>
@@ -40,8 +43,11 @@ export default {
     }
   },
   methods: {
-    handleStepChange(v) {
-      this.activeStep = v
+    onNext() {
+      this.activeStep = this.activeStep + 1
+    },
+    onBack() {
+      this.activeStep = this.activeStep - 1
     },
   },
 }

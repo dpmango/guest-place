@@ -1,9 +1,20 @@
 <template>
   <div class="step">
-    <h2 class="step__title h2-title tac">шаг 1/4. <span class="c-primary"> общая информация</span></h2>
+    <h2 class="step__title h2-title tac">шаг 1/5. <span class="c-primary"> общая информация</span></h2>
 
     <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
       <UiError :error="error" />
+
+      <!--section -->
+      <div class="step__section">
+        <div class="step__section-label h4-title">Условия предоставления услуг</div>
+
+        <div class="step__agree-wrapper">
+          <UiCheckbox name="authRemember" :value="agree" @onChange="(v) => (agree = v)">
+            *Я принимаю <a href="#" target="_blank"> условия предоставления услуг.</a>
+          </UiCheckbox>
+        </div>
+      </div>
 
       <!--section -->
       <div class="step__section">
@@ -13,9 +24,9 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                label="*Название площадки на русском / английском"
                 theme="description"
-                label="*Название площадки на русском языке/кириллицей"
-                placeholder="Ресторан Версаль"
+                placeholder="Введите название"
                 :value="name"
                 type="text"
                 :error="errors[0]"
@@ -26,13 +37,13 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                label="*Впишите или выберите"
                 theme="description"
-                label="*Название площадки на русском языке/кириллицей"
-                placeholder="Restaurant Versal"
-                :value="nameEng"
+                placeholder="Название города"
+                :value="city"
                 type="text"
                 :error="errors[0]"
-                @onChange="(v) => (nameEng = v)"
+                @onChange="(v) => (city = v)"
               />
             </ValidationProvider>
           </div>
@@ -40,8 +51,8 @@
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
-                theme="description"
                 label="*Время работы"
+                theme="description"
                 placeholder="Пн - Чт: с 12:00 до 22:00, Пт - Вс: с 10:00 до 24:00"
                 :value="time"
                 type="text"
@@ -50,25 +61,13 @@
               />
             </ValidationProvider>
           </div>
-          <div class="col col-6 col-md-12">
-            <div class="ui-group">
-              <UiInput
-                theme="description"
-                label="Количество залов"
-                placeholder="Укажите количество"
-                :value="space"
-                type="text"
-                @onChange="(v) => (space = v)"
-              />
-            </div>
-          </div>
 
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
                 v-mask="'+7 (###) ###-####'"
                 theme="description"
-                label="*Контактный номер телефона"
+                label="*Номера телефонова"
                 placeholder="+7(111)-111-11-11"
                 :value="phone"
                 type="text"
@@ -81,6 +80,9 @@
           <div class="col col-6 col-md-12">
             <div class="ui-group">
               <label for="" class="radio__label">Онлайн показ:</label>
+              <p class="p-label">
+                возможность показа Места по видео-связи с Гостем, через удобный для обеих сторон сервис
+              </p>
               <div class="radio__row">
                 <UiCheckbox
                   label="Есть"
@@ -109,128 +111,47 @@
 
       <!--section -->
       <div class="step__section">
-        <div class="step__section-label h4-title">Расположение</div>
+        <div class="step__section-label h4-title">Локация</div>
 
         <div class="row">
           <div class="col col-6 col-md-12">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiInput
+                label="Адрес площадки"
                 theme="description"
-                label="*Город, в котором находится площадка"
-                placeholder="Название города"
-                :value="city"
+                placeholder="Город, улица, номер здания"
+                :value="address"
                 type="text"
                 :error="errors[0]"
-                @onChange="(v) => (city = v)"
+                @onChange="(v) => (address = v)"
               />
             </ValidationProvider>
           </div>
           <div class="col col-6 col-md-12">
+            <label for="" class="radio__label">Район</label>
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
+              <UiSelect
+                :value="region"
                 theme="description"
-                label="*Название улицы"
-                placeholder="Название улицы"
-                :value="street"
-                type="text"
+                placeholder="Впишите или выберите"
                 :error="errors[0]"
-                @onChange="(v) => (street = v)"
-              />
-            </ValidationProvider>
-          </div>
-
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="*Номер здания"
-                placeholder="Номер здания"
-                :value="building"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (building = v)"
+                :options="['option 1', 'option 2', 'option 3']"
+                @onSelect="(v) => (region = v)"
               />
             </ValidationProvider>
           </div>
           <div class="col col-6 col-md-12">
-            <div class="ui-group">
-              <UiInput
-                theme="description"
-                label="Ближайшая станция метро (можно несколько)"
-                placeholder="Название станции (станций) метро"
-                :value="metro"
-                type="text"
-                @onChange="(v) => (metro = v)"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--section -->
-      <div class="step__section">
-        <div class="step__section-label h4-title">Ориентировочная стоимость</div>
-
-        <div class="row">
-          <div class="col col-3 col-md-6 col-sm-12">
+            <label for="" class="radio__label">Метро поблизости (если есть)</label>
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
+              <UiSelect
+                :value="region"
                 theme="description"
-                label="Средний чек, р."
-                placeholder="Сумма (в рублях)"
-                :value="price"
-                type="text"
+                placeholder="Впишите или выберите"
                 :error="errors[0]"
-                @onChange="(v) => (price = v)"
+                :options="['option 1', 'option 2', 'option 3']"
+                @onSelect="(v) => (region = v)"
               />
             </ValidationProvider>
-          </div>
-          <div class="col col-3 col-md-6 col-sm-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="*Название улицы"
-                placeholder="Сумма (в рублях)"
-                :value="banqetue"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (banqetue = v)"
-              />
-            </ValidationProvider>
-          </div>
-
-          <div class="col col-3 col-md-6 col-sm-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="*Цена аренды, р./час"
-                placeholder="Сумма (в рублях)"
-                :value="rent"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (rent = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-3 col-md-6 col-sm-12">
-            <div class="ui-group">
-              <label for="" class="radio__label">Пробковый сбор:</label>
-              <div class="radio__row">
-                <UiCheckbox
-                  label="Есть"
-                  name="corkage"
-                  :checked="true"
-                  :value="true"
-                  type="radio"
-                  @onChange="() => (corkage = true)"
-                >
-                  Есть
-                </UiCheckbox>
-                <UiCheckbox label="Нет" name="corkage" :value="false" type="radio" @onChange="() => (corkage = false)">
-                  Нет
-                </UiCheckbox>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -249,24 +170,17 @@ export default {
     return {
       error: '',
       // section 1
+      agree: true,
       name: '',
-      nameEng: '',
+      city: '',
       time: '',
-      space: '',
       phone: '',
       onlineView: true,
 
       // section 2
-      city: '',
-      street: '',
-      building: '',
+      address: '',
+      region: '',
       metro: '',
-
-      // section 3
-      price: '',
-      banqetue: '',
-      rent: '',
-      corkage: true,
     }
   },
   methods: {
@@ -275,7 +189,7 @@ export default {
       // if (!isValid) {
       // }
 
-      this.$emit('onStepChange', 2)
+      this.$emit('onNext')
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null
@@ -303,7 +217,7 @@ export default {
     line-height: 16px;
     font-family: 'Raleway', sans-serif;
     color: #585f66;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -337,6 +251,11 @@ export default {
     .button {
       min-width: 190px;
     }
+  }
+  &__agree-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
 }
 
