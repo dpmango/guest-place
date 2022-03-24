@@ -1,3 +1,4 @@
+`
 <template>
   <section class="hero" :class="className">
     <div class="container">

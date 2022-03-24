@@ -3,7 +3,7 @@
     <PlaceDetailHero :title="`${id} Банкетный зал лофт Форест Холл`" />
     <PlaceDetailScope />
     <PlaceDetailTabs class-name="mt-8 mb-8" />
-
+    <PlaceRequest />
     <PlaceGridRecents class-name="mt-8" />
     <PlaceGridPopular class-name="mt-8 mb-8" />
   </div>

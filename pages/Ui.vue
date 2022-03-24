@@ -243,6 +243,7 @@ export default {
         'wallet',
         'noun-solution',
         'cup',
+        'like-2',
       ],
     }
   },

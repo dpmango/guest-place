@@ -12,7 +12,7 @@
               <div class="gallery__main">
                 <swiper ref="gallery" :options="gallerySwiperOptions">
                   <swiper-slide v-for="(slide, idx) in gallery" :key="slide.id || idx">
-                    <div class="gallery__slide">
+                    <div class="gallery__slide" :class="'gallery__slide--' + slide.media.type">
                       <img :src="slide.preview" alt="gallery preview" />
                     </div>
                   </swiper-slide>
@@ -286,6 +286,19 @@ export default {
   &__slide {
     img {
       width: 100%;
+    }
+    &--video {
+      position: relative;
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        content: '';
+        width: 67px;
+        height: 67px;
+        background: url('~/assets/img/play.png');
+        transform: translate(-50%, -50%);
+      }
     }
   }
 }
