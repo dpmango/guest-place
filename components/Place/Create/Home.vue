@@ -26,7 +26,7 @@
         <PlaceCreateDescription v-if="activeStep === 2" @onNext="onNext" @onBack="onBack" />
         <PlaceCreateExtra v-if="activeStep === 3" @onNext="onNext" @onBack="onBack" />
         <PlaceCreatePhotos v-if="activeStep === 4" @onNext="onNext" @onBack="onBack" />
-
+        <PlaceCreateStock v-if="activeStep === 5" @onNext="onNext" @onBack="onBack" />
         <!-- <PlaceCreateExtra v-if="activeStep === 5" @onNext="handleStepChange" @onBack="onBack" /> -->
       </div>
     </div>

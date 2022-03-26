@@ -187,7 +187,7 @@ export default {
 @include r($md) {
   .badge {
     &__content {
-      padding: 16px 30px;
+      padding: 10px 14px;
     }
   }
 }

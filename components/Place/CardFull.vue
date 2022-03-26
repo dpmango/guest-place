@@ -28,7 +28,7 @@
       <div class="card__wysiwyg mt-1" v-html="data.content" />
 
       <div class="card__prices">
-        <div v-for="(price, idx) in data.prices" :key="idx">
+        <div v-for="(price, idx) in data.prices" :key="idx" class="card__price">
           <div class="h5-title c-light">{{ price.label }}</div>
           <div class="h4-title f-500"><span v-if="price.fromSlug">от </span>{{ price.value }}</div>
         </div>
@@ -36,9 +36,9 @@
     </div>
 
     <div class="card__cta">
-      <UiButton size="small" block>Оставить заявку</UiButton>
-      <UiButton theme="outline" size="small" block>Начать чат</UiButton>
-      <UiBadge theme="gray" size="small" block>Онлайн-показ</UiBadge>
+      <UiButton size="small" block class="card__button--require">Оставить заявку</UiButton>
+      <UiButton theme="outline" size="small" block class="card__button--chat">Начать чат</UiButton>
+      <UiBadge theme="gray" size="small" block class="card__button--badge">Онлайн-показ</UiBadge>
     </div>
   </div>
 </template>
@@ -84,6 +84,8 @@ export default {
     position: relative;
     max-height: 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
     .swiper-pagination {
       z-index: 3;
       bottom: 12px;
@@ -142,6 +144,7 @@ export default {
       border-color: $colorPrimary;
     }
   }
+
   &__image {
     position: relative;
     z-index: 1;
@@ -152,11 +155,13 @@ export default {
       width: 100%;
     }
   }
+
   &__content {
     padding: 0px 0px 14px;
     display: flex;
     flex-direction: column;
   }
+
   &__rating {
     display: flex;
     align-items: center;
@@ -188,6 +193,63 @@ export default {
     align-items: center;
     .button {
       margin-bottom: 15px;
+    }
+  }
+}
+
+@include r($lg) {
+  .card {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'swiper content' 'buttons buttons';
+    &__cta {
+      grid-area: buttons;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 30px;
+      .button {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@include r($md) {
+  .card {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'swiper' 'content' 'buttons';
+  }
+}
+
+@include r(600) {
+  .card {
+    &__price {
+      display: flex;
+      .h5-title {
+        width: 130px;
+        margin-right: 30px;
+      }
+    }
+    &__prices {
+      margin-top: 16px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    &__cta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 20px;
+      grid-template-areas: 'badge null' 'require chat';
+    }
+    &__button {
+      &--require {
+        grid-area: require;
+      }
+      &--chat {
+        grid-area: chat;
+      }
+      &--badge {
+        grid-area: badge;
+      }
     }
   }
 }

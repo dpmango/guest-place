@@ -35,15 +35,15 @@
             </ValidationProvider>
           </div>
           <div class="col col-6 col-md-12">
+            <label for="" class="radio__label">*Ваш город</label>
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                label="*Впишите или выберите"
-                theme="description"
-                placeholder="Название города"
+              <UiSelect
                 :value="city"
-                type="text"
+                theme="description"
+                placeholder="Впишите или выберите"
                 :error="errors[0]"
-                @onChange="(v) => (city = v)"
+                :options="['option 1', 'option 2', 'option 3']"
+                @onSelect="(v) => (city = v)"
               />
             </ValidationProvider>
           </div>
@@ -144,12 +144,12 @@
             <label for="" class="radio__label">Метро поблизости (если есть)</label>
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
               <UiSelect
-                :value="region"
+                :value="nearPlace"
                 theme="description"
                 placeholder="Впишите или выберите"
                 :error="errors[0]"
                 :options="['option 1', 'option 2', 'option 3']"
-                @onSelect="(v) => (region = v)"
+                @onSelect="(v) => (nearPlace = v)"
               />
             </ValidationProvider>
           </div>
@@ -180,7 +180,7 @@ export default {
       // section 2
       address: '',
       region: '',
-      metro: '',
+      nearPlace: '',
     }
   },
   methods: {
@@ -213,7 +213,7 @@ export default {
 .radio {
   &__label {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 16px;
     font-family: 'Raleway', sans-serif;
     color: #585f66;

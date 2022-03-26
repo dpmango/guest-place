@@ -7,7 +7,20 @@
       <div class="step__section-label h4-title">Основные характеристики</div>
       <div class="row">
         <div class="col col-6 col-md-12">
-          <label for="" class="radio__label">Тип места</label>
+          <label for="" class="radio__label">*Категория</label>
+          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+            <UiSelect
+              :value="category"
+              theme="description"
+              placeholder="Выберите варианты"
+              :error="errors[0]"
+              :options="['option 1', 'option 2', 'option 3']"
+              @onSelect="(v) => (category = v)"
+            />
+          </ValidationProvider>
+        </div>
+        <div class="col col-6 col-md-12">
+          <label for="" class="radio__label">*Тип места</label>
           <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
             <UiSelect
               :value="typePlace"
@@ -20,7 +33,7 @@
           </ValidationProvider>
         </div>
         <div class="col col-6 col-md-12">
-          <label for="" class="radio__label">Особенности</label>
+          <label for="" class="radio__label">*Особенности</label>
           <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
             <UiSelect
               :value="features"
@@ -33,20 +46,7 @@
           </ValidationProvider>
         </div>
         <div class="col col-6 col-md-12">
-          <label for="" class="radio__label">Кухня</label>
-          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-            <UiSelect
-              :value="kitchen"
-              theme="description"
-              placeholder="Выберите варианты"
-              :error="errors[0]"
-              :options="['option 1', 'option 2', 'option 3']"
-              @onSelect="(v) => (kitchen = v)"
-            />
-          </ValidationProvider>
-        </div>
-        <div class="col col-6 col-md-12">
-          <label for="" class="radio__label">Услуги</label>
+          <label for="" class="radio__label">*Услуги</label>
           <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
             <UiSelect
               :value="service"
@@ -59,7 +59,7 @@
           </ValidationProvider>
         </div>
         <div class="col col-6 col-md-12">
-          <label for="" class="radio__label">Оборудование</label>
+          <label for="" class="radio__label">*Оборудование в наличии</label>
           <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
             <UiSelect
               :value="equipment"
@@ -71,39 +71,61 @@
             />
           </ValidationProvider>
         </div>
-        <div class="col col-3 col-md-6 col-sm-12">
+        <div class="col col-6 col-md-12">
+          <label for="" class="radio__label">*Кухня</label>
+          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+            <UiSelect
+              :value="kitchen"
+              theme="description"
+              placeholder="Выберите варианты"
+              :error="errors[0]"
+              :options="['option 1', 'option 2', 'option 3']"
+              @onSelect="(v) => (kitchen = v)"
+            />
+          </ValidationProvider>
+        </div>
+        <div class="col col-6 col-md-12">
           <div class="ui-group">
-            <label for="" class="radio__label">Парковка</label>
-            <div class="radio__row">
-              <UiCheckbox
-                label="Есть"
-                name="parking"
-                :checked="true"
-                :value="true"
-                type="radio"
-                @onChange="() => (parking = true)"
-              >
-                Есть
-              </UiCheckbox>
-              <UiCheckbox label="Нет" name="parking" :value="false" type="radio" @onChange="() => (parking = false)">
-                Нет
-              </UiCheckbox>
-            </div>
+            <label for="" class="radio__label">*Парковка</label>
+            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <UiSelect
+                :value="parking"
+                theme="description"
+                placeholder="Выберите варианты"
+                :error="errors[0]"
+                :options="['option 1', 'option 2', 'option 3']"
+                @onSelect="(v) => (parking = v)"
+              />
+            </ValidationProvider>
           </div>
         </div>
-        <div class="col--mt col col-3 col-md-6 col-sm-12">
-          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+        <div class="col col-6 col-md-12">
+          <ValidationProvider v-slot="{ errors }" class="ui-group">
             <UiInput
               theme="description"
-              label=""
-              placeholder="Количество мест"
+              label="Количество парковочных мест"
+              placeholder="Например: 11"
               :value="parkingCount"
               type="text"
               :error="errors[0]"
-              :disabled="!parking"
               @onChange="(v) => (parkingCount = v)"
             />
           </ValidationProvider>
+        </div>
+        <div class="col col-6 col-md-12">
+          <div class="ui-group">
+            <label for="" class="radio__label">Стиль интерьера</label>
+            <ValidationProvider v-slot="{ errors }" class="ui-group">
+              <UiSelect
+                :value="style"
+                theme="description"
+                placeholder="Выберите варианты"
+                :error="errors[0]"
+                :options="['option 1', 'option 2', 'option 3']"
+                @onSelect="(v) => (style = v)"
+              />
+            </ValidationProvider>
+          </div>
         </div>
       </div>
     </div>
@@ -111,17 +133,17 @@
     <!--section -->
     <div class="step__section">
       <div class="step__section-label h4-title">Информация о залах</div>
-      <div class="row">
+      <div v-for="hall in hallInformation" :key="hall.id" class="row">
         <div class="col col-6 col-md-12">
           <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
             <UiInput
               theme="description"
-              label="*Название зала №1"
+              :label="'*Название зала №' + hall.id"
               placeholder="Название"
-              :value="hallName"
+              :value="hall.hallName"
               type="text"
               :error="errors[0]"
-              @onChange="(v) => (hallName = v)"
+              @onChange="(v) => (hall.hallName = v)"
             />
           </ValidationProvider>
         </div>
@@ -131,10 +153,10 @@
               theme="description"
               label="Площадь зала, кв. м."
               placeholder="Площадь"
-              :value="areaHall"
+              :value="hall.areaHall"
               type="text"
               :error="errors[0]"
-              @onChange="(v) => (areaHall = v)"
+              @onChange="(v) => (hall.areaHall = v)"
             />
           </ValidationProvider>
         </div>
@@ -144,10 +166,10 @@
               theme="description"
               label="Кол-во мест/Банкет"
               placeholder="Количество"
-              :value="countPlaceBanquet"
+              :value="hall.countPlaceBanquet"
               type="text"
               :error="errors[0]"
-              @onChange="(v) => (countPlaceBanquet = v)"
+              @onChange="(v) => (hall.countPlaceBanquet = v)"
             />
           </ValidationProvider>
         </div>
@@ -157,10 +179,10 @@
               theme="description"
               label="Кол-во мест/Фуршет"
               placeholder="Количество"
-              :value="countPlaceBuffet"
+              :value="hall.countPlaceBuffet"
               type="text"
               :error="errors[0]"
-              @onChange="(v) => (countPlaceBuffet = v)"
+              @onChange="(v) => (hall.countPlaceBuffet = v)"
             />
           </ValidationProvider>
         </div>
@@ -170,10 +192,10 @@
               theme="description"
               label="Кол-во мест/рассадка «Театр»"
               placeholder="Количество"
-              :value="countPlaceTheatre"
+              :value="hall.countPlaceTheatre"
               type="text"
               :error="errors[0]"
-              @onChange="(v) => (countPlaceTheatre = v)"
+              @onChange="(v) => (hall.countPlaceTheatre = v)"
             />
           </ValidationProvider>
         </div>
@@ -183,13 +205,21 @@
               theme="description"
               label="Кол-во мест/Еще"
               placeholder="Количество"
-              :value="countPlaceYet"
+              :value="hall.countPlaceYet"
               type="text"
               :error="errors[0]"
-              @onChange="(v) => (countPlaceYet = v)"
+              @onChange="(v) => (hall.countPlaceYet = v)"
             />
           </ValidationProvider>
         </div>
+      </div>
+      <div class="row mt-1">
+        <button v-if="hallInformation.length < hallLimited" class="step__add-hall c-primary" @click="addHall">
+          + Добавить зал
+        </button>
+        <button v-if="hallInformation.length > 1" class="step__add-hall c-primary" @click="removeHall">
+          - Удалить зал
+        </button>
       </div>
     </div>
 
@@ -226,24 +256,49 @@ export default {
       description: '',
 
       // Section 1
+      category: '',
       typePlace: '',
       features: '',
       kitchen: '',
       service: '',
       equipment: '',
-      parking: true,
+      parking: '',
       parkingCount: '',
+      style: '',
 
       // Section 2
-      hallName: '',
-      areaHall: '',
-      countPlaceBanquet: '',
-      countPlaceBuffet: '',
-      countPlaceTheatre: '',
-      countPlaceYet: '',
+      hallLimited: 5,
+      hallInformation: [
+        {
+          id: 1,
+          hallName: '',
+          areaHall: '',
+          countPlaceBanquet: '',
+          countPlaceBuffet: '',
+          countPlaceTheatre: '',
+          countPlaceYet: '',
+        },
+      ],
     }
   },
   methods: {
+    addHall() {
+      const hallId = this.hallInformation[this.hallInformation.length - 1].id + 1
+      const hallObj = {
+        id: hallId,
+        hallName: '',
+        areaHall: '',
+        countPlaceBanquet: '',
+        countPlaceBuffet: '',
+        countPlaceTheatre: '',
+        countPlaceYet: '',
+      }
+
+      this.hallInformation.push(hallObj)
+    },
+    removeHall() {
+      this.hallInformation.pop()
+    },
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
       // if (!isValid) {
@@ -278,7 +333,7 @@ export default {
 .radio {
   &__label {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 16px;
     font-family: 'Raleway', sans-serif;
     color: #585f66;

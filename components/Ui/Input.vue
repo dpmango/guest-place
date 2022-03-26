@@ -393,6 +393,9 @@ export default {
   }
 
   &.description & {
+    &__label {
+      font-size: 14px;
+    }
     &__input {
       height: 60px;
       input {
