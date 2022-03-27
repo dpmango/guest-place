@@ -1,5 +1,6 @@
 <template>
   <header class="header">
+    <!-- topbar -->
     <div class="header__topbar">
       <div class="container">
         <div class="header__topbar-wrapper">
@@ -35,23 +36,14 @@
           </NuxtLink>
 
           <ul class="header__menu">
-            <li>
-              <NuxtLink to="/about">О платформе</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/about/place">Площадкам</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/about/guest">Гостям</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/ui">UI</NuxtLink>
+            <li v-for="(li, idx) in mainnav" :key="idx">
+              <NuxtLink :to="li.to">{{ li.label }}</NuxtLink>
             </li>
           </ul>
 
           <ul class="header__menu header__menu--cta">
             <li>
-              <NuxtLink to="/create/request">+ Разместить запрос</NuxtLink>
+              <a @click="() => setModal({ name: 'request' })">+ Разместить запрос</a>
             </li>
             <li>
               <NuxtLink to="/create/place">+ Добавить место</NuxtLink>
@@ -82,6 +74,12 @@ export default {
   data() {
     return {
       tick: 0,
+      mainnav: [
+        { to: '/about', label: 'О платформе' },
+        { to: '/about/place', label: 'Площадкам' },
+        { to: '/about/guest', label: 'Гостям' },
+        { to: '/ui', label: 'UI' },
+      ],
     }
   },
   computed: {
@@ -105,7 +103,7 @@ export default {
       }
     },
     ...mapActions('auth', ['logout']),
-    ...mapMutations('ui', ['setMenu']),
+    ...mapMutations('ui', ['setMenu', 'setModal']),
     ...mapState('ui', ['menu']),
   },
 }
@@ -240,6 +238,7 @@ export default {
     a {
       display: inline-block;
       padding: 6px;
+      cursor: pointer;
       transition: color 0.25s $ease;
       &:hover,
       &.nuxt-link-exact-active {

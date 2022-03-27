@@ -20,9 +20,6 @@
         <div class="btns">
           <UiButton v-for="modal in modals" :key="modal" @click="() => setModal({ name: modal })">{{ modal }}</UiButton>
         </div>
-
-        <ModalExpert />
-        <ModalHelp />
       </div>
 
       <div class="section">
@@ -153,7 +150,7 @@ export default {
         count: 120,
         limit: 10,
       },
-      modals: ['expert', 'help', 'nav'],
+      modals: ['expert', 'help', 'request'],
       pages: [
         {
           label: 'Статика',

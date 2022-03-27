@@ -67,7 +67,7 @@
               <UiInput
                 v-mask="'+7 (###) ###-####'"
                 theme="description"
-                label="*Номера телефонова"
+                label="*Номера телефона"
                 placeholder="+7(111)-111-11-11"
                 :value="phone"
                 type="text"

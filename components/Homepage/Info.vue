@@ -10,7 +10,9 @@
             С помощью удобного фильтра и карты подбираете места и сами связываетесь с ними через чат, запрос или
             звоните. Данную опцию можно использовать без на платформе (за исключением чата).
           </p>
-          <UiButton theme="outline-gradient">Каталог поиска</UiButton>
+          <NuxtLink to="/place">
+            <UiButton theme="outline-gradient">Каталог поиска</UiButton>
+          </NuxtLink>
         </div>
 
         <div class="info__item">
@@ -79,10 +81,6 @@
         </div>
       </div>
     </div>
-
-    <ModalExpert />
-    <ModalHelp />
-    <ModalRequest />
   </section>
 </template>
 

@@ -3,25 +3,13 @@
     <div class="nav">
       <div class="nav__wrapper container">
         <ul class="nav__menu">
-          <li>
-            <NuxtLink to="/about">О платформе</NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/about/place">Площадкам</NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/about/guest">Гостям</NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/messages">Чат</NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/favorites">Избранное</NuxtLink>
+          <li v-for="(li, idx) in menu" :key="idx">
+            <NuxtLink :to="li.to">{{ li.label }}</NuxtLink>
           </li>
         </ul>
         <ul class="nav__menu nav__menu--cta">
           <li>
-            <NuxtLink to="/create/request">+ Разместить запрос</NuxtLink>
+            <a @click="() => setModal({ name: 'request' })">+ Разместить запрос</a>
           </li>
           <li>
             <NuxtLink to="/create/place">+ Добавить место</NuxtLink>
@@ -31,6 +19,27 @@
     </div>
   </UiMenu>
 </template>
+
+<script>
+import { mapMutations } from 'vuex'
+
+export default {
+  data() {
+    return {
+      menu: [
+        { to: '/about', label: 'О платформе' },
+        { to: '/about/place', label: 'Площадкам' },
+        { to: '/about/guest', label: 'Гостям' },
+        { to: '/messages', label: 'Чат' },
+        { to: '/favorites', label: 'Избранное' },
+      ],
+    }
+  },
+  methods: {
+    ...mapMutations('ui', ['setModal']),
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .nav {
@@ -62,6 +71,7 @@
       display: inline-block;
       padding: 6px;
       transition: color 0.25s $ease;
+      cursor: pointer;
       &:hover,
       &.nuxt-link-exact-active {
         color: $colorPrimary;
