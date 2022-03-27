@@ -7,7 +7,9 @@
       </div>
       <template v-else-if="error">
         <div class="verification__status-text verification__status-text--error">{{ error }}</div>
-        <UiButton class="mt-2"> Вернуться на главную </UiButton>
+        <NuxtLink to="/">
+          <UiButton class="mt-2"> Вернуться на главную </UiButton>
+        </NuxtLink>
       </template>
       <template v-else>
         <UiLoader :loading="true" theme="block" />

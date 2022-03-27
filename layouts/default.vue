@@ -30,10 +30,6 @@ export default {
   mounted() {
     // console.log('default mounted  -connect ?', !this.isConnected);
 
-    window.addEventListener('scroll', () => {
-      this.setMenu({ name: null })
-    })
-
     if (!this.isConnected) {
       this.connect()
     } else {
@@ -47,7 +43,7 @@ export default {
   },
   methods: {
     ...mapActions('chat', ['connect', 'getDialogs', 'getNotificationCount']),
-    ...mapMutations('ui', ['setMenu']),
+    // ...mapMutations('ui', ['setPanel']),
   },
 }
 </script>

@@ -45,6 +45,7 @@ export default {
     { src: '~/plugins/autosize', mode: 'client' },
     { src: '~/plugins/socket', mode: 'client' },
     { src: '~/plugins/vee-validate', mode: 'client' },
+    { src: '~/plugins/scroll-lock', mode: 'client' },
     { src: '~/plugins/rangeslider', mode: 'client', ssr: false },
     { src: '~/plugins/swiper', mode: 'client', ssr: false },
     { src: '~/plugins/calendar', mode: 'client', ssr: false },

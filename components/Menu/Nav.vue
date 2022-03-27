@@ -1,5 +1,5 @@
 <template>
-  <UiMenu name="nav" class="fixed">
+  <UiPanel name="nav" class="fixed">
     <div class="nav">
       <div class="nav__wrapper container">
         <ul class="nav__menu">
@@ -17,7 +17,7 @@
         </ul>
       </div>
     </div>
-  </UiMenu>
+  </UiPanel>
 </template>
 
 <script>
@@ -43,15 +43,6 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
-  display: block;
-  background-color: white;
-  position: absolute;
-  top: 147px;
-  height: calc(100vh - 100%);
-  width: 340px;
-  right: 0;
-  border-radius: 0 0 0 25px;
-  box-shadow: 0px 15px 15px rgba(105, 78, 75, 0.14);
   &__menu {
     display: none;
     flex-direction: column;
@@ -91,19 +82,12 @@ export default {
     }
   }
 }
+
 @include r($md) {
   .nav {
-    top: 106px;
     &__menu {
       display: flex;
     }
-  }
-}
-
-@include r($sm) {
-  .nav {
-    border-radius: 0;
-    width: 100%;
   }
 }
 </style>

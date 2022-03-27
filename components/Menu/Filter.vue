@@ -1,9 +1,9 @@
 <template>
-  <UiMenu name="filter" class="fixed">
+  <UiPanel name="filter" class="fixed">
     <div class="filter">
       <div class="filter__header">
         <h3 class="h3-title">Фильтрация поиска</h3>
-        <button @click="() => setMenu({ name: null })">
+        <button @click="() => resetPanels()">
           <UiSvgIcon name="close" />
         </button>
       </div>
@@ -39,14 +39,14 @@
       </div>
       <div class="filter__select">
         <p class="filter__select-title">Стоимость</p>
-        <!-- Выдает ошибку -->
-        <!-- <vue-slider v-model="value" /> -->
+
+        <UiRangeSlider :value="price" :min="1000" :max="50 * 1000" :interval="1000" @onChange="(v) => (price = v)" />
       </div>
       <div class="mt-2">
         <UiButton class="filter__button">Показать результаты (185)</UiButton>
       </div>
     </div>
-  </UiMenu>
+  </UiPanel>
 </template>
 
 <script>
@@ -65,13 +65,13 @@ export default {
       type: null,
       features: null,
       capacity: null,
-      value: null,
+      price: 1000,
     }
   },
   methods: {
-    ...mapMutations('ui', ['setMenu']),
+    ...mapMutations('ui', ['resetPanels']),
     close() {
-      this.setMenu({ name: null })
+      this.resetPanels()
     },
   },
 }

@@ -42,7 +42,7 @@
       />
     </div>
 
-    <button class="bar__options-button" @click="() => setMenu({ name: 'filter' })">
+    <button class="bar__options-button" @click="() => setPanel('filter')">
       <UiSvgIcon name="filter" />
     </button>
 
@@ -65,7 +65,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('ui', ['setMenu']),
+    ...mapMutations('ui', ['setPanel']),
   },
 }
 </script>

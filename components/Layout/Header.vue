@@ -96,15 +96,15 @@ export default {
         .catch((_err) => {})
     },
     mobileNav() {
-      if (this.menu() !== 'nav') {
-        this.setMenu({ name: 'nav' })
+      if (this.panel() !== 'nav') {
+        this.setPanel('nav')
       } else {
-        this.setMenu({ name: null })
+        this.resetPanels()
       }
     },
     ...mapActions('auth', ['logout']),
-    ...mapMutations('ui', ['setMenu', 'setModal']),
-    ...mapState('ui', ['menu']),
+    ...mapMutations('ui', ['setPanel', 'resetPanels', 'setModal']),
+    ...mapState('ui', ['panel']),
   },
 }
 </script>

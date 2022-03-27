@@ -16,7 +16,7 @@
         @change="(v) => setValue(v)"
         v-on="$listeners"
       />
-      <div class="rangeslider__controls">
+      <div v-if="showRangeControls" class="rangeslider__controls">
         <div class="rangeslider__input">
           <label>от</label>
           <UiInput
@@ -95,6 +95,9 @@ export default {
     }
   },
   computed: {
+    showRangeControls() {
+      return Array.isArray(this.value) && this.value.length === 2
+    },
     getLabel() {
       return typeof this.error === 'string' && !this.isFocused ? this.parseVeeError(this.error) : this.label
     },

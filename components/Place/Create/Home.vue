@@ -13,14 +13,6 @@
         </p>
       </div>
 
-      <div class="nav">
-        <span @click="() => (activeStep = 1)">step 1</span>
-        <span @click="() => (activeStep = 2)">step 2</span>
-        <span @click="() => (activeStep = 3)">step 3</span>
-        <span @click="() => (activeStep = 4)">step 4</span>
-        <span @click="() => (activeStep = 5)">step 5</span>
-      </div>
-
       <div class="create__box">
         <PlaceCreateGeneral v-if="activeStep === 1" @onNext="onNext" />
         <PlaceCreateDescription v-if="activeStep === 2" @onNext="onNext" @onBack="onBack" />
@@ -71,22 +63,6 @@ export default {
     border-radius: 40px;
     padding: 60px 95px;
     margin-bottom: 100px;
-  }
-}
-
-.nav {
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  span {
-    display: block;
-    cursor: pointer;
-    padding: 5px;
-    margin-right: 16px;
-    &:hover {
-      color: $colorPrimary;
-    }
   }
 }
 

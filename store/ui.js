@@ -1,23 +1,25 @@
 export const state = () => ({
   modal: null,
   modalParams: null,
-  menu: null,
-  menuParams: null,
+  panel: null,
 })
 
-export const mutations = {
-  setMenu(state, { name, params }) {
-    state.menu = name || null
-    state.menuParams = params || null
-  },
+export const getters = {}
 
+export const mutations = {
   setModal(state, { name, params }) {
     state.modal = name || null
     state.modalParams = params || null
+  },
+  setPanel(state, name) {
+    state.panel = name || null
   },
 
   resetModals(state) {
     state.modal = null
     state.modalParams = null
+  },
+  resetPanels(state) {
+    state.panel = null
   },
 }

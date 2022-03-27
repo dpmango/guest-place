@@ -3,4 +3,5 @@ export default function ({ store, redirect }) {
   store.dispatch('auth/checkToken')
 
   store.commit('ui/resetModals')
+  store.commit('ui/resetPanels')
 }
