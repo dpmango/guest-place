@@ -18,5 +18,12 @@ export const actions = {
     } catch (error) {
       // $sentry.captureException(error)
     }
+
+    try {
+      // token access ?
+      dispatch('dictionary/init')
+    } catch (err) {
+      // err
+    }
   },
 }

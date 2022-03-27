@@ -1,6 +1,6 @@
 export const mapApiError = (error) => {
   let data = error.data
-  let message = data.details[0] || data.detail || ''
+  let message = Array.isArray(data.details) ? data.details[0] : data.details || data.detail || ''
 
   switch (error.status) {
     case 500:

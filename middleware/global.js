@@ -9,6 +9,8 @@ export default async function ({ $axios, store, $config, redirect, ...context })
       } catch (e) {
         await store.commit('auth/logOut')
       }
+
+      store.dispatch('dictionary/init')
     }
   }
 }

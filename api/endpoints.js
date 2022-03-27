@@ -1,5 +1,6 @@
 const auth = '/auth'
-const api = '/api'
+const dictionary = '/dictionary'
+const base = '/'
 
 export default {
   auth: {
@@ -14,10 +15,21 @@ export default {
     passwordRecovery: `${auth}/password/recovery/`, // set with email token
   },
   chat: {
-    files: `${api}/files/`,
+    files: `${base}/files/`,
   },
-
+  place: {
+    create: '/place/create',
+  },
   feedback: {
-    base: `${api}/feedback/`,
+    base: `${base}/feedback/`,
+  },
+  dictionary: {
+    category: `${dictionary}/category/`,
+    cuisine: `${dictionary}/cuisine/`,
+    equipment: `${dictionary}/equipment/`,
+    feature: `${dictionary}/feature/`,
+    interior: `${dictionary}/interior-style/`,
+    placeType: `${dictionary}/place-type/`,
+    service: `${dictionary}/service/`,
   },
 }
