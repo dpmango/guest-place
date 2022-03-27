@@ -65,6 +65,7 @@ export default {
 
 @include r($md) {
   .auth {
+    margin-top: 25px;
     grid-template-columns: 1fr;
     &__content {
       padding-bottom: 0;
@@ -77,12 +78,8 @@ export default {
     }
     &__image {
       position: relative;
+      text-align: center;
       img {
-        position: absolute;
-        top: -50px;
-        width: 100%;
-        margin: 0 auto;
-        display: block;
         max-height: 400px;
       }
     }

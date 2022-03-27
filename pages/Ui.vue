@@ -120,6 +120,20 @@
         </div>
 
         <div class="ui-group">
+          <UiDatePicker :value="date" @onChange="(v) => (date = v)" />
+        </div>
+
+        <div class="ui-group">
+          <UiRangeSlider
+            :value="rangeslider"
+            :min="1000"
+            :max="50 * 1000"
+            :interval="1000"
+            @onChange="(v) => (rangeslider = v)"
+          />
+        </div>
+
+        <div class="ui-group">
           <UiLoader theme="inline" :loading="true" />
         </div>
 
@@ -144,6 +158,8 @@ export default {
     return {
       inputVal: '',
       select: null,
+      date: new Date(),
+      rangeslider: [1000, 50000],
       loaderStatus: false,
       pagination: {
         page: 1,
@@ -223,6 +239,7 @@ export default {
         'home',
         'id-badge',
         'key',
+        'rouble',
         'like',
         'like-2',
         'login',

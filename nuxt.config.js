@@ -38,14 +38,16 @@ export default {
     '~/plugins/lightbox',
     '~/plugins/select',
     '~/plugins/teleport',
-    { src: '~/plugins/calendar', mode: 'client', ssr: false },
+
     { src: '~/plugins/legacy', mode: 'client' },
     { src: '~/plugins/toast', mode: 'client' },
     { src: '~/plugins/mask', mode: 'client' },
     { src: '~/plugins/autosize', mode: 'client' },
     { src: '~/plugins/socket', mode: 'client' },
     { src: '~/plugins/vee-validate', mode: 'client' },
+    { src: '~/plugins/rangeslider', mode: 'client', ssr: false },
     { src: '~/plugins/swiper', mode: 'client', ssr: false },
+    { src: '~/plugins/calendar', mode: 'client', ssr: false },
     { src: '~/plugins/ymapPlugin.js', mode: 'client' },
   ],
 

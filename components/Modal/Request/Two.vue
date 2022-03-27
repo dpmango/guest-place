@@ -43,7 +43,13 @@
         <h6 class="h6-title request__title-section mb-1 tac">Укажите ваш бюджет на человека</h6>
         <div class="request__row">
           <div class="request__input">
-            <!-- <vue-slider v-model="fromBudget"></vue-slider> -->
+            <UiRangeSlider
+              :value="budget"
+              :min="1000"
+              :max="50 * 1000"
+              :interval="1000"
+              @onChange="(v) => (budget = v)"
+            />
           </div>
         </div>
       </div>
@@ -58,21 +64,12 @@
 </template>
 
 <script>
-// import VueSlider from 'vue-slider-component'
-// import 'vue-slider-component/theme/antd.css'
-
 export default {
-  // components: {
-  //   VueSlider
-  // },
   data() {
     return {
       count: '',
-
       district: '',
-
-      fromBudget: '',
-      toBudget: '',
+      budget: [1000, 50000],
     }
   },
   methods: {

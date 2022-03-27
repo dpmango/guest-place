@@ -35,7 +35,7 @@ export default {
 
   props: {
     value: {
-      type: String,
+      type: [String, Date],
       required: false,
     },
     label: {
@@ -69,6 +69,7 @@ export default {
         input: 'DD.MM.YYYY',
       },
       popover: {
+        // visibility: 'visible',
         positionFixed: true,
         placement: 'bottom',
       },

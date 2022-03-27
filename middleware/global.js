@@ -6,11 +6,10 @@ export default async function ({ $axios, store, $config, redirect, ...context })
       try {
         await store.commit('auth/updateToken', token)
         await store.dispatch('auth/getUserInfo')
+        await store.dispatch('dictionary/init')
       } catch (e) {
         await store.commit('auth/logOut')
       }
-
-      store.dispatch('dictionary/init')
     }
   }
 }
