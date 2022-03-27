@@ -406,9 +406,16 @@ export default {
 
   &.request & {
     &__input {
-      height: 38px;
-      input {
-        height: inherit;
+      input,
+      textarea {
+        padding: 9px 25px;
+        height: 38px;
+      }
+    }
+    &__icon {
+      right: 25px;
+      .svg-icon {
+        font-size: 16px;
       }
     }
   }
@@ -440,7 +447,6 @@ input[type='search']::-webkit-search-results-decoration {
         input,
         textarea {
           padding: 10px 25px;
-          height: 38px;
         }
       }
 
@@ -454,9 +460,9 @@ input[type='search']::-webkit-search-results-decoration {
 
     &.description & {
       &__input {
-        height: 38px;
-        input {
-          height: 38px;
+        input,
+        textarea {
+          padding: 9px 25px;
         }
       }
     }

@@ -4,12 +4,6 @@
 
     <template #content>
       <div class="modal__wrapper">
-        <div class="nav">
-          <span @click="() => (activeStep = 1)">step 1</span>
-          <span @click="() => (activeStep = 2)">step 2</span>
-          <span @click="() => (activeStep = 3)">step 3</span>
-          <span @click="() => (activeStep = 4)">step 4</span>
-        </div>
         <div class="modal__nav">
           <div class="modal__pagination">
             <p>Шаг {{ activeStep }}/4</p>
@@ -51,6 +45,9 @@ export default {
     &--mobile {
       display: none;
     }
+  }
+  &__nav {
+    margin-top: 20px;
   }
   &__pagination {
     text-align: center;

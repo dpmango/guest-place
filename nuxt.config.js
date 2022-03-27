@@ -38,7 +38,7 @@ export default {
     '~/plugins/lightbox',
     '~/plugins/select',
     '~/plugins/teleport',
-    { src: '~/plugins/calendar', ssr: false },
+    { src: '~/plugins/calendar', mode: 'client', ssr: false },
     { src: '~/plugins/legacy', mode: 'client' },
     { src: '~/plugins/toast', mode: 'client' },
     { src: '~/plugins/mask', mode: 'client' },

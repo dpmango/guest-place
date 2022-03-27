@@ -26,26 +26,7 @@
         <div v-if="isDateOne" class="request__row">
           <div class="request__input">
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <v-date-picker
-                v-model="date"
-                :masks="masks"
-                :input-debounce="0"
-                class="request__calendar"
-                :popover="popover"
-              >
-                <template #default="{ inputValue, inputEvents }">
-                  <UiInput
-                    v-mask="'##.##.####'"
-                    :value="inputValue"
-                    theme="request"
-                    placeholder="Выберите дату"
-                    :error="errors[0]"
-                    type="text"
-                    v-on="inputEvents"
-                    @onChange="(v) => (inputValue = v)"
-                  />
-                </template>
-              </v-date-picker>
+              <UiDatePicker :value="date" :error="errors[0]" @onChange="(v) => (date = v)" />
             </ValidationProvider>
           </div>
         </div>
@@ -53,39 +34,13 @@
           <div class="request__input">
             с
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <v-date-picker v-model="fromDate" :masks="masks" :input-debounce="0">
-                <template #default="{ inputValue, inputEvents }">
-                  <UiInput
-                    v-mask="'##.##.####'"
-                    :value="inputValue"
-                    theme="request"
-                    placeholder="Выберите дату"
-                    type="text"
-                    :error="errors[0]"
-                    v-on="inputEvents"
-                    @onChange="(v) => (inputValue = v)"
-                  />
-                </template>
-              </v-date-picker>
+              <UiDatePicker :value="fromDate" :error="errors[0]" @onChange="(v) => (fromDate = v)" />
             </ValidationProvider>
           </div>
           <div class="request__input">
             по
             <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <v-date-picker v-model="toDate" :masks="masks" :input-debounce="0">
-                <template #default="{ inputValue, inputEvents }">
-                  <UiInput
-                    v-mask="'##.##.####'"
-                    :value="inputValue"
-                    theme="request"
-                    placeholder="Выберите дату"
-                    type="text"
-                    :error="errors[0]"
-                    v-on="inputEvents"
-                    @onChange="(v) => (inputValue = v)"
-                  />
-                </template>
-              </v-date-picker>
+              <UiDatePicker :value="toDate" :error="errors[0]" @onChange="(v) => (toDate = v)" />
             </ValidationProvider>
           </div>
         </div>
@@ -205,26 +160,6 @@ export default {
     .ui-group {
       width: 100%;
     }
-  }
-}
-</style>
-
-<style lang="scss">
-.request {
-  &__calendar {
-    .vc-container {
-      max-width: 250px;
-      width: 100%;
-      box-shadow: 0px 8px 10px 0px #694e4b24;
-      border-radius: 0px 0px 40px 40px;
-      border: 0;
-    }
-  }
-  .vc-pane-container,
-  .vc-pane-layout {
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
   }
 }
 </style>
