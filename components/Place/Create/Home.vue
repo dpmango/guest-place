@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: 'UiPage',
+  name: 'CreateHome',
   data() {
     return {
       activeStep: 1,

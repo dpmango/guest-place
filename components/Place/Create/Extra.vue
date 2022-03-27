@@ -2,253 +2,276 @@
   <div class="step">
     <h2 class="step__title h2-title tac">шаг 3/5. <span class="c-primary"> Дополнительная информация</span></h2>
 
-    <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
-      <UiError :error="error" />
+    <client-only>
+      <template slot="placeholder">
+        <UiLoader :loading="true" theme="block" />
+      </template>
+      <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
+        <UiError :error="error" />
 
-      <!--section -->
-      <div class="step__section">
-        <div class="step__section-label h4-title mb-1">Цены</div>
-        <p class="radio__label tac mb-2">Заполните только те поля, которые подходят для вас</p>
+        <!--section -->
+        <div class="step__section">
+          <div class="step__section-label h4-title mb-1">Цены</div>
+          <p class="radio__label tac mb-2">Заполните только те поля, которые подходят для вас</p>
 
-        <div class="row">
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Средний чек"
-                placeholder="Сумма (в рублях)"
-                :value="middleCheck"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (middleCheck = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Банкетное меню на гостя"
-                placeholder="Сумма (в рублях)"
-                :value="banquetMenu"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (banquetMenu = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Фуршетное меню на гостя"
-                placeholder="Сумма (в рублях)"
-                :value="buffetMenu"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (buffetMenu = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Аренда/час"
-                placeholder="Сумма (в рублях)"
-                :value="rentHour"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (rentHour = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Аренда площадки под мероприятие в будни/выходные и праздничные дни"
-                placeholder="пт-сб. 100 000 р. будни 80 000 р."
-                :value="rentArea"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (rentArea = v)"
-              />
-            </ValidationProvider>
-          </div>
-        </div>
-      </div>
-
-      <!--section -->
-      <div class="step__section">
-        <div class="step__section-label h4-title">Депозит</div>
-        <div class="row">
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Депозит (минимальная стоимость закрытия площадки, зала под одно мероприятие):"
-                placeholder="Сумма (в рублях)"
-                :value="deposit"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (deposit = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Что входит в депозит"
-                placeholder="Еда, часть напитков"
-                :value="inDeposit"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (inDeposit = v)"
-              />
-            </ValidationProvider>
-          </div>
-        </div>
-      </div>
-
-      <!--section -->
-      <div class="step__section">
-        <div class="step__section-label h4-title">Другое</div>
-        <div class="row">
-          <div class="col col-6 col-md-6 col-sm-12">
-            <div class="ui-group">
-              <label for="" class="radio__label">Возможность своего алкоголя</label>
-              <div class="radio__col">
-                <UiCheckbox
-                  label="Да"
-                  name="alcohol"
-                  :checked="true"
-                  :value="true"
-                  type="radio"
-                  @onChange="() => (alcohol = 'Да')"
-                >
-                  Да
-                </UiCheckbox>
-                <UiCheckbox label="Нет" name="alcohol" :value="false" type="radio" @onChange="() => (alcohol = 'Нет')">
-                  Нет
-                </UiCheckbox>
-                <UiCheckbox
-                  label="50/50"
-                  name="alcohol"
-                  :value="true"
-                  type="radio"
-                  @onChange="() => (alcohol = '50/50')"
-                >
-                  50/50
-                </UiCheckbox>
-                <UiCheckbox
-                  label="По договоренности"
-                  name="alcohol"
-                  :value="true"
-                  type="radio"
-                  @onChange="() => (alcohol = 'По договоренности')"
-                >
-                  По договоренности
-                </UiCheckbox>
-              </div>
+          <div class="row">
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Средний чек"
+                  placeholder="Сумма (в рублях)"
+                  :value="middleCheck"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (middleCheck = v)"
+                />
+              </ValidationProvider>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Банкетное меню на гостя"
+                  placeholder="Сумма (в рублях)"
+                  :value="banquetMenu"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (banquetMenu = v)"
+                />
+              </ValidationProvider>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Фуршетное меню на гостя"
+                  placeholder="Сумма (в рублях)"
+                  :value="buffetMenu"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (buffetMenu = v)"
+                />
+              </ValidationProvider>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Аренда/час"
+                  placeholder="Сумма (в рублях)"
+                  :value="rentHour"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (rentHour = v)"
+                />
+              </ValidationProvider>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Аренда площадки под мероприятие в будни/выходные и праздничные дни"
+                  placeholder="пт-сб. 100 000 р. будни 80 000 р."
+                  :value="rentArea"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (rentArea = v)"
+                />
+              </ValidationProvider>
             </div>
           </div>
-          <div class="col col-6 col-md-12">
-            <div class="ui-group">
-              <label for="" class="radio__label">Сервисное облуживание</label>
-              <div class="radio__col">
-                <UiCheckbox
-                  label="Да"
-                  name="service"
-                  :checked="true"
-                  :value="true"
-                  type="radio"
-                  @onChange="() => (service = '10%')"
-                >
-                  10%
-                </UiCheckbox>
-                <UiCheckbox label="Нет" name="service" :value="false" type="radio" @onChange="() => (service = '15%')">
-                  15%
-                </UiCheckbox>
-                <UiCheckbox label="Нет" name="service" :value="false" type="radio" @onChange="() => (service = 'Нет')">
-                  Нет
-                </UiCheckbox>
-                <UiCheckbox
-                  label="Нет"
-                  name="service"
-                  :value="false"
-                  type="radio"
-                  @onChange="() => (service = 'Другое')"
-                >
-                  Другое
-                </UiCheckbox>
-              </div>
-              <div v-if="service === 'Другое'" class="mt-1">
-                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                  <UiInput
-                    theme="description"
-                    placeholder="Введите ваш вариант"
-                    :value="serviceOther"
-                    type="text"
-                    :error="errors[0]"
-                    @onChange="(v) => (serviceOther = v)"
-                  />
-                </ValidationProvider>
-              </div>
+        </div>
+
+        <!--section -->
+        <div class="step__section">
+          <div class="step__section-label h4-title">Депозит</div>
+          <div class="row">
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Депозит (минимальная стоимость закрытия площадки, зала под одно мероприятие):"
+                  placeholder="Сумма (в рублях)"
+                  :value="deposit"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (deposit = v)"
+                />
+              </ValidationProvider>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Что входит в депозит"
+                  placeholder="Еда, часть напитков"
+                  :value="inDeposit"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (inDeposit = v)"
+                />
+              </ValidationProvider>
             </div>
           </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Пробковый сбор"
-                placeholder="500 р./чел. или 300 р. за бут."
-                :value="corkage"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (corkage = v)"
-              />
-            </ValidationProvider>
-          </div>
-          <div class="col col-6 col-md-12">
-            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-              <UiInput
-                theme="description"
-                label="Дополнительные затраты"
-                placeholder="Оборудование, чехлы, аренда мебели, и т.д."
-                :value="additionallExpenses"
-                type="text"
-                :error="errors[0]"
-                @onChange="(v) => (additionallExpenses = v)"
-              />
-            </ValidationProvider>
+        </div>
+
+        <!--section -->
+        <div class="step__section">
+          <div class="step__section-label h4-title">Другое</div>
+          <div class="row">
+            <div class="col col-6 col-md-6 col-sm-12">
+              <div class="ui-group">
+                <label for="" class="radio__label">Возможность своего алкоголя</label>
+                <div class="radio__col">
+                  <UiCheckbox
+                    label="Да"
+                    name="alcohol"
+                    :checked="true"
+                    :value="true"
+                    type="radio"
+                    @onChange="() => (alcohol = 'Да')"
+                  >
+                    Да
+                  </UiCheckbox>
+                  <UiCheckbox
+                    label="Нет"
+                    name="alcohol"
+                    :value="false"
+                    type="radio"
+                    @onChange="() => (alcohol = 'Нет')"
+                  >
+                    Нет
+                  </UiCheckbox>
+                  <UiCheckbox
+                    label="50/50"
+                    name="alcohol"
+                    :value="true"
+                    type="radio"
+                    @onChange="() => (alcohol = '50/50')"
+                  >
+                    50/50
+                  </UiCheckbox>
+                  <UiCheckbox
+                    label="По договоренности"
+                    name="alcohol"
+                    :value="true"
+                    type="radio"
+                    @onChange="() => (alcohol = 'По договоренности')"
+                  >
+                    По договоренности
+                  </UiCheckbox>
+                </div>
+              </div>
+            </div>
+            <div class="col col-6 col-md-12">
+              <div class="ui-group">
+                <label for="" class="radio__label">Сервисное облуживание</label>
+                <div class="radio__col">
+                  <UiCheckbox
+                    label="Да"
+                    name="service"
+                    :checked="true"
+                    :value="true"
+                    type="radio"
+                    @onChange="() => (service = '10%')"
+                  >
+                    10%
+                  </UiCheckbox>
+                  <UiCheckbox
+                    label="Нет"
+                    name="service"
+                    :value="false"
+                    type="radio"
+                    @onChange="() => (service = '15%')"
+                  >
+                    15%
+                  </UiCheckbox>
+                  <UiCheckbox
+                    label="Нет"
+                    name="service"
+                    :value="false"
+                    type="radio"
+                    @onChange="() => (service = 'Нет')"
+                  >
+                    Нет
+                  </UiCheckbox>
+                  <UiCheckbox
+                    label="Нет"
+                    name="service"
+                    :value="false"
+                    type="radio"
+                    @onChange="() => (service = 'Другое')"
+                  >
+                    Другое
+                  </UiCheckbox>
+                </div>
+                <div v-if="service === 'Другое'" class="mt-1">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      placeholder="Введите ваш вариант"
+                      :value="serviceOther"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (serviceOther = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+              </div>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Пробковый сбор"
+                  placeholder="500 р./чел. или 300 р. за бут."
+                  :value="corkage"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (corkage = v)"
+                />
+              </ValidationProvider>
+            </div>
+            <div class="col col-6 col-md-12">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <UiInput
+                  theme="description"
+                  label="Дополнительные затраты"
+                  placeholder="Оборудование, чехлы, аренда мебели, и т.д."
+                  :value="additionallExpenses"
+                  type="text"
+                  :error="errors[0]"
+                  @onChange="(v) => (additionallExpenses = v)"
+                />
+              </ValidationProvider>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!--section -->
-      <div class="step__section">
-        <div class="step__section-label h4-title">Дополнительно</div>
+        <!--section -->
+        <div class="step__section">
+          <div class="step__section-label h4-title">Дополнительно</div>
 
-        <div class="ui-group">
-          <UiInput
-            textarea
-            :value="description"
-            placeholder="Введите текст..."
-            :rows="5"
-            label="Сюда можно внести дополнительную информацию по ценам и условиям, если предыдущие поля не подходят или не полностью соответствуют вашему месту."
-            @onChange="(v) => (description = v)"
-          />
+          <div class="ui-group">
+            <UiInput
+              textarea
+              :value="description"
+              placeholder="Введите текст..."
+              :rows="5"
+              label="Сюда можно внести дополнительную информацию по ценам и условиям, если предыдущие поля не подходят или не полностью соответствуют вашему месту."
+              @onChange="(v) => (description = v)"
+            />
+          </div>
         </div>
-      </div>
 
-      <div class="step__cta">
-        <UiButton theme="outline" @click="() => $emit('onNext', 3)">Назад</UiButton>
+        <div class="step__cta">
+          <UiButton theme="outline" @click="() => $emit('onNext', 3)">Назад</UiButton>
 
-        <UiButton type="submit">Отправить</UiButton>
-      </div>
-    </ValidationObserver>
+          <UiButton type="submit">Отправить</UiButton>
+        </div>
+      </ValidationObserver>
+    </client-only>
   </div>
 </template>
 

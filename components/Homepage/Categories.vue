@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="h2-title">Места <span class="c-primary">по категориям</span></h2>
 
-      <div class="categories__grid mt-4 mt-sm-2">
+      <div class="categories__grid mt-4 mt-md-2">
         <NuxtLink v-for="(category, idx) in list" :key="category.id || idx" :to="category.slug" class="category">
           <h3 class="category__title h3-title">
             {{ category.label }}
@@ -108,6 +108,23 @@ export default {
     .category__image {
       &::before {
         transform: translate(-50%, -50%) scale(0.9);
+      }
+    }
+  }
+}
+
+@include r($lg) {
+  .category {
+    min-height: 180px;
+    &__image {
+      &::before {
+        width: 260px;
+        height: 260px;
+      }
+
+      img {
+        max-width: 150px;
+        max-height: 150px;
       }
     }
   }

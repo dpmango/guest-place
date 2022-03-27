@@ -103,7 +103,7 @@ p {
 
 .p-label {
   font-size: 14px;
-  line-height: 16px;
+  line-height: 1.14;
   color: $colorLight;
 }
 
@@ -192,6 +192,24 @@ a {
   text-align: right;
 }
 
+@include r($lg) {
+  .h1-title {
+    font-size: 50px;
+  }
+
+  .h2-title {
+    font-size: 34px;
+  }
+
+  .h3-title {
+    font-size: 24px;
+  }
+
+  .p-main {
+    font-size: 22px;
+  }
+}
+
 @include r($md) {
   .h1-title {
     font-size: 36px;
@@ -204,4 +222,20 @@ a {
   .h3-title {
     font-size: 24px;
   }
+
+  .p-main {
+    font-size: 20px;
+  }
+
+  .p-regular {
+    font-size: 16px;
+  }
+
+  // .p-body {
+  //   font-size: 14px;
+  // }
+
+  // .p-label {
+  //   font-size: 14px;
+  // }
 }

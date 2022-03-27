@@ -107,10 +107,19 @@ export default {
   }
 }
 
+@include r($xl) {
+  .hero {
+    &__title {
+      font-size: 52px;
+    }
+    &__image {
+      margin-left: 0px;
+    }
+  }
+}
 @include r($md) {
   .hero {
     .p-main {
-      font-size: 20px;
       text-align: center;
     }
     &__actions {
