@@ -30,7 +30,8 @@
                   <img :src="photo.blob" :alt="photo.file.name" />
                 </div>
               </div>
-              <input
+              <div
+                :contenteditable="true"
                 :value="photo.desc"
                 class="uploader-trigger__info"
                 placeholder="Добавить описание.."

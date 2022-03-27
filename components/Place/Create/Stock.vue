@@ -269,7 +269,7 @@
     </div>
 
     <div class="step__cta">
-      <UiButton theme="outline" @click="() => $emit('onNext', 4)">Назад</UiButton>
+      <UiButton theme="outline" @click="() => $emit('onBack')">Назад</UiButton>
 
       <UiButton type="submit">Отправить</UiButton>
     </div>

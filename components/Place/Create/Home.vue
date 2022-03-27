@@ -34,6 +34,22 @@ export default {
       breadcrumbs: [{ to: '', label: 'Добавить место' }],
     }
   },
+  watch: {
+    activeStep(newVal) {
+      const { step: activeStep } = this.$route.query
+
+      if (Number(activeStep) !== newVal) {
+        // prevents navigationDuplicates
+        this.$router.replace({ path: this.$route.path, query: { step: Number(newVal) } })
+      }
+    },
+  },
+  created() {
+    const { step } = this.$route.query
+    if (step) {
+      this.activeStep = Number(step)
+    }
+  },
   methods: {
     onNext() {
       this.activeStep = this.activeStep + 1

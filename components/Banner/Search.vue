@@ -16,14 +16,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-
 export default {
   props: {
     className: String,
-  },
-  methods: {
-    // ...mapActions('auth', ['logout']),
   },
 }
 </script>
