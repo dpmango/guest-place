@@ -36,7 +36,7 @@ export default {
     size: {
       type: String,
       default: 'regular',
-      validator: (theme) => ['regular', 'small'].includes(theme),
+      validator: (theme) => ['regular', 'small', 'extra-small'].includes(theme),
     },
     loading: {
       type: Boolean,
