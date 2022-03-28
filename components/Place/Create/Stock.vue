@@ -2,277 +2,287 @@
   <div class="step">
     <h2 class="step__title h2-title tac">шаг 5/5. <span class="c-primary"> номерной фонд</span></h2>
 
-    <!--section -->
-    <div class="step__section">
-      <div class="col col-12">
-        <div class="ui-group">
-          <label for="" class="radio__label tac">*Есть ли у Вашей площадки номерной фонд?</label>
-          <div class="radio__row radio__row--center">
-            <UiCheckbox
-              label="Да"
-              name="stockVisible"
-              :value="true"
-              type="radio"
-              @onChange="() => (stockVisible = true)"
-            >
-              Да
-            </UiCheckbox>
-            <UiCheckbox
-              :checked="true"
-              label="Нет"
-              name="stockVisible"
-              :value="false"
-              type="radio"
-              @onChange="() => (stockVisible = false)"
-            >
-              Нет
-            </UiCheckbox>
-          </div>
-        </div>
-      </div>
-    </div>
+    <client-only>
+      <template slot="placeholder">
+        <UiLoader :loading="true" theme="block" />
+      </template>
 
-    <!--section -->
-    <div v-if="stockVisible">
-      <div v-for="stock in stockInformation" :key="stock.id" class="step__stock">
+      <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
+        <UiError :error="error" />
+
         <!--section -->
-
         <div class="step__section">
-          <div class="step__section-label h4-title">Общая информация о номерном фонде</div>
-          <div class="row">
-            <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Категории номеров</label>
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiSelect
-                  :value="stock.category"
-                  theme="description"
-                  placeholder="Впишите или выберите"
-                  :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
-                  @onSelect="(v) => (stock.category = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Спальные места</label>
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiSelect
-                  :value="stock.room"
-                  theme="description"
-                  placeholder="Впишите или выберите"
-                  :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
-                  @onSelect="(v) => (stock.room = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Удобства в номерах</label>
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiSelect
-                  :value="stock.inRoom"
-                  theme="description"
-                  placeholder="Впишите или выберите"
-                  :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
-                  @onSelect="(v) => (stock.inRoom = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Услуги</label>
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiSelect
-                  :value="stock.service"
-                  theme="description"
-                  placeholder="Впишите или выберите"
-                  :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
-                  @onSelect="(v) => (stock.service = v)"
-                />
-              </ValidationProvider>
+          <div class="col col-12">
+            <div class="ui-group">
+              <label for="" class="radio__label tac">*Есть ли у Вашей площадки номерной фонд?</label>
+              <div class="radio__row radio__row--center">
+                <UiCheckbox
+                  label="Да"
+                  name="stockVisible"
+                  :value="true"
+                  type="radio"
+                  @onChange="() => (stockVisible = true)"
+                >
+                  Да
+                </UiCheckbox>
+                <UiCheckbox
+                  :checked="true"
+                  label="Нет"
+                  name="stockVisible"
+                  :value="false"
+                  type="radio"
+                  @onChange="() => (stockVisible = false)"
+                >
+                  Нет
+                </UiCheckbox>
+              </div>
             </div>
           </div>
         </div>
-        <!--section -->
 
-        <div class="step__section">
-          <div class="step__section-label h4-title">Заезд/выезд</div>
-          <div class="row">
-            <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  theme="description"
-                  label="Время заезда (от)"
-                  placeholder="00:00"
-                  :value="stock.timeFromOne"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => (stock.timeFromOne = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  theme="description"
-                  label="Время заезда (до)"
-                  placeholder="00:00"
-                  :value="stock.timeToOne"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => (stock.timeToOne = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  theme="description"
-                  label="Время заезда (от)"
-                  placeholder="00:00"
-                  :value="stock.timeFromTwo"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => (stock.timeFromTwo = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  theme="description"
-                  label="Время заезда (до)"
-                  placeholder="00:00"
-                  :value="stock.timeToTwo"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => (stock.timeToTwo = v)"
-                />
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
         <!--section -->
+        <div v-if="stockVisible">
+          <div v-for="stock in stockInformation" :key="stock.id" class="step__stock">
+            <!--section -->
 
-        <div class="step__section">
-          <div class="step__section-label h4-title">Детальная информация о номерах</div>
-          <div class="row">
-            <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  theme="description"
-                  label="Название"
-                  placeholder="Название"
-                  :value="stock.name"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => (stock.name = v)"
-                />
-              </ValidationProvider>
-            </div>
-            <div class="col col-3 col-md-12">
-              <div class="ui-group">
-                <label for="" class="radio__label">Тип размещения</label>
-                <div class="radio__col">
-                  <UiCheckbox
-                    label="Одноместное"
-                    name="type"
-                    :value="true"
-                    type="radio"
-                    @onChange="() => (type = 'Одноместное')"
-                  >
-                    Одноместное
-                  </UiCheckbox>
-                  <UiCheckbox
-                    label="Двухместное"
-                    name="type"
-                    :value="false"
-                    type="radio"
-                    @onChange="() => (stock.type = 'Двухместное')"
-                  >
-                    Двухместное
-                  </UiCheckbox>
-                  <UiCheckbox
-                    label="Трехместное"
-                    name="type"
-                    :value="false"
-                    type="radio"
-                    @onChange="() => (stock.type = 'Трехместное')"
-                  >
-                    Трехместное
-                  </UiCheckbox>
-                  <UiCheckbox
-                    label="Другое"
-                    name="type"
-                    :value="false"
-                    type="radio"
-                    @onChange="() => (stock.type = 'Другое')"
-                  >
-                    Другое
-                  </UiCheckbox>
-                </div>
-                <div v-if="stock.type === 'Другое'" class="mt-1">
+            <div class="step__section">
+              <div class="step__section-label h4-title">Общая информация о номерном фонде</div>
+              <div class="row">
+                <div class="col col-6 col-md-12">
+                  <label for="" class="radio__label">*Категории номеров</label>
                   <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                    <UiInput
+                    <UiSelect
+                      :value="stock.category"
                       theme="description"
-                      placeholder="Введите ваш вариант"
-                      :value="stock.typeOther"
-                      type="text"
+                      placeholder="Впишите или выберите"
                       :error="errors[0]"
-                      @onChange="(v) => (stock.typeOther = v)"
+                      :options="['option 1', 'option 2', 'option 3']"
+                      @onSelect="(v) => (stock.category = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-6 col-md-12">
+                  <label for="" class="radio__label">*Спальные места</label>
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiSelect
+                      :value="stock.room"
+                      theme="description"
+                      placeholder="Впишите или выберите"
+                      :error="errors[0]"
+                      :options="['option 1', 'option 2', 'option 3']"
+                      @onSelect="(v) => (stock.room = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-6 col-md-12">
+                  <label for="" class="radio__label">*Удобства в номерах</label>
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiSelect
+                      :value="stock.inRoom"
+                      theme="description"
+                      placeholder="Впишите или выберите"
+                      :error="errors[0]"
+                      :options="['option 1', 'option 2', 'option 3']"
+                      @onSelect="(v) => (stock.inRoom = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-6 col-md-12">
+                  <label for="" class="radio__label">*Услуги</label>
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiSelect
+                      :value="stock.service"
+                      theme="description"
+                      placeholder="Впишите или выберите"
+                      :error="errors[0]"
+                      :options="['option 1', 'option 2', 'option 3']"
+                      @onSelect="(v) => (stock.service = v)"
                     />
                   </ValidationProvider>
                 </div>
               </div>
             </div>
-            <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  theme="description"
-                  label="Цена"
-                  placeholder="Сумма (р.)"
-                  :value="stock.price"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => (stock.price = v)"
-                />
-              </ValidationProvider>
+            <!--section -->
+
+            <div class="step__section">
+              <div class="step__section-label h4-title">Заезд/выезд</div>
+              <div class="row">
+                <div class="col col-3 col-md-12">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      label="Время заезда (от)"
+                      placeholder="00:00"
+                      :value="stock.timeFromOne"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (stock.timeFromOne = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-3 col-md-12">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      label="Время заезда (до)"
+                      placeholder="00:00"
+                      :value="stock.timeToOne"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (stock.timeToOne = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-3 col-md-12">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      label="Время заезда (от)"
+                      placeholder="00:00"
+                      :value="stock.timeFromTwo"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (stock.timeFromTwo = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-3 col-md-12">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      label="Время заезда (до)"
+                      placeholder="00:00"
+                      :value="stock.timeToTwo"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (stock.timeToTwo = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+              </div>
             </div>
-            <div class="col col-3 col-md-12">
-              <label for="" class="radio__label">Дополнительно</label>
-              <div class="ui-group">
-                <UiInput
-                  textarea
-                  :value="stock.description"
-                  placeholder="Введите текст..."
-                  :rows="5"
-                  @onChange="(v) => (stock.description = v)"
-                />
+            <!--section -->
+
+            <div class="step__section">
+              <div class="step__section-label h4-title">Детальная информация о номерах</div>
+              <div class="row">
+                <div class="col col-3 col-md-12">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      label="Название"
+                      placeholder="Название"
+                      :value="stock.name"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (stock.name = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-3 col-md-12">
+                  <div class="ui-group">
+                    <label for="" class="radio__label">Тип размещения</label>
+                    <div class="radio__col">
+                      <UiCheckbox
+                        label="Одноместное"
+                        name="type"
+                        :value="true"
+                        type="radio"
+                        @onChange="() => (type = 'Одноместное')"
+                      >
+                        Одноместное
+                      </UiCheckbox>
+                      <UiCheckbox
+                        label="Двухместное"
+                        name="type"
+                        :value="false"
+                        type="radio"
+                        @onChange="() => (stock.type = 'Двухместное')"
+                      >
+                        Двухместное
+                      </UiCheckbox>
+                      <UiCheckbox
+                        label="Трехместное"
+                        name="type"
+                        :value="false"
+                        type="radio"
+                        @onChange="() => (stock.type = 'Трехместное')"
+                      >
+                        Трехместное
+                      </UiCheckbox>
+                      <UiCheckbox
+                        label="Другое"
+                        name="type"
+                        :value="false"
+                        type="radio"
+                        @onChange="() => (stock.type = 'Другое')"
+                      >
+                        Другое
+                      </UiCheckbox>
+                    </div>
+                    <div v-if="stock.type === 'Другое'" class="mt-1">
+                      <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                        <UiInput
+                          theme="description"
+                          placeholder="Введите ваш вариант"
+                          :value="stock.typeOther"
+                          type="text"
+                          :error="errors[0]"
+                          @onChange="(v) => (stock.typeOther = v)"
+                        />
+                      </ValidationProvider>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-3 col-md-12">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                    <UiInput
+                      theme="description"
+                      label="Цена"
+                      placeholder="Сумма (р.)"
+                      :value="stock.price"
+                      type="text"
+                      :error="errors[0]"
+                      @onChange="(v) => (stock.price = v)"
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col col-3 col-md-12">
+                  <label for="" class="radio__label">Дополнительно</label>
+                  <div class="ui-group">
+                    <UiInput
+                      textarea
+                      :value="stock.description"
+                      placeholder="Введите текст..."
+                      :rows="5"
+                      @onChange="(v) => (stock.description = v)"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div class="row mt-1">
+            <button
+              v-if="stockInformation.length < stockLimited"
+              class="step__add-hall c-primary mb-sm-1"
+              @click="addStock"
+            >
+              + Добавить еще один тип номеров
+            </button>
+            <button v-if="stockInformation.length > 1" class="step__add-hall c-primary" @click="removeStock">
+              - Удалить один тип номеров
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="row mt-1">
-        <button
-          v-if="stockInformation.length < stockLimited"
-          class="step__add-hall c-primary mb-sm-1"
-          @click="addStock"
-        >
-          + Добавить еще один тип номеров
-        </button>
-        <button v-if="stockInformation.length > 1" class="step__add-hall c-primary" @click="removeStock">
-          - Удалить один тип номеров
-        </button>
-      </div>
-    </div>
 
-    <div class="step__cta">
-      <UiButton theme="outline" @click="() => $emit('onBack')">Назад</UiButton>
+        <div class="step__cta">
+          <UiButton theme="outline" @click="() => $emit('onBack')">Назад</UiButton>
 
-      <UiButton type="submit">Отправить</UiButton>
-    </div>
+          <UiButton type="submit">Отправить</UiButton>
+        </div>
+      </ValidationObserver>
+    </client-only>
   </div>
 </template>
 
@@ -349,7 +359,9 @@ export default {
       // if (!isValid) {
       // }
 
-      this.$emit('onNext')
+      this.$toast.global.default({ message: 'emit compleation ALL DONE api' })
+
+      this.$router.push('/success/create')
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null

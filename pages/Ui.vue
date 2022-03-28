@@ -117,6 +117,17 @@
             :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
             @onSelect="(v) => (select = v)"
           />
+
+          <UiSelect
+            v-for="theme in ['ghost', 'description', 'request']"
+            :key="theme"
+            class="mt-1"
+            :theme="theme"
+            :value="select"
+            placeholder="Удобное время для звонка"
+            :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
+            @onSelect="(v) => (select = v)"
+          />
         </div>
 
         <div class="ui-group">
@@ -241,7 +252,7 @@ export default {
         'key',
         'rouble',
         'like',
-        'like-2',
+        'thumbs-up',
         'login',
         'logout',
         'mail',
@@ -263,6 +274,7 @@ export default {
         'noun-solution',
         'cup',
         'uploader-add',
+        'upload-cloud',
         'magick-wand',
       ],
     }

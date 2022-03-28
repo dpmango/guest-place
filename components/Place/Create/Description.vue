@@ -222,10 +222,20 @@
             </div>
           </div>
           <div class="row mt-1">
-            <button v-if="hallInformation.length < hallLimited" class="step__add-hall c-primary" @click="addHall">
+            <button
+              v-if="hallInformation.length < hallLimited"
+              type="button"
+              class="step__add-hall c-primary"
+              @click="addHall"
+            >
               + Добавить зал
             </button>
-            <button v-if="hallInformation.length > 1" class="step__add-hall c-primary" @click="removeHall">
+            <button
+              v-if="hallInformation.length > 1"
+              type="button"
+              class="step__add-hall c-primary"
+              @click="removeHall"
+            >
               - Удалить зал
             </button>
           </div>
@@ -315,6 +325,8 @@ export default {
       // }
 
       this.$emit('onNext')
+
+      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null

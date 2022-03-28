@@ -196,6 +196,9 @@ export default {
       // }
 
       this.$emit('onNext')
+
+      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
+
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null

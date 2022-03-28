@@ -4,12 +4,14 @@
 
     <v-select
       :id="_uid"
+      v-bind="$attrs"
+      ref="select"
       :options="options"
       :value="value"
       :placeholder="placeholder"
       :searchable="searchable"
-      v-bind="$attrs"
       @input="setSelected"
+      @search="handleSearch"
       v-on="$listeners"
     >
       <template #open-indicator="{ attributes }">
@@ -17,6 +19,7 @@
       </template>
       <template #no-options="{ search, searching, loading }">
         <span> Не найдено</span>
+        <span v-if="searchValue" class="select__add" @click="handleAddCustomOption">Добавить {{ searchValue }}</span>
       </template>
     </v-select>
   </div>
@@ -47,16 +50,22 @@ export default {
     },
     searchable: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     theme: {
       type: String,
       required: false,
+      validator: (theme) => ['ghost', 'clear', 'polymorph', 'description', 'request'].includes(theme),
     },
     error: {
       type: [String, Array],
       required: false,
     },
+  },
+  data() {
+    return {
+      searchValue: '',
+    }
   },
   computed: {
     placeholderText() {
@@ -67,6 +76,29 @@ export default {
     },
   },
   methods: {
+    // createOption(newOption) {
+    //   if (typeof this.options[0] === 'object') {
+    //     newOption = { [this.label]: newOption }
+    //   }
+
+    //   this.$emit('option:created', newOption)
+    //   return newOption
+    // },
+    handleSearch(search, loading) {
+      loading(true)
+
+      this.searchValue = search
+
+      loading(false)
+    },
+    handleAddCustomOption() {
+      this.setSelected(this.searchValue)
+
+      const searchEl = this.$refs.select.searchEl
+      if (searchEl) {
+        searchEl.blur()
+      }
+    },
     setSelected(val) {
       this.$emit('onSelect', val)
     },
@@ -85,6 +117,27 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  &__add {
+    display: block;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    padding: 14px 20px;
+    color: $fontColor;
+    font-family: $baseFont;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: background 0.1s $ease, color 0.25s $ease;
+    &:hover {
+      background: #ecf4fd;
+      color: $fontColor;
+    }
   }
   &.has-error {
     .select__label {
@@ -150,9 +203,14 @@ export default {
       }
     }
     + .vs__search {
-      margin-left: -6px;
-      padding-left: 0;
+      margin-left: 0px;
+      // padding-left: 0;
     }
+  }
+
+  .vs__actions {
+    padding-top: 0;
+    padding-right: 25px;
   }
 
   .vs__open-indicator {
@@ -291,8 +349,8 @@ export default {
       transition: border 0.25s $ease, color 0.25s $ease, background 0.25s $ease, border-radius 0.25s $ease;
       border: 50px;
       border: 1px solid transparent;
-      &:hover {
-      }
+      // &:hover {
+      // }
     }
     .vs__actions {
       padding-right: 25px;

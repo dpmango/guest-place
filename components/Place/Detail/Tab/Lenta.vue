@@ -14,7 +14,7 @@
       <div class="lenta__text mt-1 mb-2">
         <slot> </slot>
       </div>
-      <p class="lenta__footer"><UiSvgIcon name="like-2" /> {{ lenta.likes }} человек это оценили</p>
+      <p class="lenta__footer"><UiSvgIcon name="thumbs-up" /> {{ lenta.likes }} человек это оценили</p>
     </div>
   </div>
 </template>

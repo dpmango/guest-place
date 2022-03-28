@@ -4,12 +4,51 @@
 
     <!--section -->
     <div class="step__section">
+      <div class="step__section-label h4-title">Загрузите видео (проморолик)</div>
+
+      <div class="step__video">
+        <UiUploader
+          :file="video.file"
+          :allowed-mime="['video']"
+          :max-size="20"
+          :include-reader="true"
+          @onReader="(v) => (video.blob = v)"
+          @onChange="(f) => (video.file = f)"
+        >
+          <template #preview="slotProps">
+            <div class="uploader-trigger">
+              <div class="uploader-trigger__box" @click="slotProps.trigger">
+                <div v-if="!video.blob" class="uploader-trigger__plus">
+                  <UiSvgIcon name="uploader-add" />
+                </div>
+                <div v-else class="uploader-trigger__img">
+                  <img :src="video.blob" :alt="video.file.name" />
+                </div>
+              </div>
+              <div class="uploader-trigger__details">
+                <label :class="video.desc && video.desc.length && 'hidden'" for="">Добавить описание...</label>
+                <div
+                  class="uploader-trigger__contenteditable"
+                  :contenteditable="true"
+                  :value="video.desc"
+                  @input="(e) => (video.desc = { ...video, desc: e.target.innerHTML })"
+                />
+              </div>
+            </div>
+          </template>
+        </UiUploader>
+      </div>
+    </div>
+
+    <!--section -->
+    <div class="step__section">
       <div class="step__section-label h4-title">Добавьте фото и/или видео вашей площадки</div>
-      <p class="p-label tac">
-        Первое фото будет главным. Вы можете перемещать фотографии, чтобы изменить их очередность.
+      <p class="p-body c-gray tac">
+        Каждое фото обязательно подписать (название зала, категория номера и т.д.). Первое фото будет главным. Вы можете
+        перемещать фотографии, чтобы изменить их очередность.
       </p>
 
-      <div class="step__grid">
+      <div class="step__media">
         <UiUploader
           v-for="(photo, idx) in photos"
           :key="idx"
@@ -30,13 +69,56 @@
                   <img :src="photo.blob" :alt="photo.file.name" />
                 </div>
               </div>
-              <div
-                :contenteditable="true"
-                :value="photo.desc"
-                class="uploader-trigger__info"
-                placeholder="Добавить описание.."
-                @change="(e) => handleDescChange({ photo, val: e.target.value })"
-              />
+              <div class="uploader-trigger__details">
+                <label :class="photo.desc && photo.desc.length && 'hidden'" for="">Добавить описание...</label>
+                <div
+                  class="uploader-trigger__contenteditable"
+                  :contenteditable="true"
+                  :value="photo.desc"
+                  @input="(e) => handlePhotosDescChange({ photo, val: e })"
+                />
+              </div>
+            </div>
+          </template>
+        </UiUploader>
+      </div>
+    </div>
+
+    <!--section -->
+    <div class="step__section">
+      <div class="step__section-label h4-title">Документы</div>
+
+      <div class="step__docs">
+        <UiUploader
+          v-for="(photo, idx) in docs"
+          :key="idx"
+          :file="photo.file"
+          :allowed-mime="['application', 'image']"
+          :max-size="30"
+          :include-reader="false"
+          @onReader="(img) => (photo.blob = img)"
+          @onChange="(f) => (photo.file = f)"
+        >
+          <template #preview="slotProps">
+            <p v-if="photo.helper" class="p-body c-gray">{{ photo.helper }}</p>
+            <div class="uploader-trigger">
+              <div class="uploader-trigger__box" @click="slotProps.trigger">
+                <div v-if="!photo.file" class="uploader-trigger__message">
+                  <UiSvgIcon name="upload-cloud" />
+                  <p>
+                    Перетащите файл сюда
+                    <br />
+                    <span class="c-gray">или</span>
+                  </p>
+
+                  <UiButton size="extra-small" theme="system">
+                    <UiSvgIcon name="paper-clip" />
+                    <span>Выберите файл</span>
+                  </UiButton>
+
+                  <p class="p-label">Максимальный размер файла 30 MB</p>
+                </div>
+              </div>
             </div>
           </template>
         </UiUploader>
@@ -57,17 +139,37 @@ export default {
   data() {
     return {
       error: '',
+      video: {
+        file: null,
+        blob: null,
+        desc: '',
+      },
       photos: Array.from({ length: 10 }, (_, i) => ({
         id: i + 1,
         file: null,
         blob: null,
         desc: '',
       })),
+      docs: [
+        {
+          id: 1,
+          helper: 'По желанию можно прикрепить Презентацию, Банкетное меню, план рассадки, технический Райдер и т.д.',
+          file: null,
+          blob: null,
+        },
+        {
+          id: 2,
+          helper:
+            'Прикрепите скан подписанного договора. Это также можно сделать позже, после заполнения формы, в личном кабинете',
+          file: null,
+          blob: null,
+        },
+      ],
     }
   },
   methods: {
-    handleDescChange({ photo, val }) {
-      this.photos = [...this.photos.map((x) => (x.id === photo.id ? { ...x, desc: val } : { ...x }))]
+    handlePhotosDescChange({ photo, e }) {
+      this.photos = [...this.photos.map((x) => (x.id === photo.id ? { ...x, desc: e.target.innerHTML } : { ...x }))]
     },
     handleSubmit() {
       // const isValid = await this.$refs.form.validate()
@@ -75,6 +177,8 @@ export default {
       // // }
 
       this.$emit('onNext')
+
+      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
       // await this.login({ step: 1 })
       //   .then((_res) => {
       //     this.error = null
@@ -119,15 +223,40 @@ export default {
     }
   }
 
-  &__grid {
+  &__media,
+  &__docs,
+  &__video {
+    .uploader {
+      ::v-deep .uploader__file {
+        display: none;
+      }
+    }
+  }
+
+  &__media {
     display: grid;
     margin-top: 25px;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px 30px;
-    .uploader {
-      width: 100%;
-      ::v-deep .uploader__file {
-        display: none;
+  }
+
+  &__video {
+    max-width: 540px;
+    margin: 0px auto 0;
+    .uploader-trigger {
+      &__box {
+        padding-bottom: 30%;
+      }
+    }
+  }
+
+  &__docs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px 30px;
+    .uploader-trigger {
+      &__box {
+        padding-bottom: 45%;
       }
     }
   }
@@ -138,8 +267,13 @@ export default {
   // .ui-group{}
 }
 
+p + .uploader-trigger {
+  margin-top: 6px;
+}
+
 .uploader-trigger {
   position: relative;
+  width: 100%;
   padding-bottom: 24px;
 
   &__box {
@@ -170,7 +304,47 @@ export default {
       object-fit: cover;
     }
   }
-  &__info {
+  &__details {
+    position: relative;
+    font-size: 14px;
+    line-height: 1.3;
+    label {
+      position: absolute;
+      top: 8px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: $colorLight;
+      pointer-events: none;
+      transition: opacity 0.1s $ease;
+      backface-visibility: hidden;
+      &.hidden {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    > .svg-icon {
+      font-size: 32px;
+      color: $colorPrimary;
+    }
+    p {
+      margin: 8px 0;
+    }
+  }
+
+  &__contenteditable {
     position: relative;
     -webkit-appearance: none;
     width: 100%;
@@ -179,8 +353,7 @@ export default {
     padding: 8px 0;
     font-size: 14px;
     line-height: 1.35;
-    text-align: center;
-    color: $colorLight;
+    color: $colorGray;
     border: 0;
     box-shadow: none;
     opacity: 1;
@@ -205,21 +378,23 @@ export default {
 
 @include r($lg) {
   .step {
-    &__grid {
+    &__media {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 }
 
-// @include r($md) {
-//   .step {
-//     padding: 40px 15px;
+@include r($md) {
+  .step {
+    &__docs {
+      grid-template-columns: 1fr;
+    }
+  }
+}
 
-//   }
-// }
 @include r($sm) {
   .step {
-    &__grid {
+    &__media {
       grid-template-columns: 1fr 1fr;
     }
     &__cta {
