@@ -31,7 +31,7 @@ export default {
     theme: {
       type: String,
       default: 'primary',
-      validator: (theme) => ['primary', 'outline', 'outline-gradient', 'danger', 'success'].includes(theme),
+      validator: (theme) => ['primary', 'outline', 'outline-gradient', 'danger', 'success', 'system'].includes(theme),
     },
     size: {
       type: String,
@@ -163,10 +163,10 @@ export default {
     }
   }
 
-  ::v-deep svg {
-    width: 15px;
+  ::v-deep .svg-icon {
+    font-size: 1.1em;
     vertical-align: middle;
-    transition: stroke 0.25s $ease;
+    margin-right: 8px;
   }
 
   &.primary {
@@ -243,12 +243,37 @@ export default {
     }
   }
 
+  &.system {
+    color: white;
+    background: $colorPrimary;
+    border-color: transparent;
+    border-radius: 4px;
+    &::before,
+    &::after {
+      display: none;
+    }
+    &:hover {
+      background: rgba($colorPrimary, 0.8);
+    }
+    &:active {
+      background: rgba($colorPrimary, 0.9);
+    }
+  }
+
   &.small {
     .button__content {
       font-size: 14px;
       padding: 10px 14px;
     }
   }
+
+  &.extra-small {
+    .button__content {
+      font-size: 14px;
+      padding: 5px 12px;
+    }
+  }
+
   &.block {
     display: block;
     width: 100%;

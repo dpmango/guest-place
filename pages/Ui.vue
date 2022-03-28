@@ -241,7 +241,7 @@ export default {
         'key',
         'rouble',
         'like',
-        'like-2',
+        'thumbs-up',
         'login',
         'logout',
         'mail',
@@ -263,6 +263,7 @@ export default {
         'noun-solution',
         'cup',
         'uploader-add',
+        'upload-cloud',
         'magick-wand',
       ],
     }

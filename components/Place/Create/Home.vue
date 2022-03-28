@@ -19,7 +19,6 @@
         <PlaceCreateExtra v-if="activeStep === 3" @onNext="onNext" @onBack="onBack" />
         <PlaceCreatePhotos v-if="activeStep === 4" @onNext="onNext" @onBack="onBack" />
         <PlaceCreateStock v-if="activeStep === 5" @onNext="onNext" @onBack="onBack" />
-        <!-- <PlaceCreateExtra v-if="activeStep === 5" @onNext="handleStepChange" @onBack="onBack" /> -->
       </div>
     </div>
   </div>
@@ -31,6 +30,7 @@ export default {
   data() {
     return {
       activeStep: 1,
+      totalSteps: 5,
       breadcrumbs: [{ to: '', label: 'Добавить место' }],
     }
   },
@@ -38,7 +38,7 @@ export default {
     activeStep(newVal) {
       const { step: activeStep } = this.$route.query
 
-      if (Number(activeStep) !== newVal) {
+      if (newVal && Number(activeStep) !== newVal) {
         // prevents navigationDuplicates
         this.$router.replace({ path: this.$route.path, query: { step: Number(newVal) } })
       }
@@ -52,10 +52,18 @@ export default {
   },
   methods: {
     onNext() {
-      this.activeStep = this.activeStep + 1
+      if (this.activeStep + 1 > this.totalSteps) {
+        this.activeStep = this.totalSteps
+      } else {
+        this.activeStep = this.activeStep + 1
+      }
     },
     onBack() {
-      this.activeStep = this.activeStep - 1
+      if (this.activeStep - 1 > 0) {
+        this.activeStep = this.activeStep - 1
+      } else {
+        this.activeStep = 1
+      }
     },
   },
 }
