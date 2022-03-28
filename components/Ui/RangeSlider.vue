@@ -125,6 +125,7 @@ export default {
 <style lang="scss" scoped>
 .rangeslider {
   position: relative;
+  width: 100%;
   &__label {
     display: block;
     font-size: 12px;
@@ -139,7 +140,10 @@ export default {
 
   &__wrapper {
     position: relative;
+    max-width: 100%;
+    width: 100%;
   }
+
   &__controls {
     display: flex;
     flex-wrap: wrap;
@@ -147,6 +151,7 @@ export default {
     align-items: center;
     justify-content: space-between;
   }
+
   &__input {
     flex: 0 0 auto;
     display: flex;
@@ -157,7 +162,7 @@ export default {
       margin-right: 6px;
     }
     .input {
-      max-width: 88px;
+      max-width: 100px;
       ::v-deep {
         input {
           padding: 6px 12px 6px 24px !important;
@@ -180,6 +185,24 @@ export default {
 </style>
 
 <style lang="scss">
-// .rangeslider {
-// }
+.rangeslider {
+  .vue-slider {
+    height: 4px !important;
+    padding: 13px 0 !important;
+  }
+
+  .vue-slider-process {
+    background: linear-gradient(90deg, #8e2dbc 3.6%, #ffc5bd 34.91%, #db7ae3 66.22%, #0066cc 97.52%);
+  }
+
+  .vue-slider-dot {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .vue-slider-dot-handle {
+    box-shadow: none !important;
+    background: url('~/assets/img/sliderHandle.png');
+  }
+}
 </style>

@@ -92,15 +92,15 @@
           </div>
           <div class="scope__row scope__row--button row mt-1">
             <div class="col col-6 col-sm-12">
-              <UiButton class="button">Оставить заявку</UiButton>
+              <UiButton class="button" @click="() => setModal({ name: 'cardrequest' })">Оставить заявку</UiButton>
             </div>
             <div class="col col-6 col-sm-12">
-              <UiButton class="button" theme="outline">начать чат</UiButton>
+              <UiButton class="button" theme="outline" @click="() => setModal({ name: 'chat' })">начать чат</UiButton>
             </div>
           </div>
           <div class="scope__info-row row mt-1">
             <div class="col col6">
-              <div class="scope__info">
+              <div class="scope__info" @click="() => setModal({ name: 'online' })">
                 <h5 class="scope__info-title h5-title">
                   <UiSvgIcon name="monitor-play" class="scope__icon" />
                   Онлайн-показ
@@ -112,7 +112,7 @@
               </div>
             </div>
             <div class="col col6">
-              <div class="scope__info">
+              <div class="scope__info" @click="() => setModal({ name: 'help' })">
                 <h5 class="scope__info-title h5-title">
                   <UiSvgIcon name="question" class="scope__icon" />
                   Помощь эксперта
@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -189,6 +189,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations('ui', ['setModal']),
     // ...mapActions('auth', ['logout']),
   },
 }
@@ -235,6 +236,9 @@ export default {
     margin-top: 5px;
     font-size: 12px;
     color: $colorLight;
+  }
+  &__info {
+    cursor: pointer;
   }
 }
 

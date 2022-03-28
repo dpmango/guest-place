@@ -244,7 +244,9 @@
           </PlaceDetailTabQuest>
           <div class="chat__buttons mt-3 mt-md-1">
             <UiButton class="chat__button">Больше вопросов</UiButton>
-            <UiButton class="chat__button" theme="outline">Задать вопрос</UiButton>
+            <UiButton type="button" class="chat__button" theme="outline" @click="() => setModal({ name: 'quest' })"
+              >Задать вопрос</UiButton
+            >
           </div>
         </div>
       </div>
@@ -253,7 +255,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -433,6 +435,8 @@ export default {
     handleTabClick(slug) {
       this.activeTab = slug
     },
+    ...mapMutations('ui', ['setModal']),
+
     // ...mapActions('auth', ['logout']),
   },
 }

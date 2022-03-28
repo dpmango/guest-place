@@ -1,5 +1,5 @@
 <template>
-  <UiPanel name="filter" class="fixed">
+  <UiPanel name="filter" class="fixed panel__filter">
     <div class="filter">
       <div class="filter__header">
         <h3 class="h3-title">Фильтрация поиска</h3>
@@ -40,7 +40,17 @@
       <div class="filter__select">
         <p class="filter__select-title">Стоимость</p>
 
-        <UiRangeSlider :value="price" :min="1000" :max="50 * 1000" :interval="1000" @onChange="(v) => (price = v)" />
+        <div class="filter__row">
+          <div class="filter__input filter__input--slider">
+            <UiRangeSlider
+              :value="price"
+              :min="1000"
+              :max="50 * 1000"
+              :interval="1000"
+              @onChange="(v) => (price = v)"
+            />
+          </div>
+        </div>
       </div>
       <div class="mt-2">
         <UiButton class="filter__button">Показать результаты (185)</UiButton>
@@ -65,7 +75,7 @@ export default {
       type: null,
       features: null,
       capacity: null,
-      price: 1000,
+      price: [1000, 50000],
     }
   },
   methods: {
@@ -105,6 +115,9 @@ export default {
   }
   &__button {
     width: 100%;
+  }
+  &__row {
+    padding: 0px 20px;
   }
 }
 

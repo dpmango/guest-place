@@ -60,6 +60,14 @@ export default {
     transform: translate3d(100%, 0, 0);
   }
 
+  &__filter {
+    top: 0;
+  }
+  &__filter & {
+    &__wrapper {
+      max-width: 500px;
+    }
+  }
   &.is-active {
     pointer-events: all;
     .panel__wrapper {
@@ -71,13 +79,23 @@ export default {
 @include r($md) {
   .panel {
     top: 106px;
+    &__filter {
+      top: 0;
+    }
   }
 }
 
 @include r($sm) {
-  .panel__wrapper {
-    border-radius: 0;
-    width: 100%;
+  .panel {
+    &__wrapper {
+      border-radius: 0;
+      width: 100%;
+    }
+    &__filter & {
+      &__wraper {
+        max-width: 100%;
+      }
+    }
   }
 }
 </style>

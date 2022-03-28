@@ -129,19 +129,101 @@ export default {
 
 <style lang="scss">
 .datepicker {
+  .vc-popover-content-wrapper {
+    min-width: inherit !important;
+    width: inherit !important;
+    max-width: inherit !important;
+  }
   .vc-container {
-    max-width: 250px;
+    max-width: inherit;
     width: 100%;
     box-shadow: 0px 8px 10px 0px #694e4b24;
     border-radius: 0px 0px 40px 40px;
     border: 0;
   }
-
   .vc-pane-container,
   .vc-pane-layout {
     padding: 0;
     margin: 0;
     box-shadow: none;
+  }
+
+  .vc-container {
+    margin-top: 0px !important;
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0px 8px 10px 0px #694e4b24;
+  }
+
+  .vc-weekday {
+    padding: 13px 0 9px;
+    border-bottom: 1px solid $colorLightUltra;
+  }
+
+  .vc-weeks {
+    margin: 0 auto !important;
+    max-width: 200px;
+    min-width: 200px !important;
+  }
+
+  .vc-day {
+    width: 29px !important;
+    height: 26px !important;
+
+    &.is-not-in-month {
+      opacity: 1 !important;
+      color: $colorLight !important;
+    }
+    & > .vc-day-content {
+      opacity: 1 !important;
+    }
+    &:nth-child(49),
+    &:nth-child(48),
+    &:nth-child(47),
+    &:nth-child(46),
+    &:nth-child(45),
+    &:nth-child(44),
+    &:nth-child(43) {
+      display: none;
+    }
+  }
+
+  .vc-arrow {
+    svg {
+      display: none;
+    }
+    width: 24px;
+    height: 30px;
+    background: url('~/assets/img/calendarArrow.svg') no-repeat;
+    background-position: center;
+    &.is-left {
+      margin-left: 20px;
+      transform: rotate(180deg);
+    }
+    &.is-right {
+      margin-right: 20px;
+    }
+
+    &:hover {
+      width: 24px;
+      height: 30px;
+      background-position: center;
+      background: url('~/assets/img/calendarArrow.svg') no-repeat;
+    }
+  }
+
+  .vc-popover-caret {
+    display: none !important;
+  }
+
+  &:focus,
+  &:hover {
+    .input__input {
+      input {
+        transition: $transitionSpeed $ease;
+        border-radius: 40px 40px 0px 0px !important;
+        border-color: transparent !important;
+      }
+    }
   }
 }
 </style>

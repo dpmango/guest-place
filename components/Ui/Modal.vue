@@ -16,6 +16,12 @@
           <div class="h2-title tac">
             <slot name="title" />
           </div>
+          <p class="tac h3-title">
+            <slot name="subtitleH3" />
+          </p>
+          <p class="modal__subtitle h5-title tac mt-2 mb-2">
+            <slot name="subtitle" />
+          </p>
 
           <slot name="content" />
         </div>
@@ -56,6 +62,11 @@ export default {
   justify-content: center;
   pointer-events: none;
   padding: 20px 40px 20px;
+  &__subtitle {
+    max-width: 445px;
+    margin: 0 auto;
+  }
+
   &.is-active {
     pointer-events: all;
     .modal__overlay {
@@ -66,6 +77,7 @@ export default {
       opacity: 1;
     }
   }
+
   &__overlay {
     position: fixed;
     z-index: 99;
@@ -77,6 +89,7 @@ export default {
     background: rgba($fontColor, 0.8);
     transition: opacity 0.25s $ease;
   }
+
   &__box {
     z-index: 100;
     position: fixed;

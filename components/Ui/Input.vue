@@ -408,6 +408,7 @@ export default {
     &__input {
       input,
       textarea {
+        transition: $transitionSpeed $ease;
         padding: 9px 25px;
         height: 38px;
       }

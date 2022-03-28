@@ -31,6 +31,9 @@ export default {
   box-shadow: 0px 4px 15px rgba(105, 78, 75, 0.14);
   border-radius: 40px;
   padding: 40px 45px;
+  display: flex;
+  flex-direction: column;
+
   &__title {
     display: flex;
     justify-content: center;

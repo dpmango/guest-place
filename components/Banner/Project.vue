@@ -14,11 +14,11 @@
         </div>
 
         <div class="row mt-5">
-          <div class="col col-6 col-md-12">
+          <div class="banner__row col col-6 col-md-12">
             <UiSvgIcon name="noun-solution" class="banner__icon" />
             <p>постоянный поиск новых решений и внедрение новых технологий</p>
           </div>
-          <div class="col col-6 col-md-12">
+          <div class="banner__row col col-6 col-md-12">
             <UiSvgIcon name="cup" class="banner__icon" />
             <p>мы хотим превзойти ожидания пользователейи свои тоже :)</p>
           </div>
@@ -51,8 +51,13 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
+  &__row {
+    flex-direction: row;
+  }
+
   &__icon {
-    display: none;
+    margin-right: 15px;
+    font-size: 44px;
   }
 }
 
@@ -67,11 +72,12 @@ export default {
       margin: 0 auto;
       max-width: 250px;
     }
+    &__row {
+      flex-direction: column;
+    }
     &__icon {
       display: block;
-      margin: 0 auto;
-      width: 44px !important;
-      height: 44px;
+      margin: 0 auto 10px;
     }
     .col {
       padding: 0;

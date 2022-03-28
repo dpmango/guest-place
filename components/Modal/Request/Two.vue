@@ -42,7 +42,7 @@
       <div class="request__section mt-2">
         <h6 class="h6-title request__title-section mb-1 tac">Укажите ваш бюджет на человека</h6>
         <div class="request__row">
-          <div class="request__input">
+          <div class="request__input request__input--slider">
             <UiRangeSlider
               :value="budget"
               :min="1000"
@@ -117,6 +117,9 @@ export default {
     align-items: center;
     .ui-group {
       width: 100%;
+    }
+    &--slider {
+      max-width: 100%;
     }
   }
 }

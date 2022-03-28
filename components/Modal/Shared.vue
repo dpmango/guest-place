@@ -3,6 +3,10 @@
     <ModalRequest />
     <ModalExpert />
     <ModalHelp />
+    <ModalQuest />
+    <ModalCardRequest />
+    <ModalOnline />
+    <ModalChat />
 
     <portal-target v-for="modal in modals" :key="modal" :name="`modal-${modal}`" />
   </div>
@@ -16,7 +20,7 @@ export default {
   props: {},
   data() {
     return {
-      modals: ['expert', 'help', 'request'],
+      modals: ['expert', 'help', 'request', 'quest', 'cardrequest', 'online', 'chat'],
     }
   },
 }

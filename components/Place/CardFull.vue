@@ -36,15 +36,19 @@
     </div>
 
     <div class="card__cta">
-      <UiButton size="small" block class="card__button--require">Оставить заявку</UiButton>
-      <UiButton theme="outline" size="small" block class="card__button--chat">Начать чат</UiButton>
+      <UiButton size="small" block class="card__button--require" @click="() => setModal({ name: 'cardrequest' })"
+        >Оставить заявку</UiButton
+      >
+      <UiButton theme="outline" size="small" block class="card__button--chat" @click="() => setModal({ name: 'quest' })"
+        >Начать чат</UiButton
+      >
       <UiBadge theme="gray" size="small" block class="card__button--badge">Онлайн-показ</UiBadge>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -70,6 +74,9 @@ export default {
     swiperGallery() {
       return this.$refs.gallery.$swiper
     },
+  },
+  methods: {
+    ...mapMutations('ui', ['setModal']),
   },
 }
 </script>
