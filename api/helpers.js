@@ -1,4 +1,13 @@
 export const mapApiError = (error) => {
+  if (!error) {
+    return {
+      data: null,
+      message: 'Ошибка Соединения',
+      code: 401,
+      exception: 'CORS или сервер',
+    }
+  }
+
   let data = error.data
   let message = Array.isArray(data.details) ? data.details[0] : data.details || data.detail || ''
 

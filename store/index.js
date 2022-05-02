@@ -11,11 +11,12 @@ export const actions = {
         try {
           await commit('auth/updateToken', token)
           await dispatch('auth/getUserInfo')
-          await dispatch('dictionary/init')
         } catch (e) {
           await commit('auth/logOut')
         }
       }
+
+      // await dispatch('dictionary/init')
     } catch (error) {
       // $sentry.captureException(error)
     }

@@ -94,6 +94,7 @@ export default {
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL,
     socketURL: process.env.SOCKET_URL,
+    dadataKey: process.env.DADATA_API_KEY,
   },
 
   loading: {

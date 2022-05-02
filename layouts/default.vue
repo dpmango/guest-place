@@ -29,17 +29,17 @@ export default {
   },
   mounted() {
     // console.log('default mounted  -connect ?', !this.isConnected);
-
-    if (!this.isConnected) {
-      this.connect()
-    } else {
-      try {
-        this.getDialogs()
-        this.getNotificationCount()
-      } catch (e) {
-        this.$toast.global.error({ message: 'Ошибка подключения к сообщениям. Перезагрузите страницу' })
-      }
-    }
+    // this.$store.dispatch('dictionary/init') // TODO - tml for testing
+    // if (!this.isConnected) {
+    //   this.connect()
+    // } else {
+    //   try {
+    //     this.getDialogs()
+    //     this.getNotificationCount()
+    //   } catch (e) {
+    //     this.$toast.global.error({ message: 'Ошибка подключения к сообщениям. Перезагрузите страницу' })
+    //   }
+    // }
   },
   methods: {
     ...mapActions('chat', ['connect', 'getDialogs', 'getNotificationCount']),

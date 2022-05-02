@@ -128,7 +128,7 @@
                   :value="address"
                   type="text"
                   :error="errors[0]"
-                  @onChange="(v) => (address = v)"
+                  @onChange="(v) => handleAddressChange(v)"
                 />
               </ValidationProvider>
             </div>
@@ -170,6 +170,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import debounce from 'lodash/debounce'
+import { dadataSuggestion } from '~/api/dadata'
+
 export default {
   name: 'UiPage',
   data() {
@@ -189,31 +193,64 @@ export default {
       nearPlace: '',
     }
   },
+  created() {
+    this.requestDadataWithDebounce = debounce(this.handleSuggestion, 300)
+  },
   methods: {
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
       // if (!isValid) {
       // }
 
-      this.$emit('onNext')
+      await this.createPlace({
+        step: 'one',
+        isStepCompleted: true,
+        onlineDisplay: this.onlineView ? 'Y' : 'N',
+        phoneNumbers: this.phone,
+        title: this.name,
+        workingHours: this.time,
+        address: {
+          // bounds: {
+          //   latitude: 'string',
+          //   longitude: 'string',
+          // },
+          // cityArea: 'string',
+          // cityDistrict: 'string',
+          // cityName: 'string',
+          // cityType: 'string',
+          // houseNumber: 'string',
+          // metroStationName: 'string',
+          // street: 'string',
+        },
+      })
+        .then((_res) => {
+          this.error = null
+          this.$emit('onNext')
+        })
+        .catch((err) => {
+          const { data, code } = err
 
-      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
+          this.$toast.global.error({ message: 'Ошибка, проверьте поля' })
 
-      // await this.login({ step: 1 })
-      //   .then((_res) => {
-      //     this.error = null
-      //   })
-      //   .catch((err) => {
-      //     const { data, code } = err
-
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+          if (data && code === 401) {
+            // Object.keys(data).forEach((key) => {
+            //   this.error = data[key]
+            // })
+          }
+        })
     },
-    // ...mapActions('auth', ['login']),
+    handleAddressChange(val) {
+      this.address = val
+
+      if (val && val.trim().length >= 3) {
+        this.requestDadataWithDebounce(val)
+      }
+    },
+    async handleSuggestion(val) {
+      const suggestion = await dadataSuggestion({ query: val }, this.$config.dadataKey)
+      console.log({ suggestion })
+    },
+    ...mapActions('place', ['createPlace']),
   },
 }
 </script>

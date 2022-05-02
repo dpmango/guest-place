@@ -5,6 +5,10 @@ import {
   featureDictService,
   interiorDictService,
   placeTypeDictService,
+  roomAmenitiesDictService,
+  roomCategoryDictService,
+  roomServiceDictService,
+  roomSleepingPlaceDictService,
   serviceDictService,
 } from '~/api/dictionary'
 
@@ -15,6 +19,10 @@ export const state = () => ({
   features: [],
   interiors: [],
   placeTypes: [],
+  roomAmenities: [],
+  roomCategories: [],
+  roomServices: [],
+  roomSleepingPlaces: [],
   services: [],
 })
 
@@ -50,6 +58,10 @@ export const actions = {
     dispatch('getFeatures')
     dispatch('getInteriors')
     dispatch('getPlaceTypes')
+    dispatch('getRoomAmenities')
+    dispatch('getRoomCategories')
+    dispatch('getRoomServices')
+    dispatch('getRoomSleepingPlaces')
     dispatch('getServices')
   },
   async getCategories({ commit }, request) {
@@ -103,6 +115,42 @@ export const actions = {
     if (err) throw err
 
     commit('setStateList', { name: 'placeTypes', value: result })
+
+    return result
+  },
+  async getRoomAmenities({ commit }, request) {
+    const [err, result] = await roomAmenitiesDictService(this.$api)
+
+    if (err) throw err
+
+    commit('setStateList', { name: 'roomAmenities', value: result })
+
+    return result
+  },
+  async getRoomCategories({ commit }, request) {
+    const [err, result] = await roomCategoryDictService(this.$api)
+
+    if (err) throw err
+
+    commit('setStateList', { name: 'roomCategories', value: result })
+
+    return result
+  },
+  async getRoomServices({ commit }, request) {
+    const [err, result] = await roomServiceDictService(this.$api)
+
+    if (err) throw err
+
+    commit('setStateList', { name: 'roomServices', value: result })
+
+    return result
+  },
+  async getRoomSleepingPlaces({ commit }, request) {
+    const [err, result] = await roomSleepingPlaceDictService(this.$api)
+
+    if (err) throw err
+
+    commit('setStateList', { name: 'roomSleepingPlaces', value: result })
 
     return result
   },

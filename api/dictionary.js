@@ -61,6 +61,46 @@ export const placeTypeDictService = async ($api) => {
   }
 }
 
+export const roomAmenitiesDictService = async ($api) => {
+  try {
+    const { data } = await $api.get(endpoints.dictionary.roomAmenities)
+
+    return [null, mapData(data)]
+  } catch (error) {
+    return [mapApiError(error), null]
+  }
+}
+
+export const roomCategoryDictService = async ($api) => {
+  try {
+    const { data } = await $api.get(endpoints.dictionary.roomCategory)
+
+    return [null, mapData(data)]
+  } catch (error) {
+    return [mapApiError(error), null]
+  }
+}
+
+export const roomServiceDictService = async ($api) => {
+  try {
+    const { data } = await $api.get(endpoints.dictionary.roomService)
+
+    return [null, mapData(data)]
+  } catch (error) {
+    return [mapApiError(error), null]
+  }
+}
+
+export const roomSleepingPlaceDictService = async ($api) => {
+  try {
+    const { data } = await $api.get(endpoints.dictionary.roomSleepingPlace)
+
+    return [null, mapData(data)]
+  } catch (error) {
+    return [mapApiError(error), null]
+  }
+}
+
 export const serviceDictService = async ($api) => {
   try {
     const { data } = await $api.get(endpoints.dictionary.service)

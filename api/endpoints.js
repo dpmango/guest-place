@@ -18,7 +18,10 @@ export default {
     files: `${base}/files/`,
   },
   place: {
-    create: '/place/create',
+    find: '/place',
+    findById: (id) => `/place/${id}`,
+    create: (step) => `/place/create/step-${step}`,
+    uploadMedia: (id) => `/place/${id}/media/upload`,
   },
   feedback: {
     base: `${base}/feedback/`,
@@ -30,6 +33,10 @@ export default {
     feature: `${dictionary}/feature/`,
     interior: `${dictionary}/interior-style/`,
     placeType: `${dictionary}/place-type/`,
+    roomAmenities: `${dictionary}/room/amenities`,
+    roomCategory: `${dictionary}/room/category`,
+    roomService: `${dictionary}/room/service`,
+    roomSleepingPlace: `${dictionary}/room/sleeping-place`,
     service: `${dictionary}/service/`,
   },
 }
