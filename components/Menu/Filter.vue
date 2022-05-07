@@ -3,6 +3,7 @@
     <div class="filter">
       <div class="filter__header">
         <h3 class="h3-title">Фильтрация поиска</h3>
+
         <button @click="() => resetPanels()">
           <UiSvgIcon name="close" />
         </button>
@@ -13,7 +14,7 @@
           :value="type"
           theme="polymorph"
           placeholder="Выберите варианты"
-          :options="['option 1', 'option 2', 'option 3']"
+          :options="getSelectValues('placeTypes')"
           @onSelect="(v) => (type = v)"
         />
       </div>
@@ -23,7 +24,7 @@
           :value="features"
           theme="polymorph"
           placeholder="Выберите варианты"
-          :options="['option 1', 'option 2', 'option 3']"
+          :options="getSelectValues('features')"
           @onSelect="(v) => (features = v)"
         />
       </div>
@@ -60,7 +61,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 //! Выдает ошибку
 
 // import VueSlider from 'vue-slider-component'
@@ -77,6 +78,9 @@ export default {
       capacity: null,
       price: [1000, 50000],
     }
+  },
+  computed: {
+    ...mapGetters('dictionary', ['getSelectValues']),
   },
   methods: {
     ...mapMutations('ui', ['resetPanels']),

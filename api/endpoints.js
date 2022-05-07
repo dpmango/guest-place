@@ -20,7 +20,7 @@ export default {
   place: {
     find: '/place',
     findById: (id) => `/place/${id}`,
-    create: (step) => `/place/create/step-${step}`,
+    create: (step) => `/place/step-${step}`,
     uploadMedia: (id) => `/place/${id}/media/upload`,
   },
   feedback: {

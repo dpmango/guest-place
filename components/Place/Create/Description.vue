@@ -22,7 +22,7 @@
                   theme="description"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
+                  :options="getSelectValues('categories')"
                   @onSelect="(v) => (category = v)"
                 />
               </ValidationProvider>
@@ -35,7 +35,7 @@
                   theme="description"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
+                  :options="getSelectValues('placeTypes')"
                   @onSelect="(v) => (typePlace = v)"
                 />
               </ValidationProvider>
@@ -48,7 +48,7 @@
                   theme="description"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
+                  :options="getSelectValues('features')"
                   @onSelect="(v) => (features = v)"
                 />
               </ValidationProvider>
@@ -61,7 +61,7 @@
                   theme="description"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
+                  :options="getSelectValues('services')"
                   @onSelect="(v) => (service = v)"
                 />
               </ValidationProvider>
@@ -74,7 +74,7 @@
                   theme="description"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
+                  :options="getSelectValues('equipments')"
                   @onSelect="(v) => (equipment = v)"
                 />
               </ValidationProvider>
@@ -87,7 +87,7 @@
                   theme="description"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
-                  :options="['option 1', 'option 2', 'option 3']"
+                  :options="getSelectValues('cuisines')"
                   @onSelect="(v) => (kitchen = v)"
                 />
               </ValidationProvider>
@@ -101,7 +101,7 @@
                     theme="description"
                     placeholder="Выберите варианты"
                     :error="errors[0]"
-                    :options="['option 1', 'option 2', 'option 3']"
+                    :options="['Бесплатная', 'Платная', 'Отсутствует']"
                     @onSelect="(v) => (parking = v)"
                   />
                 </ValidationProvider>
@@ -129,7 +129,7 @@
                     theme="description"
                     placeholder="Выберите варианты"
                     :error="errors[0]"
-                    :options="['option 1', 'option 2', 'option 3']"
+                    :options="getSelectValues('interiors')"
                     @onSelect="(v) => (style = v)"
                   />
                 </ValidationProvider>
@@ -141,7 +141,7 @@
         <!--section -->
         <div class="step__section">
           <div class="step__section-label h4-title">Информация о залах</div>
-          <div v-for="hall in hallInformation" :key="hall.id" class="row">
+          <div v-for="hall in hallList" :key="hall.id" class="row">
             <div class="col col-6 col-md-12">
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
@@ -222,20 +222,10 @@
             </div>
           </div>
           <div class="row mt-1">
-            <button
-              v-if="hallInformation.length < hallLimited"
-              type="button"
-              class="step__add-hall c-primary"
-              @click="addHall"
-            >
+            <button v-if="hallList.length < hallLimit" type="button" class="step__add-hall c-primary" @click="addHall">
               + Добавить зал
             </button>
-            <button
-              v-if="hallInformation.length > 1"
-              type="button"
-              class="step__add-hall c-primary"
-              @click="removeHall"
-            >
+            <button v-if="hallList.length > 1" type="button" class="step__add-hall c-primary" @click="removeHall">
               - Удалить зал
             </button>
           </div>
@@ -267,14 +257,14 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import { selectToApi } from '~/api/helpers'
+
 export default {
   name: 'UiPage',
   data() {
     return {
       error: '',
-
-      description: '',
-
       // Section 1
       category: '',
       typePlace: '',
@@ -287,8 +277,8 @@ export default {
       style: '',
 
       // Section 2
-      hallLimited: 5,
-      hallInformation: [
+      hallLimit: 5,
+      hallList: [
         {
           id: 1,
           hallName: '',
@@ -299,11 +289,17 @@ export default {
           countPlaceYet: '',
         },
       ],
+
+      // Section 3
+      description: '',
     }
+  },
+  computed: {
+    ...mapGetters('dictionary', ['getSelectValues']),
   },
   methods: {
     addHall() {
-      const hallId = this.hallInformation[this.hallInformation.length - 1].id + 1
+      const hallId = this.hallList[this.hallList.length - 1].id + 1
       const hallObj = {
         id: hallId,
         hallName: '',
@@ -314,34 +310,57 @@ export default {
         countPlaceYet: '',
       }
 
-      this.hallInformation.push(hallObj)
+      this.hallList.push(hallObj)
     },
     removeHall() {
-      this.hallInformation.pop()
+      this.hallList.pop()
     },
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
       // if (!isValid) {
       // }
 
-      this.$emit('onNext')
+      await this.createPlace({
+        step: 'two',
+        placeId: 0, // TODO
+        isStepCompleted: true,
+        categories: selectToApi(this.category),
+        cuisines: selectToApi(this.kitchen),
+        equipments: selectToApi(this.equipment),
+        features: selectToApi(this.features),
+        interiorStyle: selectToApi(this.style),
+        placeTypes: selectToApi(this.typePlace),
+        services: selectToApi(this.service),
+        halls: this.hallList.map((h) => ({
+          area: h.areaHall,
+          banquetNumberOfSeats: h.countPlaceBanquet,
+          buffetNumberOfSeats: h.countPlaceBuffet,
+          seatingTheaterNumberOfSeats: h.countPlaceTheatre,
+          moreNumberOfSeats: h.countPlaceYet,
+          title: h.hallName,
+        })),
 
-      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
-      // await this.login({ step: 1 })
-      //   .then((_res) => {
-      //     this.error = null
-      //   })
-      //   .catch((err) => {
-      //     const { data, code } = err
+        parking: this.parking,
+        parkingSpace: this.parkingCount,
+        placeDescription: this.description,
+      })
+        .then((_res) => {
+          this.error = null
+          this.$emit('onNext')
+        })
+        .catch((err) => {
+          const { data, code } = err
 
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+          this.$toast.global.error({ message: 'Ошибка, проверьте поля' })
+
+          if (data && code === 401) {
+            // Object.keys(data).forEach((key) => {
+            //   this.error = data[key]
+            // })
+          }
+        })
     },
-    // ...mapActions('auth', ['login']),
+    ...mapActions('place', ['createPlace']),
   },
 }
 </script>

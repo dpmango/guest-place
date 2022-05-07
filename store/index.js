@@ -15,10 +15,11 @@ export const actions = {
           await commit('auth/logOut')
         }
       }
-
-      // await dispatch('dictionary/init')
     } catch (error) {
+      // console.log('caught nuxtServerInit error', error)
       // $sentry.captureException(error)
     }
+
+    await dispatch('dictionary/init')
   },
 }

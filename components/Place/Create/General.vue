@@ -121,15 +121,32 @@
           <div class="row">
             <div class="col col-6 col-md-12">
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-                <UiInput
-                  label="Адрес площадки"
-                  theme="description"
-                  placeholder="Город, улица, номер здания"
-                  :value="address"
-                  type="text"
-                  :error="errors[0]"
-                  @onChange="(v) => handleAddressChange(v)"
-                />
+                <div
+                  v-click-outside="() => (showSuggestions = false)"
+                  class="suggestions"
+                  :class="[suggestions && suggestions.length && showSuggestions && 'is-open']"
+                >
+                  <UiInput
+                    label="Адрес площадки"
+                    theme="description"
+                    placeholder="Город, улица, номер здания"
+                    :value="address"
+                    type="text"
+                    :error="errors[0]"
+                    @click="() => (showSuggestions = true)"
+                    @onChange="(v) => handleAddressChange(v)"
+                  />
+                  <div class="suggestions__dropdown">
+                    <div
+                      v-for="(suggestion, idx) in suggestions"
+                      :key="idx"
+                      class="suggestions__item"
+                      @click="() => selectSuggestion(suggestion)"
+                    >
+                      {{ suggestion.unrestricted_value }}
+                    </div>
+                  </div>
+                </div>
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
@@ -149,12 +166,12 @@
               <label for="" class="radio__label">Метро поблизости (если есть)</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
-                  :value="nearPlace"
+                  :value="metro"
                   theme="description"
                   placeholder="Впишите или выберите"
                   :error="errors[0]"
                   :options="['option 1', 'option 2', 'option 3']"
-                  @onSelect="(v) => (nearPlace = v)"
+                  @onSelect="(v) => (metro = v)"
                 />
               </ValidationProvider>
             </div>
@@ -172,13 +189,20 @@
 <script>
 import { mapActions } from 'vuex'
 import debounce from 'lodash/debounce'
-import { dadataSuggestion } from '~/api/dadata'
+import ClickOutside from 'vue-click-outside'
+import { dadataSuggestion, dadataGeocoder } from '~/api/dadata'
 
 export default {
   name: 'UiPage',
+  directives: {
+    ClickOutside,
+  },
   data() {
     return {
       error: '',
+      suggestions: [],
+      showSuggestions: false,
+      addressData: {},
       // section 1
       agree: true,
       name: '',
@@ -190,7 +214,7 @@ export default {
       // section 2
       address: '',
       region: '',
-      nearPlace: '',
+      metro: '',
     }
   },
   created() {
@@ -210,17 +234,11 @@ export default {
         title: this.name,
         workingHours: this.time,
         address: {
-          // bounds: {
-          //   latitude: 'string',
-          //   longitude: 'string',
-          // },
-          // cityArea: 'string',
-          // cityDistrict: 'string',
-          // cityName: 'string',
-          // cityType: 'string',
-          // houseNumber: 'string',
-          // metroStationName: 'string',
-          // street: 'string',
+          // majority comes from api, some values are changable
+          ...this.addressData,
+          cityName: this.city,
+          cityDistrict: this.region,
+          metroStationName: this.metro,
         },
       })
         .then((_res) => {
@@ -247,8 +265,34 @@ export default {
       }
     },
     async handleSuggestion(val) {
-      const suggestion = await dadataSuggestion({ query: val }, this.$config.dadataKey)
-      console.log({ suggestion })
+      const res = await dadataSuggestion({ query: val }, this.$config.dadataKey)
+
+      this.suggestions = res.suggestions
+      this.showSuggestions = true
+    },
+    selectSuggestion(suggestion) {
+      const { data } = suggestion
+
+      this.address = suggestion.unrestricted_value
+      this.addressData = {
+        bounds: {
+          latitude: data.geo_lat,
+          longitude: data.geo_lon,
+        },
+        cityArea: data.city_area,
+        cityDistrict: data.city_district,
+        cityName: data.city || data.settlement,
+        cityType: data.city_type_full || data.settlement_type_full,
+        houseNumber: data.house,
+        metroStationName: data.metro,
+        street: data.street_with_type,
+      }
+
+      this.city = data.city || data.settlement
+      this.region = data.city_district
+      this.metro = data.metro
+
+      this.showSuggestions = false
     },
     ...mapActions('place', ['createPlace']),
   },
@@ -308,5 +352,47 @@ export default {
 .form {
   position: relative;
   // .ui-group{}
+}
+
+.suggestions {
+  position: relative;
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    max-height: 220px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 0 0 6px 6px;
+    opacity: 0;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(105, 78, 75, 0.14);
+    pointer-events: none;
+    transition: opacity 0.25s $ease;
+  }
+  &__item {
+    padding: 14px 20px;
+    color: $fontColor;
+    font-family: $baseFont;
+    font-size: 14px;
+    transition: color 0.25s $ease, background 0.25s $ease;
+    &:hover {
+      background: #ecf4fd;
+      color: $fontColor;
+    }
+  }
+  &.is-open {
+    ::v-deep input {
+      border-radius: 30px 30px 0 0;
+    }
+
+    .suggestions__dropdown {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
 }
 </style>

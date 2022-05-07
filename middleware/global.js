@@ -11,6 +11,6 @@ export default async function ({ $axios, store, $config, redirect, ...context })
       }
     }
 
-    // await store.dispatch('dictionary/init')
+    await store.dispatch('dictionary/init')
   }
 }

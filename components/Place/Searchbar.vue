@@ -16,14 +16,14 @@
         theme="clear"
         :value="type"
         placeholder="Тип площадки"
-        :options="['Option 1', 'Option 2']"
+        :options="getSelectValues('placeTypes')"
         @onSelect="(v) => (type = v)"
       />
       <UiSelect
         theme="clear"
         :value="specialities"
         placeholder="Особенности"
-        :options="['Option 1', 'Option 2']"
+        :options="getSelectValues('features')"
         @onSelect="(v) => (specialities = v)"
       />
       <UiSelect
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Searchbar',
@@ -63,6 +63,9 @@ export default {
       capacity: null,
       price: null,
     }
+  },
+  computed: {
+    ...mapGetters('dictionary', ['getSelectValues']),
   },
   methods: {
     ...mapMutations('ui', ['setPanel']),

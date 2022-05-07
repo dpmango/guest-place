@@ -17,8 +17,8 @@
         <PlaceCreateGeneral v-if="activeStep === 1" @onNext="onNext" />
         <PlaceCreateDescription v-if="activeStep === 2" @onNext="onNext" @onBack="onBack" />
         <PlaceCreateExtra v-if="activeStep === 3" @onNext="onNext" @onBack="onBack" />
-        <PlaceCreatePhotos v-if="activeStep === 4" @onNext="onNext" @onBack="onBack" />
-        <PlaceCreateStock v-if="activeStep === 5" @onNext="onNext" @onBack="onBack" />
+        <PlaceCreateStock v-if="activeStep === 4" @onNext="onNext" @onBack="onBack" />
+        <PlaceCreatePhotos v-if="activeStep === 5" @onNext="onNext" @onBack="onBack" />
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
   name: 'CreateHome',
   data() {
     return {
-      activeStep: 1,
+      activeStep: 4,
       totalSteps: 5,
       breadcrumbs: [{ to: '', label: 'Добавить место' }],
     }

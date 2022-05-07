@@ -37,3 +37,19 @@ export const mapApiError = (error) => {
 export const mapData = (data) => {
   return data
 }
+
+export const selectToApi = (select) => {
+  if (typeof select === 'string' && select.trim() !== '') {
+    return {
+      id: 99,
+      name: select,
+    }
+  } else if (Array.isArray(select)) {
+    return select.map((x) => ({
+      id: x.id,
+      name: x.label,
+    }))
+  } else {
+    return null
+  }
+}

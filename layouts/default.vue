@@ -29,7 +29,7 @@ export default {
   },
   mounted() {
     // console.log('default mounted  -connect ?', !this.isConnected);
-    // this.$store.dispatch('dictionary/init') // TODO - tml for testing
+    // this.$store.dispatch('dictionary/init')
     // if (!this.isConnected) {
     //   this.connect()
     // } else {

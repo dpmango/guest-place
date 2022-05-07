@@ -13,25 +13,25 @@ import {
 } from '~/api/dictionary'
 
 export const state = () => ({
-  cateogies: [],
+  categories: [],
   cusines: [],
   equipments: [],
   features: [],
   interiors: [],
   placeTypes: [],
+  services: [],
   roomAmenities: [],
   roomCategories: [],
   roomServices: [],
   roomSleepingPlaces: [],
-  services: [],
 })
 
 export const getters = {
   allDictionary: (state) => {
-    const { cateogies, cusines, equipments, features, interiors, placeTypes, services } = state
+    const { categories, cusines, equipments, features, interiors, placeTypes, services } = state
 
     return {
-      cateogies,
+      categories,
       cusines,
       equipments,
       features,
@@ -40,6 +40,14 @@ export const getters = {
       services,
     }
   },
+  getSelectValues: (state) => (name) => {
+    return state[name]
+      ? state[name].map((x) => ({
+          ...x,
+          label: x.name,
+        }))
+      : []
+  },
 }
 
 export const mutations = {
@@ -47,22 +55,24 @@ export const mutations = {
     if (state[name]) {
       state[name] = [...value]
     }
+    // console.log(state)
   },
 }
 
 export const actions = {
-  init({ dispatch }) {
-    dispatch('getCategories')
-    dispatch('getCusines')
-    dispatch('getEquipments')
-    dispatch('getFeatures')
-    dispatch('getInteriors')
-    dispatch('getPlaceTypes')
-    dispatch('getRoomAmenities')
-    dispatch('getRoomCategories')
-    dispatch('getRoomServices')
-    dispatch('getRoomSleepingPlaces')
-    dispatch('getServices')
+  // async/awawit construction is required for nuxtServerInit
+  async init({ dispatch }) {
+    await dispatch('getCategories')
+    await dispatch('getCusines')
+    await dispatch('getEquipments')
+    await dispatch('getFeatures')
+    await dispatch('getInteriors')
+    await dispatch('getPlaceTypes')
+    await dispatch('getRoomAmenities')
+    await dispatch('getRoomCategories')
+    await dispatch('getRoomServices')
+    await dispatch('getRoomSleepingPlaces')
+    await dispatch('getServices')
   },
   async getCategories({ commit }, request) {
     const [err, result] = await categoryDictService(this.$api)

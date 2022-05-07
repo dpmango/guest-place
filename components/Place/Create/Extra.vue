@@ -276,18 +276,14 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import { selectToApi } from '~/api/helpers'
+
 export default {
   name: 'UiPage',
   data() {
     return {
       error: '',
-      photos: Array.from({ length: 10 }, (_, i) => ({
-        id: i + 1,
-        file: null,
-        blob: null,
-        desc: '',
-      })),
-
       description: '',
 
       // Section 1
@@ -310,34 +306,51 @@ export default {
       additionall: '',
     }
   },
+  computed: {
+    ...mapGetters('dictionary', ['getSelectValues']),
+  },
   methods: {
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
       // if (!isValid) {
       // }
 
-      this.$emit('onNext')
+      await this.createPlace({
+        step: 'three',
+        placeId: 0, // TODO
+        isStepCompleted: true,
 
-      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
+        additionalExpenses: this.additionallExpenses,
+        additionalInformation: this.description,
+        averageCheckPerGuest: this.middleCheck,
+        banquetMenuPerGuest: this.banquetMenu,
+        buffetMenuPerGuest: this.buffetMenu,
+        corkageFee: this.corkage,
+        deposit: this.deposit,
+        includedInDeposit: this.inDeposit,
+        ownAlcohol: this.alcohol,
+        rentPerHour: this.rentHour,
+        rentPerWeekDaysAndHolidays: this.rentArea,
+        serviceMaintenance: this.service !== 'Другое' ? this.service : this.serviceOther,
+      })
+        .then((_res) => {
+          this.error = null
+          this.$emit('onNext')
+        })
+        .catch((err) => {
+          const { data, code } = err
 
-      // await this.login({ step: 1 })
-      //   .then((_res) => {
-      //     this.error = null
-      //   })
-      //   .catch((err) => {
-      //     const { data, code } = err
+          this.$toast.global.error({ message: 'Ошибка, проверьте поля' })
 
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+          if (data && code === 401) {
+            // Object.keys(data).forEach((key) => {
+            //   this.error = data[key]
+            // })
+          }
+        })
     },
-    handleDescChange({ photo, val }) {
-      this.photos = [...this.photos.map((x) => (x.id === photo.id ? { ...x, desc: val } : { ...x }))]
-    },
-    // ...mapActions('auth', ['login']),
+
+    ...mapActions('place', ['createPlace']),
   },
 }
 </script>
