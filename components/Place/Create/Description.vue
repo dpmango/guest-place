@@ -15,11 +15,11 @@
           <div class="step__section-label h4-title">Основные характеристики</div>
           <div class="row">
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Категория</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="category"
                   theme="description"
+                  label="*Категория"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
                   :options="getSelectValues('categories')"
@@ -28,11 +28,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Тип места</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="typePlace"
                   theme="description"
+                  label="*Тип места"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
                   :options="getSelectValues('placeTypes')"
@@ -41,11 +41,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Особенности</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="features"
                   theme="description"
+                  label="*Особенности"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
                   :options="getSelectValues('features')"
@@ -54,11 +54,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Услуги</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="service"
                   theme="description"
+                  label="*Услуги"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
                   :options="getSelectValues('services')"
@@ -67,11 +67,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Оборудование в наличии</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="equipment"
                   theme="description"
+                  label="*Оборудование в наличии"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
                   :options="getSelectValues('equipments')"
@@ -80,11 +80,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Кухня</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="kitchen"
                   theme="description"
+                  label="*Кухня"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
                   :options="getSelectValues('cuisines')"
@@ -94,11 +94,11 @@
             </div>
             <div class="col col-6 col-md-12">
               <div class="ui-group">
-                <label for="" class="radio__label">*Парковка</label>
                 <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                   <UiSelect
                     :value="parking"
                     theme="description"
+                    label="*Парковка"
                     placeholder="Выберите варианты"
                     :error="errors[0]"
                     :options="['Бесплатная', 'Платная', 'Отсутствует']"
@@ -122,11 +122,11 @@
             </div>
             <div class="col col-6 col-md-12">
               <div class="ui-group">
-                <label for="" class="radio__label">Стиль интерьера</label>
                 <ValidationProvider v-slot="{ errors }" class="ui-group">
                   <UiSelect
                     :value="style"
                     theme="description"
+                    label="Стиль интерьера"
                     placeholder="Выберите варианты"
                     :error="errors[0]"
                     :options="getSelectValues('interiors')"
@@ -143,7 +143,7 @@
           <div class="step__section-label h4-title">Информация о залах</div>
           <div v-for="hall in hallList" :key="hall.id" class="row">
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   :label="'*Название зала №' + hall.id"
@@ -156,7 +156,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Площадь зала, кв. м."
@@ -169,7 +169,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Кол-во мест/Банкет"
@@ -182,7 +182,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Кол-во мест/Фуршет"
@@ -195,7 +195,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Кол-во мест/рассадка «Театр»"
@@ -208,7 +208,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Кол-во мест/Еще"
@@ -233,17 +233,18 @@
 
         <!--section -->
         <div class="step__section">
-          <div class="step__section-label h4-title">Описание площадки</div>
+          <div class="step__section-label h4-title">*Описание площадки</div>
 
-          <div class="ui-group">
+          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
             <UiInput
               textarea
               :value="description"
               placeholder="Введите текст..."
               :rows="5"
+              :error="errors[0]"
               @onChange="(v) => (description = v)"
             />
-          </div>
+          </ValidationProvider>
         </div>
 
         <div class="step__cta">
@@ -295,6 +296,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('place', ['getSavedId']),
     ...mapGetters('dictionary', ['getSelectValues']),
   },
   methods: {
@@ -317,12 +319,11 @@ export default {
     },
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
-      // if (!isValid) {
-      // }
+      if (!isValid) return
 
       await this.createPlace({
         step: 'two',
-        placeId: 0, // TODO
+        placeId: this.getSavedId,
         isStepCompleted: true,
         categories: selectToApi(this.category),
         cuisines: selectToApi(this.kitchen),
@@ -340,7 +341,7 @@ export default {
           title: h.hallName,
         })),
 
-        parking: this.parking,
+        parking: selectToApi(this.parking),
         parkingSpace: this.parkingCount,
         placeDescription: this.description,
       })

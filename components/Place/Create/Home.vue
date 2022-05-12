@@ -29,7 +29,7 @@ export default {
   name: 'CreateHome',
   data() {
     return {
-      activeStep: 4,
+      activeStep: 1,
       totalSteps: 5,
       breadcrumbs: [{ to: '', label: 'Добавить место' }],
     }

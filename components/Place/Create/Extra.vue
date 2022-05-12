@@ -307,17 +307,17 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('place', ['getSavedId']),
     ...mapGetters('dictionary', ['getSelectValues']),
   },
   methods: {
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
-      // if (!isValid) {
-      // }
+      if (!isValid) return
 
       await this.createPlace({
         step: 'three',
-        placeId: 0, // TODO
+        placeId: this.getSavedId,
         isStepCompleted: true,
 
         additionalExpenses: this.additionallExpenses,

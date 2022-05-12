@@ -16,7 +16,7 @@
 
           <div class="step__agree-wrapper">
             <UiCheckbox name="authRemember" :value="agree" @onChange="(v) => (agree = v)">
-              *Я принимаю <a href="#" target="_blank"> условия предоставления услуг.</a>
+              *Я принимаю&nbsp;<a href="#" target="_blank"> условия предоставления услуг.</a>
             </UiCheckbox>
           </div>
         </div>
@@ -40,11 +40,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">*Ваш город</label>
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
                   :value="city"
                   theme="description"
+                  label="*Ваш город"
                   placeholder="Впишите или выберите"
                   :error="errors[0]"
                   :options="['option 1', 'option 2', 'option 3']"
@@ -127,7 +127,7 @@
                   :class="[suggestions && suggestions.length && showSuggestions && 'is-open']"
                 >
                   <UiInput
-                    label="Адрес площадки"
+                    label="*Адрес площадки"
                     theme="description"
                     placeholder="Город, улица, номер здания"
                     :value="address"
@@ -150,11 +150,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">Район</label>
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiSelect
                   :value="region"
                   theme="description"
+                  label="Район"
                   placeholder="Впишите или выберите"
                   :error="errors[0]"
                   :options="['option 1', 'option 2', 'option 3']"
@@ -163,11 +163,11 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <label for="" class="radio__label">Метро поблизости (если есть)</label>
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiSelect
                   :value="metro"
                   theme="description"
+                  label="Метро поблизости (если есть)"
                   placeholder="Впишите или выберите"
                   :error="errors[0]"
                   :options="['option 1', 'option 2', 'option 3']"
@@ -191,6 +191,7 @@ import { mapActions } from 'vuex'
 import debounce from 'lodash/debounce'
 import ClickOutside from 'vue-click-outside'
 import { dadataSuggestion, dadataGeocoder } from '~/api/dadata'
+import { selectToApi } from '~/api/helpers'
 
 export default {
   name: 'UiPage',
@@ -223,8 +224,7 @@ export default {
   methods: {
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
-      // if (!isValid) {
-      // }
+      if (!isValid) return
 
       await this.createPlace({
         step: 'one',

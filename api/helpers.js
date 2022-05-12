@@ -38,17 +38,27 @@ export const mapData = (data) => {
   return data
 }
 
-export const selectToApi = (select) => {
+export const selectToApi = (select, flat = false) => {
   if (typeof select === 'string' && select.trim() !== '') {
-    return {
-      id: 99,
-      name: select,
-    }
+    return [
+      {
+        name: select,
+      },
+    ]
   } else if (Array.isArray(select)) {
     return select.map((x) => ({
       id: x.id,
       name: x.label,
     }))
+  } else if (typeof select === 'object') {
+    return flat
+      ? select.label
+      : [
+          {
+            id: select.id,
+            name: select.label,
+          },
+        ]
   } else {
     return null
   }

@@ -328,6 +328,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('place', ['getSavedId']),
     ...mapGetters('dictionary', ['getSelectValues']),
   },
   methods: {
@@ -349,12 +350,10 @@ export default {
     },
     async handleSubmit() {
       const isValid = await this.$refs.form.validate()
-      // if (!isValid) {
-      // }
-
+      if (!isValid) return
       await this.createPlace({
         step: 'four',
-        placeId: 0, // TODO
+        placeId: this.getSavedId,
         isStepCompleted: true,
 
         roomCategories: selectToApi(this.category),

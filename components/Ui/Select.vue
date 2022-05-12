@@ -110,10 +110,11 @@ export default {
 .select {
   &__label {
     display: block;
-    font-size: 18px;
-    line-height: 1.17;
-    color: $fontColor;
-    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-family: 'Raleway', sans-serif;
+    color: #585f66;
+    margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -275,7 +276,7 @@ export default {
 
   &.has-error {
     .vs__dropdown-toggle {
-      border-color: $colorRed;
+      border-color: $colorRed !important;
     }
   }
 

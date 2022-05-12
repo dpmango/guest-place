@@ -6,9 +6,9 @@ export const state = () => ({
 })
 
 export const getters = {
-  // user: (state) => {
-  //   return state.user
-  // },
+  getSavedId: (state) => {
+    return state.placeCreateSave.id || 0
+  },
 }
 
 export const mutations = {
@@ -16,8 +16,8 @@ export const mutations = {
     state.places = places
   },
   setSave(state, req) {
-    state.placeCrateSave = {
-      ...state.placeCrateSave,
+    state.placeCreateSave = {
+      ...state.placeCreateSave,
       ...req,
     }
   },

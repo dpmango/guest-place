@@ -88,6 +88,13 @@ export default {
       opacity: 0;
       pointer-events: none;
     }
+    a {
+      color: $colorPrimary;
+      transition: color 0.25s $ease;
+      &:hover {
+        color: $colorPrimaryHover;
+      }
+    }
     &:hover {
       .input__box {
         border-color: $colorPrimary;

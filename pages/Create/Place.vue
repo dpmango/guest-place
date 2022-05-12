@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  // middleware: ['restrictedAccess'],
+  middleware: ['restrictedAccess'],
   head: {
     title: 'Добавить место | Guest&Place',
   },

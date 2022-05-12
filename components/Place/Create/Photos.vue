@@ -134,6 +134,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'UiPage',
   data() {
@@ -167,14 +169,16 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapGetters('place', ['getSavedId']),
+  },
   methods: {
     handlePhotosDescChange({ photo, e }) {
       this.photos = [...this.photos.map((x) => (x.id === photo.id ? { ...x, desc: e.target.innerHTML } : { ...x }))]
     },
     handleSubmit() {
       // const isValid = await this.$refs.form.validate()
-      // // if (!isValid) {
-      // // }
+      // if (!isValid) return
 
       this.$emit('onNext')
 
