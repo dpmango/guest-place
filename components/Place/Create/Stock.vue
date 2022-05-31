@@ -15,11 +15,13 @@
           <div class="col col-12">
             <div class="ui-group">
               <label for="" class="radio__label tac">*Есть ли у Вашей площадки номерной фонд?</label>
+
               <div class="radio__row radio__row--center">
                 <UiCheckbox
                   label="Да"
                   name="stockVisible"
-                  :value="true"
+                  :value="stockVisible === true"
+                  :error="error"
                   type="radio"
                   @onChange="() => (stockVisible = true)"
                 >
@@ -29,7 +31,8 @@
                   :checked="true"
                   label="Нет"
                   name="stockVisible"
-                  :value="false"
+                  :value="stockVisible === false"
+                  :error="error"
                   type="radio"
                   @onChange="() => (stockVisible = false)"
                 >
@@ -299,7 +302,7 @@ export default {
     return {
       error: '',
 
-      stockVisible: false,
+      stockVisible: null,
 
       // Section 1
       category: '',
@@ -349,8 +352,18 @@ export default {
       this.stockList.pop()
     },
     async handleSubmit() {
+      // custom validations
+      if (this.stockVisible === null) {
+        this.error = 'Выберите вариант ниже'
+        return
+      }
+
       const isValid = await this.$refs.form.validate()
+
+      this.error = null
+
       if (!isValid) return
+
       await this.createPlace({
         step: 'four',
         placeId: this.getSavedId,

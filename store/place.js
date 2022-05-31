@@ -7,7 +7,7 @@ export const state = () => ({
 
 export const getters = {
   getSavedId: (state) => {
-    return state.placeCreateSave.id || 0
+    return state.placeCreateSave.id || 5 // tmp dev
   },
 }
 

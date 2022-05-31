@@ -15,9 +15,11 @@
           <div class="step__section-label h4-title">Условия предоставления услуг</div>
 
           <div class="step__agree-wrapper">
-            <UiCheckbox name="authRemember" :value="agree" @onChange="(v) => (agree = v)">
-              *Я принимаю&nbsp;<a href="#" target="_blank"> условия предоставления услуг.</a>
-            </UiCheckbox>
+            <ValidationProvider v-slot="{ errors }" :rules="{ required: { allowFalse: false } }">
+              <UiCheckbox name="authRemember" :error="errors[0]" :value="agree" @onChange="(v) => (agree = v)">
+                *Я принимаю&nbsp;<a href="#" target="_blank"> условия предоставления услуг.</a>
+              </UiCheckbox>
+            </ValidationProvider>
           </div>
         </div>
 
@@ -205,7 +207,7 @@ export default {
       showSuggestions: false,
       addressData: {},
       // section 1
-      agree: true,
+      agree: false,
       name: '',
       city: '',
       time: '',

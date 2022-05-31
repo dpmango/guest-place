@@ -39,15 +39,17 @@ export const mapData = (data) => {
 }
 
 export const selectToApi = (select, flat = false) => {
+  console.log('select formatting', select)
   if (typeof select === 'string' && select.trim() !== '') {
     return [
       {
+        id: null,
         name: select,
       },
     ]
   } else if (Array.isArray(select)) {
     return select.map((x) => ({
-      id: x.id,
+      id: x.id || 0,
       name: x.label,
     }))
   } else if (typeof select === 'object') {

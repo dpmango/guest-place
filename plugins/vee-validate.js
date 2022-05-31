@@ -21,4 +21,4 @@ extend('tel', {
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
 
-setInteractionMode('passive')
+setInteractionMode('eager')

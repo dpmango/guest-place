@@ -146,7 +146,7 @@
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
-                  :label="'*Название зала №' + hall.id"
+                  :label="'Название зала №' + hall.id"
                   placeholder="Название"
                   :value="hall.hallName"
                   type="text"

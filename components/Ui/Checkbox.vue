@@ -125,15 +125,22 @@ export default {
       pointer-events: none;
       transition: opacity 0.25s $ease;
     }
-  }
-
-  input:checked + &__box {
-    background: $colorPrimary;
-    border-color: $colorPrimary;
-    .svg-icon {
-      opacity: 1;
+    &.checked {
+      background: $colorPrimary;
+      border-color: $colorPrimary;
+      .svg-icon {
+        opacity: 1;
+      }
     }
   }
+
+  // input:checked + &__box {
+  //   background: $colorPrimary;
+  //   border-color: $colorPrimary;
+  //   .svg-icon {
+  //     opacity: 1;
+  //   }
+  // }
 
   &.has-error {
     .input__box {
@@ -154,10 +161,10 @@ export default {
     }
   }
 
-  input[type='radio']:checked + &__box {
-    box-shadow: inset 0px 0px 0px 3px white;
-    // background: $colorPrimary;
-    // border-color: $colorPrimary;
-  }
+  // input[type='radio']:checked + &__box {
+  //   box-shadow: inset 0px 0px 0px 3px white;
+  //   // background: $colorPrimary;
+  //   // border-color: $colorPrimary;
+  // }
 }
 </style>

@@ -16,7 +16,7 @@
 
           <div class="row">
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Средний чек"
@@ -29,7 +29,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Банкетное меню на гостя"
@@ -42,7 +42,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Фуршетное меню на гостя"
@@ -55,7 +55,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Аренда/час"
@@ -68,7 +68,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Аренда площадки под мероприятие в будни/выходные и праздничные дни"
@@ -88,7 +88,7 @@
           <div class="step__section-label h4-title">Депозит</div>
           <div class="row">
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Депозит (минимальная стоимость закрытия площадки, зала под одно мероприятие):"
@@ -101,7 +101,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Что входит в депозит"
@@ -128,36 +128,36 @@
                     label="Да"
                     name="alcohol"
                     :checked="true"
-                    :value="true"
+                    :value="alcohol === 'Y'"
                     type="radio"
-                    @onChange="() => (alcohol = 'Да')"
+                    @onChange="() => (alcohol = 'Y')"
                   >
                     Да
                   </UiCheckbox>
                   <UiCheckbox
                     label="Нет"
                     name="alcohol"
-                    :value="false"
+                    :value="alcohol === 'N'"
                     type="radio"
-                    @onChange="() => (alcohol = 'Нет')"
+                    @onChange="() => (alcohol = 'N')"
                   >
                     Нет
                   </UiCheckbox>
                   <UiCheckbox
                     label="50/50"
                     name="alcohol"
-                    :value="true"
+                    :value="alcohol === 'FIFTY_FIFTY'"
                     type="radio"
-                    @onChange="() => (alcohol = '50/50')"
+                    @onChange="() => (alcohol = 'FIFTY_FIFTY')"
                   >
                     50/50
                   </UiCheckbox>
                   <UiCheckbox
                     label="По договоренности"
                     name="alcohol"
-                    :value="true"
+                    :value="alcohol === 'BY_AGREEMENT'"
                     type="radio"
-                    @onChange="() => (alcohol = 'По договоренности')"
+                    @onChange="() => (alcohol = 'BY_AGREEMENT')"
                   >
                     По договоренности
                   </UiCheckbox>
@@ -172,7 +172,7 @@
                     label="Да"
                     name="service"
                     :checked="true"
-                    :value="true"
+                    :value="service === '10%'"
                     type="radio"
                     @onChange="() => (service = '10%')"
                   >
@@ -181,7 +181,7 @@
                   <UiCheckbox
                     label="Нет"
                     name="service"
-                    :value="false"
+                    :value="service === '15%'"
                     type="radio"
                     @onChange="() => (service = '15%')"
                   >
@@ -190,7 +190,7 @@
                   <UiCheckbox
                     label="Нет"
                     name="service"
-                    :value="false"
+                    :value="service === 'Нет'"
                     type="radio"
                     @onChange="() => (service = 'Нет')"
                   >
@@ -199,7 +199,7 @@
                   <UiCheckbox
                     label="Нет"
                     name="service"
-                    :value="false"
+                    :value="service === 'Другое'"
                     type="radio"
                     @onChange="() => (service = 'Другое')"
                   >
@@ -207,7 +207,7 @@
                   </UiCheckbox>
                 </div>
                 <div v-if="service === 'Другое'" class="mt-1">
-                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                  <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                     <UiInput
                       theme="description"
                       placeholder="Введите ваш вариант"
@@ -221,7 +221,7 @@
               </div>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Пробковый сбор"
@@ -234,7 +234,7 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
                 <UiInput
                   theme="description"
                   label="Дополнительные затраты"
