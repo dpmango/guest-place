@@ -92,15 +92,22 @@
           </div>
           <div class="scope__row scope__row--button row mt-1">
             <div class="col col-6 col-sm-12">
-              <UiButton class="button" @click="() => setModal({ name: 'cardrequest' })">Оставить заявку</UiButton>
+              <UiButton class="button" @click="() => setModal({ name: 'cardrequest', params: { id: placeId } })"
+                >Оставить заявку</UiButton
+              >
             </div>
             <div class="col col-6 col-sm-12">
-              <UiButton class="button" theme="outline" @click="() => setModal({ name: 'chat' })">начать чат</UiButton>
+              <UiButton
+                class="button"
+                theme="outline"
+                @click="() => setModal({ name: 'manager', params: { id: placeId } })"
+                >начать чат</UiButton
+              >
             </div>
           </div>
           <div class="scope__info-row row mt-1">
             <div class="col col6">
-              <div class="scope__info" @click="() => setModal({ name: 'online' })">
+              <div class="scope__info" @click="() => setModal({ name: 'online', params: { id: placeId } })">
                 <h5 class="scope__info-title h5-title">
                   <UiSvgIcon name="monitor-play" class="scope__icon" />
                   Онлайн-показ
@@ -181,6 +188,9 @@ export default {
     }
   },
   computed: {
+    placeId() {
+      return this.$route.params.id
+    },
     swiperGallery() {
       return this.$refs.gallery.$swiper
     },

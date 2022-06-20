@@ -97,7 +97,7 @@ export default {
     padding: 40px;
     width: 100%;
     max-width: 680px;
-    min-height: 630px;
+    min-height: 560px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);

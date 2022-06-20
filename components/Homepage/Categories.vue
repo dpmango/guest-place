@@ -37,7 +37,7 @@ export default {
           slug: '/place?category=banquets',
           img: require('~/assets/img/category-banquets.svg'),
         },
-        { id: 4, label: 'Здоровье', slug: '/place?category=health', img: require('~/assets/img/category-leisure.svg') },
+        { id: 4, label: 'Здоровье', slug: '/place?category=health', img: require('~/assets/img/category-health.svg') },
       ],
     }
   },

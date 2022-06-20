@@ -6,6 +6,7 @@
       :value="value"
       :masks="masks"
       :input-debounce="0"
+      :min-date="new Date()"
       :popover="popover"
       v-bind="$attrs"
       @input="setValue"
@@ -18,7 +19,7 @@
           theme="request"
           icon="calendar"
           icon-position="right"
-          placeholder="Выберите дату"
+          :placeholder="placeholder"
           :error="error"
           type="text"
           v-on="inputEvents"
@@ -45,6 +46,7 @@ export default {
     placeholder: {
       type: String,
       required: false,
+      default: 'Выберите дату',
     },
     type: {
       type: String,
@@ -220,7 +222,7 @@ export default {
     .input__input {
       input {
         transition: $transitionSpeed $ease;
-        border-radius: 40px 40px 0px 0px !important;
+        // border-radius: 40px 40px 0px 0px !important;
         border-color: transparent !important;
       }
     }

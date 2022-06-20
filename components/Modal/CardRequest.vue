@@ -20,7 +20,14 @@
         <UiError :error="error" />
 
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-          <UiInput :value="name" placeholder="Ваше имя" type="text" :error="errors[0]" @onChange="(v) => (name = v)" />
+          <UiInput
+            :value="name"
+            placeholder="Ваше имя"
+            type="text"
+            theme="request"
+            :error="errors[0]"
+            @onChange="(v) => (name = v)"
+          />
         </ValidationProvider>
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="tel|required">
           <UiInput
@@ -28,25 +35,29 @@
             :value="phone"
             placeholder="Ваш номер телефона"
             type="tel"
+            theme="request"
             :error="errors[0]"
             @onChange="(v) => (phone = v)"
           />
         </ValidationProvider>
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
           <UiInput
-            :value="quest"
+            textarea
+            rows="1"
+            :value="comment"
             placeholder="Ваш вопрос"
             type="text"
+            theme="request"
             :error="errors[0]"
-            @onChange="(v) => (quest = v)"
+            @onChange="(v) => (comment = v)"
           />
         </ValidationProvider>
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
           <UiSelect
             :value="time"
-            theme="polymorph"
             placeholder="Удобное время для звонка"
             :error="errors[0]"
+            theme="request"
             :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
             @onSelect="(v) => (time = v)"
           />
@@ -60,38 +71,61 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapMutations } from 'vuex'
+import { djs } from '~/helpers/Date'
+
 export default {
   data() {
     return {
       name: null,
       phone: null,
-      quest: null,
+      comment: '',
       time: null,
       error: null,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState('ui', ['modalParams']),
+  },
   methods: {
     async handleSubmit() {
+      this.error = null
       const isValid = await this.$refs.form.validate()
       if (!isValid) {
         return
       }
 
-      const { name, phone } = this
-      // await this.login({ login: email, password })
-      //   .then((_res) => {})
-      //   .catch((err) => {
-      //     const { data, code } = err
+      const { name, phone, time, comment } = this
 
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+      const dateDjs = djs()
+      const [timeStart, timeEnd] = time.split('-')
+      const [startHH, startMM] = timeStart.split(':')
+      const timeToCall = dateDjs.hour(+startHH).minute(+startMM)
+
+      await this.formCallToMe({
+        id: this.modalParams.id,
+        message: comment,
+        name,
+        phoneNumber: phone,
+        timeToCall: timeToCall.toISOString(),
+      })
+        .then((_res) => {
+          this.$toast.global.success({ message: 'Запрос отправлен' })
+          this.resetForm()
+          this.resetModals()
+        })
+        .catch((err) => {
+          this.error = err.message
+        })
     },
-    // ...mapActions('auth', ['login']),
+    resetForm() {
+      this.name = null
+      this.phone = null
+      this.comment = ''
+      this.time = null
+    },
+    ...mapActions('feedback', ['formCallToMe']),
+    ...mapMutations('ui', ['resetModals']),
   },
 }
 </script>

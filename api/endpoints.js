@@ -1,5 +1,6 @@
 const auth = '/auth'
 const dictionary = '/dictionary'
+const forms = '/forms'
 const base = '/'
 
 export default {
@@ -19,9 +20,17 @@ export default {
   },
   place: {
     find: '/place',
+    map: '/map/get-by-square',
     findById: (id) => `/place/${id}`,
     create: (step) => `/place/step-${step}`,
     uploadMedia: (id) => `/place/${id}/media/upload`,
+  },
+  forms: {
+    callToMe: (id) => `${forms}/${id}/call-to-me`,
+    manager: (id) => `${forms}/${id}/manager`,
+    onlineDisplay: (id) => `${forms}/${id}/online-display`,
+    needHelp: `${forms}/need-help`,
+    question: `${forms}/question`,
   },
   feedback: {
     base: `${base}/feedback/`,

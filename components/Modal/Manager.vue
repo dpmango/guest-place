@@ -1,5 +1,5 @@
 <template>
-  <UiModal name="chat" content-class="mt-1">
+  <UiModal name="manager" content-class="mt-1">
     <template #title>Сообщение для менеджера</template>
     <template #subtitleH3>банкетного зала Форест Холл</template>
     <template #subtitle>обычно отвечает в течение получаса</template>
@@ -26,14 +26,24 @@
           <UiInput
             :value="count"
             placeholder="Количество гостей"
-            type="text"
+            type="number"
+            theme="request"
             :error="errors[0]"
             @onChange="(v) => (count = v)"
           />
         </ValidationProvider>
-        <span class="ui-group">
-          <UiInput :value="comment" placeholder="Ваше сообщение* " type="text" @onChange="(v) => (comment = v)" />
-        </span>
+        <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+          <UiInput
+            textarea
+            rows="1"
+            :value="comment"
+            placeholder="Ваше сообщение* "
+            type="text"
+            theme="request"
+            :error="errors[0]"
+            @onChange="(v) => (comment = v)"
+          />
+        </ValidationProvider>
         <div class="mt-2 tac mt-md-1 modal__button">
           <UiButton type="submit">Отправить</UiButton>
         </div>
@@ -43,37 +53,55 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapMutations } from 'vuex'
+import { djs } from '~/helpers/Date'
+
 export default {
   data() {
     return {
       count: null,
       date: null,
-      comment: null,
+      comment: '',
       error: null,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState('ui', ['modalParams']),
+  },
   methods: {
     async handleSubmit() {
+      this.error = null
       const isValid = await this.$refs.form.validate()
       if (!isValid) {
         return
       }
 
-      const { name, phone } = this
-      // await this.login({ login: email, password })
-      //   .then((_res) => {})
-      //   .catch((err) => {
-      //     const { data, code } = err
+      const { count, date, comment } = this
 
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+      const dateDjs = djs(date).toISOString()
+
+      await this.formManager({
+        id: this.modalParams.id,
+        message: comment,
+        guestNumber: count,
+        date: dateDjs,
+      })
+        .then((_res) => {
+          this.$toast.global.success({ message: 'Запрос отправлен' })
+          this.resetForm()
+          this.resetModals()
+        })
+        .catch((err) => {
+          this.error = err.message
+        })
     },
-    // ...mapActions('auth', ['login']),
+    resetForm() {
+      this.count = null
+      this.date = null
+      this.comment = ''
+    },
+    ...mapActions('feedback', ['formManager']),
+    ...mapMutations('ui', ['resetModals']),
   },
 }
 </script>

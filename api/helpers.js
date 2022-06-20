@@ -1,4 +1,6 @@
 export const mapApiError = (error) => {
+  console.warn(error)
+  window.TESTERROR = error
   if (!error) {
     return {
       data: null,

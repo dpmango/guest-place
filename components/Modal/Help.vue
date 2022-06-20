@@ -11,16 +11,24 @@
       />
     </template>
 
+    <template #subtitle>
+      <span class="c-primary">Воспользуйтесь услугой по подбору от GP!</span><br />
+      Стоимость услуги — 1000 р.
+    </template>
+
     <template #content>
-      <div class="h5-title tac">
-        <span class="c-primary">Воспользуйтесь услугой по подбору от GP!</span><br />
-        Стоимость услуги — 1000 р.
-      </div>
       <ValidationObserver ref="form" v-slot="{ invalid }" tag="form" class="form" @submit.prevent="handleSubmit">
         <UiError :error="error" />
 
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
-          <UiInput :value="name" placeholder="Ваше имя" type="text" :error="errors[0]" @onChange="(v) => (name = v)" />
+          <UiInput
+            :value="name"
+            placeholder="Ваше имя"
+            type="text"
+            theme="request"
+            :error="errors[0]"
+            @onChange="(v) => (name = v)"
+          />
         </ValidationProvider>
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="tel|required">
           <UiInput
@@ -28,22 +36,26 @@
             :value="phone"
             placeholder="Ваше номер телефона"
             type="tel"
+            theme="request"
             :error="errors[0]"
             @onChange="(v) => (phone = v)"
           />
         </ValidationProvider>
         <span class="ui-group">
           <UiInput
+            textarea
+            rows="1"
             :value="comment"
             placeholder="Ваш комментарий (необязательно)"
             type="text"
+            theme="request"
             @onChange="(v) => (comment = v)"
           />
         </span>
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
           <UiSelect
             :value="time"
-            theme="polymorph"
+            theme="request"
             placeholder="Удобное время для звонка"
             :error="errors[0]"
             :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
@@ -53,16 +65,21 @@
 
         <div class="row">
           <div class="col col-6 col-md-12">
-            <UiSelect
-              :value="date"
-              theme="polymorph"
-              placeholder="Удобное время для звонка"
-              :options="['10:00-12:00', '12:00-14:00', '14:00-18:00']"
-              @onSelect="(v) => (date = v)"
-            />
+            <ValidationProvider v-slot="{ errors }" rules="required">
+              <UiDatePicker :value="date" :error="errors[0]" placeholder="Дата" @onChange="(v) => (date = v)" />
+            </ValidationProvider>
           </div>
           <div class="col col-6 col-md-12">
-            <UiInput :value="guests" placeholder="Кол-во гостей" type="text" @onChange="(v) => (guests = v)" />
+            <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <UiInput
+                :value="guests"
+                placeholder="Кол-во гостей"
+                type="number"
+                theme="request"
+                :error="errors[0]"
+                @onChange="(v) => (guests = v)"
+              />
+            </ValidationProvider>
           </div>
         </div>
 
@@ -75,14 +92,17 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
+import { djs } from '~/helpers/Date'
+
 export default {
   data() {
     return {
       name: null,
       phone: null,
-      comment: null,
+      comment: '',
       time: null,
-      date: null,
+      date: '',
       guests: null,
       error: null,
     }
@@ -90,25 +110,46 @@ export default {
   computed: {},
   methods: {
     async handleSubmit() {
+      this.error = null
       const isValid = await this.$refs.form.validate()
       if (!isValid) {
         return
       }
 
-      const { name, phone } = this
-      // await this.login({ login: email, password })
-      //   .then((_res) => {})
-      //   .catch((err) => {
-      //     const { data, code } = err
+      const { name, phone, time, date, guests, comment } = this
 
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+      const dateDjs = djs(date)
+      const [timeStart, timeEnd] = time.split('-')
+      const [startHH, startMM] = timeStart.split(':')
+      const timeToCall = dateDjs.hour(+startHH).minute(+startMM)
+
+      await this.formNeedHelp({
+        type: 'PAID',
+        comment,
+        guestNumber: guests,
+        name,
+        phoneNumber: phone,
+        timeToCall: timeToCall.toISOString(),
+      })
+        .then((_res) => {
+          this.$toast.global.success({ message: 'Запрос отправлен' })
+          this.resetForm()
+          this.resetModals()
+        })
+        .catch((err) => {
+          this.error = err.message
+        })
     },
-    // ...mapActions('auth', ['login']),
+    resetForm() {
+      this.name = null
+      this.phone = null
+      this.comment = ''
+      this.time = null
+      this.date = ''
+      this.guests = null
+    },
+    ...mapActions('feedback', ['formNeedHelp']),
+    ...mapMutations('ui', ['resetModals']),
   },
 }
 </script>

@@ -2,7 +2,10 @@
   <div class="">
     <PlaceMap v-if="!viewList" />
     <template v-else>
-      <PlaceListHero :title="`Найдено <span class='c-primary'>123 площадки</span>`" :breadcrumbs="breadcrumbs" />
+      <PlaceListHero
+        :title="`Найдено <span class='c-primary'>${places.totalItems} площадки</span>`"
+        :breadcrumbs="breadcrumbs"
+      />
       <PlaceList />
     </template>
   </div>
@@ -11,15 +14,18 @@
 <script>
 export default {
   name: 'Places',
-  asyncData(context) {
+  async asyncData({ route, store }) {
     // return id from URL
+    const places = await store.dispatch('place/getPlaces')
+
     return {
-      query: context.route.query,
+      query: route.query,
+      places,
     }
   },
   data() {
     return {
-      breadcrumbs: [{ to: '', label: 'Избранное' }],
+      breadcrumbs: [{ to: '', label: 'Площадки' }],
     }
   },
   head: {

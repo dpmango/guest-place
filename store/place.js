@@ -1,7 +1,20 @@
-import { getPlacesService, getPlaceByIdService, createPlaceService, uploadMediaService } from '~/api/place'
+import {
+  getPlacesService,
+  getPlacesOnMapService,
+  getPlaceByIdService,
+  createPlaceService,
+  uploadMediaService,
+} from '~/api/place'
 
 export const state = () => ({
   places: [],
+  placesMeta: {
+    page: 1,
+    count: 0,
+    countPages: 1,
+    limit: 20,
+  },
+  mapPlaces: [],
   placeCreateSave: {},
 })
 
@@ -9,11 +22,26 @@ export const getters = {
   getSavedId: (state) => {
     return state.placeCreateSave.id || 5 // tmp dev
   },
+  getPlacesOnMap: (state) => {
+    return state.mapPlaces
+  },
 }
 
 export const mutations = {
-  setPlaces(state, places) {
-    state.places = places
+  setPlaces(state, { places, isNew }) {
+    if (isNew) {
+      state.places = places
+    } else {
+      state.places = [...state.places, places]
+    }
+  },
+  setPlacesMeta(state, { totalItems, totalPages, pageSize, currentPageNumber }) {
+    state.placesMeta = {
+      page: currentPageNumber + 1,
+      count: totalItems,
+      countPages: totalPages,
+      limit: pageSize,
+    }
   },
   setSave(state, req) {
     state.placeCreateSave = {
@@ -29,7 +57,21 @@ export const actions = {
 
     if (err) throw err
 
-    commit('setPlaces', result)
+    console.log(result)
+    const { content, totalItems, totalPages, pageSize, currentPageNumber } = result
+
+    commit('setPlaces', { places: content, isNew: currentPageNumber === 0 })
+    commit('setPlacesMeta', { totalItems, totalPages, pageSize, currentPageNumber })
+
+    return result
+  },
+
+  async getMapPlaces({ commit }, request) {
+    const [err, result] = await getPlacesOnMapService(this.$api, request)
+
+    if (err) throw err
+
+    // commit('setPlaces', result)
 
     return result
   },

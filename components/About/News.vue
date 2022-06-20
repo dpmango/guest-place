@@ -85,6 +85,9 @@ export default {
       background-color: #fff;
     }
   }
+  &__text {
+    font-weight: 500;
+  }
 }
 @include r($md) {
   .news {

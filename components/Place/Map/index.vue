@@ -12,6 +12,7 @@
       :controls="map.controls"
       :scroll-zoom="false"
       @map-was-initialized="setMapInstance"
+      @boundschange="handleBoundsChange"
     >
       <ymap-marker
         v-for="marker in markers"
@@ -33,7 +34,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import debounce from 'lodash/debounce'
 import MapBallon from './MapBallon'
 import locations from '~/api/locations'
 
@@ -71,7 +73,19 @@ export default {
     },
   },
 
+  created() {
+    this.requestLocationsWithDebounce = debounce(this.handleSearch, 600)
+  },
+
   methods: {
+    handleBoundsChange(e) {
+      // console.log(e.get('newBounds'))
+      this.requestLocationsWithDebounce()
+    },
+    async handleSearch() {
+      const bounds = this.mapInstance.getBounds()
+      const res = await this.getMapPlaces(bounds)
+    },
     bindListener(marker) {
       document.getElementById('marker').addEventListener('click', () => this.onClickCta(marker))
     },
@@ -90,6 +104,7 @@ export default {
     setMapInstance(instance) {
       this.mapInstance = instance
     },
+    ...mapActions('place', ['getMapPlaces']),
   },
 }
 </script>

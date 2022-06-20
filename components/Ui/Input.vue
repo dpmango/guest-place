@@ -23,7 +23,16 @@
         @focus="handleFocus"
         @blur="handleBlur"
       />
-      <textarea v-else :id="_uid" :value="value" :placeholder="placeholder" v-bind="$attrs" @input="setValue" />
+      <TextareaAutosize
+        v-else
+        :id="_uid"
+        :value="value"
+        :placeholder="placeholder"
+        :min-height="38"
+        :max-height="300"
+        v-bind="$attrs"
+        @input="setValue"
+      />
 
       <span v-if="icon" class="input__icon" :class="[iconPosition]">
         <UiSvgIcon :name="icon" />
@@ -129,7 +138,8 @@ export default {
   },
   methods: {
     setValue(e) {
-      this.$emit('onChange', e.target.value)
+      const val = e.target ? e.target.value : e
+      this.$emit('onChange', val)
     },
     handleAutocompleate(e) {
       if (parseInt(e.target.getAttribute('id')) === this._uid) {
@@ -227,7 +237,7 @@ export default {
     textarea {
       resize: vertical;
       border-radius: 30px;
-      min-height: 60px;
+      min-height: 38px;
     }
     &.is-iconed {
       input,

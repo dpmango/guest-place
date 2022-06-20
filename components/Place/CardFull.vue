@@ -25,7 +25,7 @@
         <span v-if="data.reviewCount">({{ data.reviewCount }})</span>
       </div>
 
-      <div class="card__wysiwyg mt-1" v-html="data.content" />
+      <div class="card__wysiwyg mt-1" v-html="content" />
 
       <div class="card__prices">
         <div v-for="(price, idx) in data.prices" :key="idx" class="card__price">
@@ -36,7 +36,11 @@
     </div>
 
     <div class="card__cta">
-      <UiButton size="small" block class="card__button--require" @click="() => setModal({ name: 'cardrequest' })"
+      <UiButton
+        size="small"
+        block
+        class="card__button--require"
+        @click="() => setModal({ name: 'cardrequest', params: { id: data.id } })"
         >Оставить заявку</UiButton
       >
       <UiButton theme="outline" size="small" block class="card__button--chat" @click="() => setModal({ name: 'quest' })"
@@ -71,6 +75,31 @@ export default {
     }
   },
   computed: {
+    content() {
+      const metro = this.data.address.metroStationName
+        ? `<p class="p-body"><span class="c-light">Станция метро:</span> ${this.data.address.metroStationName}</p>`
+        : ''
+
+      const capacity = this.data.address.metroStationName
+        ? '<p class="p-body"><span class="c-light">Вместимость (чел.):</span>35/100/150</p>'
+        : ''
+
+      const services =
+        this.data.services && this.data.services.length
+          ? `<p class="p-body"><span class="c-light">Услуги:</span> ${this.data.services.join(', ')}</p>`
+          : ''
+
+      const specialities = this.data.additionalInformation
+        ? `<p class="p-body"><span class="c-light">Особенности:</span> ${this.data.additionalInformation}</p>`
+        : ''
+
+      return `
+        ${metro}
+        ${capacity}
+        ${services}
+        ${specialities}
+      `
+    },
     swiperGallery() {
       return this.$refs.gallery.$swiper
     },

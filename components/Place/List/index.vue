@@ -9,15 +9,15 @@
         <PlaceCardFull v-for="place in places" :key="place.id" :data="place" />
       </div>
 
-      <div v-if="places && places.length" class="list__pagination">
-        <UiPagination :meta="pagination" @onChange="paginationSelect" />
+      <div v-if="placesMeta.countPages > 1" class="list__pagination">
+        <UiPagination :meta="placesMeta" @onChange="paginationSelect" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { mockPlaces } from '../mockData'
 
 export default {
@@ -29,20 +29,23 @@ export default {
   },
   data() {
     return {
-      pagination: {
-        page: 1,
-        count: 120,
-        limit: 10,
-      },
-      places: mockPlaces,
+      // pagination: {
+      //   page: 1,
+      //   count: 120,
+      //   limit: 20,
+      // },
+      // places: mockPlaces,
     }
+  },
+  computed: {
+    ...mapState('place', ['places', 'placesMeta']),
   },
   methods: {
     paginationSelect(page) {
       this.loading = true
 
       // await this.getPlaces({ page, limit: 20 })
-      this.pagination.page = page
+      // this.pagination.page = page
 
       this.loading = false
     },

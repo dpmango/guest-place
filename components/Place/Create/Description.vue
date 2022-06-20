@@ -66,6 +66,7 @@
                 />
               </ValidationProvider>
             </div>
+
             <div class="col col-6 col-md-12">
               <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiSelect
@@ -94,6 +95,7 @@
             </div>
             <div class="col col-6 col-md-12">
               <div class="ui-group">
+                {{ parking }}
                 <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                   <UiSelect
                     :value="parking"
@@ -101,7 +103,7 @@
                     label="*Парковка"
                     placeholder="Выберите варианты"
                     :error="errors[0]"
-                    :options="['Бесплатная', 'Платная', 'Отсутствует']"
+                    :options="parkingOptions"
                     @onSelect="(v) => (parking = v)"
                   />
                 </ValidationProvider>
@@ -296,6 +298,30 @@ export default {
     }
   },
   computed: {
+    parkingOptions() {
+      return [
+        {
+          id: 'Y',
+          label: 'Есть',
+        },
+        {
+          id: 'N',
+          label: 'Нет',
+        },
+        {
+          id: 'PAID',
+          label: 'Платная',
+        },
+        {
+          id: 'FREE',
+          label: 'Бесплатная',
+        },
+        {
+          id: 'SPONTANEOUS',
+          label: 'Самопроизвольная',
+        },
+      ]
+    },
     ...mapGetters('place', ['getSavedId']),
     ...mapGetters('dictionary', ['getSelectValues']),
   },
@@ -341,7 +367,7 @@ export default {
           title: h.hallName,
         })),
 
-        parking: selectToApi(this.parking),
+        parking: this.parking && this.parking.id,
         parkingSpace: this.parkingCount,
         placeDescription: this.description,
       })

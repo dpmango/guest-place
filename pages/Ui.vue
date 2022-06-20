@@ -177,7 +177,7 @@ export default {
         count: 120,
         limit: 10,
       },
-      modals: ['expert', 'help', 'request'],
+      modals: ['expert', 'help', 'request', 'quest', 'cardrequest', 'online', 'manager'],
       pages: [
         {
           label: 'Статика',
