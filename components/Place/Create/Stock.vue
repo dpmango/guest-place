@@ -19,22 +19,22 @@
               <div class="radio__row radio__row--center">
                 <UiCheckbox
                   label="Да"
-                  name="stockVisible"
-                  :value="stockVisible === true"
+                  name="stockAvailable"
+                  :value="stockAvailable === true"
                   :error="error"
                   type="radio"
-                  @onChange="() => (stockVisible = true)"
+                  @onChange="() => (stockAvailable = true)"
                 >
                   Да
                 </UiCheckbox>
                 <UiCheckbox
                   :checked="true"
                   label="Нет"
-                  name="stockVisible"
-                  :value="stockVisible === false"
+                  name="stockAvailable"
+                  :value="stockAvailable === false"
                   :error="error"
                   type="radio"
-                  @onChange="() => (stockVisible = false)"
+                  @onChange="() => (stockAvailable = false)"
                 >
                   Нет
                 </UiCheckbox>
@@ -44,7 +44,7 @@
         </div>
 
         <!--section -->
-        <div v-if="stockVisible">
+        <div v-if="stockAvailable">
           <div class="step__section">
             <div class="step__section-label h4-title">Общая информация о номерном фонде</div>
             <div class="row">
@@ -196,16 +196,16 @@
                       <UiCheckbox
                         label="Одноместное"
                         name="type"
-                        :value="true"
+                        :value="stock.type === 'Одноместное'"
                         type="radio"
-                        @onChange="() => (type = 'Одноместное')"
+                        @onChange="() => (stock.type = 'Одноместное')"
                       >
                         Одноместное
                       </UiCheckbox>
                       <UiCheckbox
                         label="Двухместное"
                         name="type"
-                        :value="false"
+                        :value="stock.type === 'Двухместное'"
                         type="radio"
                         @onChange="() => (stock.type = 'Двухместное')"
                       >
@@ -214,7 +214,7 @@
                       <UiCheckbox
                         label="Трехместное"
                         name="type"
-                        :value="false"
+                        :value="stock.type === 'Трехместное'"
                         type="radio"
                         @onChange="() => (stock.type = 'Трехместное')"
                       >
@@ -223,7 +223,7 @@
                       <UiCheckbox
                         label="Другое"
                         name="type"
-                        :value="false"
+                        :value="stock.type === 'Другое'"
                         type="radio"
                         @onChange="() => (stock.type = 'Другое')"
                       >
@@ -302,7 +302,7 @@ export default {
     return {
       error: '',
 
-      stockVisible: null,
+      stockAvailable: null,
 
       // Section 1
       category: '',
@@ -353,8 +353,14 @@ export default {
     },
     async handleSubmit() {
       // custom validations
-      if (this.stockVisible === null) {
+      if (this.stockAvailable === null) {
         this.error = 'Выберите вариант ниже'
+        return
+      }
+
+      if (this.stockAvailable === false) {
+        this.error = null
+        this.$emit('onNext')
         return
       }
 
@@ -388,18 +394,14 @@ export default {
       })
         .then((_res) => {
           this.error = null
-          this.$router.push('/success/create')
+          this.$emit('onNext')
+
+          // this.$router.push('/success/create')
         })
         .catch((err) => {
-          const { data, code } = err
-
           this.$toast.global.error({ message: 'Ошибка, проверьте поля' })
 
-          if (data && code === 401) {
-            // Object.keys(data).forEach((key) => {
-            //   this.error = data[key]
-            // })
-          }
+          this.error = err.message
         })
     },
     ...mapActions('place', ['createPlace']),

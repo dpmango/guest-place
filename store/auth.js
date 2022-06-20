@@ -178,8 +178,8 @@ export const actions = {
 
     commit('logOut')
 
-    dispatch('chat/disconnect', null, { root: true })
-    commit('chat/resetMessages', null, { root: true })
+    // dispatch('chat/disconnect', null, { root: true })
+    // commit('chat/resetMessages', null, { root: true })
 
     this.$router.push('/')
 

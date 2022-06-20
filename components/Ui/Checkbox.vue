@@ -54,6 +54,7 @@ export default {
 
   methods: {
     setValue(e) {
+      console.log(!this.value)
       this.$emit('onChange', !this.value)
     },
   },

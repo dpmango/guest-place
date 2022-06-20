@@ -1,6 +1,8 @@
 <template>
   <div class="step">
-    <h2 class="step__title h2-title tac">шаг 4/5. <span class="c-primary">медиатека</span></h2>
+    <h2 class="step__title h2-title tac">шаг 5/5. <span class="c-primary">медиатека</span></h2>
+
+    <UiError :error="error" />
 
     <!--section -->
     <div class="step__section">
@@ -10,7 +12,7 @@
         <UiUploader
           :file="video.file"
           :allowed-mime="['video']"
-          :max-size="20"
+          :max-size="10"
           :include-reader="true"
           @onReader="(v) => (video.blob = v)"
           @onChange="(f) => (video.file = f)"
@@ -54,7 +56,7 @@
           :key="idx"
           :file="photo.file"
           :allowed-mime="['image']"
-          :max-size="5"
+          :max-size="1"
           :include-reader="true"
           @onReader="(img) => (photo.blob = img)"
           @onChange="(f) => (photo.file = f)"
@@ -94,7 +96,7 @@
           :key="idx"
           :file="photo.file"
           :allowed-mime="['application', 'image']"
-          :max-size="30"
+          :max-size="10"
           :include-reader="false"
           @onReader="(img) => (photo.blob = img)"
           @onChange="(f) => (photo.file = f)"
@@ -116,7 +118,7 @@
                     <span>Выберите файл</span>
                   </UiButton>
 
-                  <p class="p-label">Максимальный размер файла 30 MB</p>
+                  <p class="p-label">Максимальный размер файла 10 MB</p>
                 </div>
               </div>
             </div>
@@ -125,22 +127,25 @@
       </div>
     </div>
 
+    <UiError :error="error" />
+
     <div class="step__cta">
       <UiButton theme="outline" @click="() => $emit('onBack')">Назад</UiButton>
 
-      <UiButton @click="handleSubmit">Далее</UiButton>
+      <UiButton @click="handleSubmit">Завершить</UiButton>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'UiPage',
   data() {
     return {
       error: '',
+      loading: false,
       video: {
         file: null,
         blob: null,
@@ -176,28 +181,67 @@ export default {
     handlePhotosDescChange({ photo, e }) {
       this.photos = [...this.photos.map((x) => (x.id === photo.id ? { ...x, desc: e.target.innerHTML } : { ...x }))]
     },
-    handleSubmit() {
+    prepareFileList() {
+      const files = []
+
+      if (this.video.file) {
+        files.push({
+          description: this.video.desc,
+          file: this.video.file,
+          fileType: 'VIDEO',
+        })
+      }
+
+      if (this.docs[0].file) {
+        files.push({
+          description: '',
+          file: this.docs[0].file,
+          fileType: 'DOCUMENT',
+        })
+      }
+
+      if (this.docs[1].file) {
+        files.push({
+          description: '',
+          file: this.docs[1].file,
+          fileType: 'CONTRACT',
+        })
+      }
+
+      const filledImages = this.photos.filter((x) => x.file)
+      if (filledImages && filledImages.length) {
+        filledImages.forEach((img) => {
+          files.push({
+            description: img.desc,
+            file: img.file,
+            fileType: 'IMAGE',
+          })
+        })
+      }
+
+      return files
+    },
+    async handleSubmit() {
       // const isValid = await this.$refs.form.validate()
       // if (!isValid) return
 
-      this.$emit('onNext')
+      const files = this.prepareFileList()
+      this.loading = true
 
-      this.$toast.global.default({ message: 'emit compleation - missing api stage' })
-      // await this.login({ step: 1 })
-      //   .then((_res) => {
-      //     this.error = null
-      //   })
-      //   .catch((err) => {
-      //     const { data, code } = err
+      await this.uploadMedia({ id: this.getSavedId, files })
+        .then((_res) => {
+          this.error = null
+          this.$router.push('/success/create')
+        })
+        .catch((err) => {
+          this.$toast.global.error({ message: 'Ошибка, проверьте поля' })
 
-      //     if (data && code === 401) {
-      //       Object.keys(data).forEach((key) => {
-      //         this.error = data[key]
-      //       })
-      //     }
-      //   })
+          this.error = err.message
+        })
+
+      this.loading = false
     },
-    // ...mapActions('auth', ['login']),
+    ...mapActions('place', ['uploadMedia']),
   },
 }
 </script>

@@ -20,7 +20,7 @@ export const state = () => ({
 
 export const getters = {
   getSavedId: (state) => {
-    return state.placeCreateSave.id || 5 // tmp dev
+    return state.placeCreateSave.id || 11 // tmp dev
   },
   getPlacesOnMap: (state) => {
     return state.mapPlaces
@@ -90,5 +90,38 @@ export const actions = {
     commit('setSave', result)
 
     return result
+  },
+  async uploadMedia({ commit }, { id, files }) {
+    const filesData = files.map((file) => {
+      const formData = new FormData()
+      formData.append('description', file.description)
+      formData.append('fileType', file.fileType)
+      formData.append('file', file.file)
+
+      return formData
+    })
+
+    const responces = []
+    const errors = []
+
+    await Promise.all(
+      filesData.map(async (file, idx) => {
+        const [err, result] = await uploadMediaService(this.$api, { id, formData: file })
+
+        if (err) {
+          errors[idx] = err
+        } else {
+          responces[idx] = result
+        }
+      })
+    )
+
+    if (errors && errors.length) {
+      throw errors[0]
+    }
+
+    // commit('setSave', result)
+
+    return responces
   },
 }

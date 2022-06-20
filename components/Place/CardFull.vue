@@ -3,9 +3,9 @@
     <div class="card__gallery">
       <!-- swiper 6 with hoc wrapper -->
       <swiper ref="gallery" :options="gallerySwiperOptions">
-        <swiper-slide v-for="(slide, idx) in data.gallery" :key="slide.id || idx">
+        <swiper-slide v-for="(slide, idx) in gallery" :key="slide.id || idx">
           <div class="card__image">
-            <img :src="slide.preview" alt="gallery preview" />
+            <img :src="slide.url" :alt="slide.description" />
           </div>
         </swiper-slide>
         <div slot="pagination" :class="`swiper-pagination js-pagination-${data.id}`"></div>
@@ -75,6 +75,11 @@ export default {
     }
   },
   computed: {
+    gallery() {
+      const gallery = this.data.media.filter((x) => x.fileType === 'IMAGE')
+
+      return gallery
+    },
     content() {
       const metro = this.data.address.metroStationName
         ? `<p class="p-body"><span class="c-light">Станция метро:</span> ${this.data.address.metroStationName}</p>`

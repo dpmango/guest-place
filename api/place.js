@@ -44,7 +44,6 @@ export const getPlaceByIdService = async ($api, id) => {
 
 export const createPlaceService = async ($api, { step, ...request }) => {
   try {
-    console.log('create service inputs ::', step, request)
     const { data } = await $api.post(endpoints.place.create(step), {
       ...request,
     })
@@ -55,12 +54,9 @@ export const createPlaceService = async ($api, { step, ...request }) => {
   }
 }
 
-export const uploadMediaService = async ($api, { id, ...request }) => {
+export const uploadMediaService = async ($api, { id, formData }) => {
   try {
-    console.log('upload media service inputs ::', id, request)
-    const { data } = await $api.post(endpoints.place.uploadMedia(id), {
-      ...request,
-    })
+    const { data } = await $api.post(endpoints.place.uploadMedia(id), formData)
 
     return [null, mapData(data)]
   } catch (error) {
