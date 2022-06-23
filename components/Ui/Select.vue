@@ -92,11 +92,13 @@ export default {
       loading(false)
     },
     handleAddCustomOption() {
-      this.setSelected(this.searchValue)
+      const value = this.$attrs.multiple !== undefined ? [...this.value, this.searchValue] : this.searchValue
+      this.setSelected(value)
 
       const searchEl = this.$refs.select.searchEl
       if (searchEl) {
         searchEl.blur()
+        this.searchValue = ''
       }
     },
     setSelected(val) {
@@ -255,6 +257,8 @@ export default {
 
   .vs__dropdown-option--selected {
     padding-right: 16px;
+    background: #ecf4fd;
+    color: $fontColor;
   }
 
   .vs__no-options {

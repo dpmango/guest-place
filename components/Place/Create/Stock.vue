@@ -23,7 +23,8 @@
                   :value="stockAvailable === true"
                   :error="error"
                   type="radio"
-                  @onChange="() => (stockAvailable = true)"
+                  :click-event="true"
+                  @onChange="() => handleStockChange(true)"
                 >
                   Да
                 </UiCheckbox>
@@ -34,7 +35,8 @@
                   :value="stockAvailable === false"
                   :error="error"
                   type="radio"
-                  @onChange="() => (stockAvailable = false)"
+                  :click-event="true"
+                  @onChange="() => handleStockChange(false)"
                 >
                   Нет
                 </UiCheckbox>
@@ -56,6 +58,7 @@
                     theme="description"
                     placeholder="Впишите или выберите"
                     :error="errors[0]"
+                    multiple
                     :options="getSelectValues('roomCategories')"
                     @onSelect="(v) => (category = v)"
                   />
@@ -69,6 +72,7 @@
                     theme="description"
                     placeholder="Впишите или выберите"
                     :error="errors[0]"
+                    multiple
                     :options="getSelectValues('roomSleepingPlaces')"
                     @onSelect="(v) => (room = v)"
                   />
@@ -82,6 +86,7 @@
                     theme="description"
                     placeholder="Впишите или выберите"
                     :error="errors[0]"
+                    multiple
                     :options="getSelectValues('roomAmenities')"
                     @onSelect="(v) => (amenities = v)"
                   />
@@ -95,6 +100,7 @@
                     theme="description"
                     placeholder="Впишите или выберите"
                     :error="errors[0]"
+                    multiple
                     :options="getSelectValues('roomServices')"
                     @onSelect="(v) => (service = v)"
                   />
@@ -108,10 +114,11 @@
             <div class="step__section-label h4-title">Заезд/выезд</div>
             <div class="row">
               <div class="col col-3 col-md-12">
-                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:5">
                   <UiInput
+                    v-mask="'##:##'"
                     theme="description"
-                    label="Время заезда (от)"
+                    label="*Время заезда (от)"
                     placeholder="00:00"
                     :value="checkInTimeBefore"
                     type="text"
@@ -123,10 +130,11 @@
                 </ValidationProvider>
               </div>
               <div class="col col-3 col-md-12">
-                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:5">
                   <UiInput
+                    v-mask="'##:##'"
                     theme="description"
-                    label="Время заезда (до)"
+                    label="*Время заезда (до)"
                     placeholder="00:00"
                     :value="checkInTimeFrom"
                     type="text"
@@ -138,10 +146,11 @@
                 </ValidationProvider>
               </div>
               <div class="col col-3 col-md-12">
-                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:5">
                   <UiInput
+                    v-mask="'##:##'"
                     theme="description"
-                    label="Время заезда (от)"
+                    label="*Время выезда (от)"
                     placeholder="00:00"
                     :value="checkOutTimeBefore"
                     type="text"
@@ -153,10 +162,11 @@
                 </ValidationProvider>
               </div>
               <div class="col col-3 col-md-12">
-                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+                <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:5">
                   <UiInput
+                    v-mask="'##:##'"
                     theme="description"
-                    label="Время заезда (до)"
+                    label="*Время выезда (до)"
                     placeholder="00:00"
                     :value="checkOutTimeFrom"
                     type="text"
@@ -180,7 +190,7 @@
                   <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                     <UiInput
                       theme="description"
-                      label="Название"
+                      label="*Название"
                       placeholder="Название"
                       :value="stock.name"
                       type="text"
@@ -192,12 +202,13 @@
                 <div class="col col-3 col-md-12">
                   <div class="ui-group">
                     <label for="" class="radio__label">Тип размещения</label>
-                    <div class="radio__col">
+                    <ValidationProvider v-slot="{ errors }" class="radio__col" rules="required">
                       <UiCheckbox
                         label="Одноместное"
                         name="type"
                         :value="stock.type === 'SINGLE'"
                         type="radio"
+                        :error="errors[0]"
                         @onChange="() => (stock.type = 'SINGLE')"
                       >
                         Одноместное
@@ -207,6 +218,7 @@
                         name="type"
                         :value="stock.type === 'DOUBLE'"
                         type="radio"
+                        :error="errors[0]"
                         @onChange="() => (stock.type = 'DOUBLE')"
                       >
                         Двухместное
@@ -216,6 +228,7 @@
                         name="type"
                         :value="stock.type === 'TRIPLE'"
                         type="radio"
+                        :error="errors[0]"
                         @onChange="() => (stock.type = 'TRIPLE')"
                       >
                         Трехместное
@@ -225,11 +238,12 @@
                         name="type"
                         :value="stock.type === 'OTHER'"
                         type="radio"
+                        :error="errors[0]"
                         @onChange="() => (stock.type = 'OTHER')"
                       >
                         Другое
                       </UiCheckbox>
-                    </div>
+                    </ValidationProvider>
                     <div v-if="stock.type === 'OTHER'" class="mt-1">
                       <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                         <UiInput
@@ -248,10 +262,10 @@
                   <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                     <UiInput
                       theme="description"
-                      label="Цена"
+                      label="*Цена"
                       placeholder="Сумма (р.)"
                       :value="stock.price"
-                      type="text"
+                      type="number"
                       :error="errors[0]"
                       @onChange="(v) => (stock.price = v)"
                     />
@@ -351,6 +365,10 @@ export default {
     removeStock() {
       this.stockList.pop()
     },
+    handleStockChange(val) {
+      this.error = null
+      this.stockAvailable = val
+    },
     async handleSubmit() {
       // custom validations
       if (this.stockAvailable === null) {
@@ -426,6 +444,9 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    &.has-error {
+      color: $colorRed;
+    }
   }
   &__row {
     display: flex;

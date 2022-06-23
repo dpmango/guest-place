@@ -16,13 +16,13 @@
 
           <div class="row">
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Средний чек"
+                  label="*Средний чек"
                   placeholder="Сумма (в рублях)"
                   :value="middleCheck"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (middleCheck = v)"
                 />
@@ -35,7 +35,7 @@
                   label="Банкетное меню на гостя"
                   placeholder="Сумма (в рублях)"
                   :value="banquetMenu"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (banquetMenu = v)"
                 />
@@ -48,30 +48,30 @@
                   label="Фуршетное меню на гостя"
                   placeholder="Сумма (в рублях)"
                   :value="buffetMenu"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (buffetMenu = v)"
                 />
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Аренда/час"
+                  label="*Аренда/час"
                   placeholder="Сумма (в рублях)"
                   :value="rentHour"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (rentHour = v)"
                 />
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Аренда площадки под мероприятие в будни/выходные и праздничные дни"
+                  label="*Аренда площадки под мероприятие в будни/выходные и праздничные дни"
                   placeholder="пт-сб. 100 000 р. будни 80 000 р."
                   :value="rentArea"
                   type="text"
@@ -88,23 +88,23 @@
           <div class="step__section-label h4-title">Депозит</div>
           <div class="row">
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Депозит (минимальная стоимость закрытия площадки, зала под одно мероприятие):"
+                  label="*Депозит (минимальная стоимость закрытия площадки, зала под одно мероприятие):"
                   placeholder="Сумма (в рублях)"
                   :value="deposit"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (deposit = v)"
                 />
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Что входит в депозит"
+                  label="*Что входит в депозит"
                   placeholder="Еда, часть напитков"
                   :value="inDeposit"
                   type="text"
@@ -221,10 +221,10 @@
               </div>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Пробковый сбор"
+                  label="*Пробковый сбор"
                   placeholder="500 р./чел. или 300 р. за бут."
                   :value="corkage"
                   type="text"

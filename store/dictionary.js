@@ -14,7 +14,7 @@ import {
 
 export const state = () => ({
   categories: [],
-  cusines: [],
+  cuisines: [],
   equipments: [],
   features: [],
   interiors: [],
@@ -28,11 +28,11 @@ export const state = () => ({
 
 export const getters = {
   allDictionary: (state) => {
-    const { categories, cusines, equipments, features, interiors, placeTypes, services } = state
+    const { categories, cuisines, equipments, features, interiors, placeTypes, services } = state
 
     return {
       categories,
-      cusines,
+      cuisines,
       equipments,
       features,
       interiors,
@@ -63,7 +63,7 @@ export const actions = {
   // async/awawit construction is required for nuxtServerInit
   async init({ dispatch }) {
     await dispatch('getCategories')
-    await dispatch('getCusines')
+    await dispatch('getCuisines')
     await dispatch('getEquipments')
     await dispatch('getFeatures')
     await dispatch('getInteriors')
@@ -83,12 +83,12 @@ export const actions = {
 
     return result
   },
-  async getCusines({ commit }, request) {
+  async getCuisines({ commit }, request) {
     const [err, result] = await cuisineDictService(this.$api)
 
     if (err) throw err
 
-    commit('setStateList', { name: 'cusines', value: result })
+    commit('setStateList', { name: 'cuisines', value: result })
 
     return result
   },

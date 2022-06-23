@@ -22,6 +22,7 @@
                   label="*Категория"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
+                  multiple
                   :options="getSelectValues('categories')"
                   @onSelect="(v) => (category = v)"
                 />
@@ -35,6 +36,7 @@
                   label="*Тип места"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
+                  multiple
                   :options="getSelectValues('placeTypes')"
                   @onSelect="(v) => (typePlace = v)"
                 />
@@ -48,6 +50,7 @@
                   label="*Особенности"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
+                  multiple
                   :options="getSelectValues('features')"
                   @onSelect="(v) => (features = v)"
                 />
@@ -61,6 +64,7 @@
                   label="*Услуги"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
+                  multiple
                   :options="getSelectValues('services')"
                   @onSelect="(v) => (service = v)"
                 />
@@ -75,6 +79,7 @@
                   label="*Оборудование в наличии"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
+                  multiple
                   :options="getSelectValues('equipments')"
                   @onSelect="(v) => (equipment = v)"
                 />
@@ -88,6 +93,7 @@
                   label="*Кухня"
                   placeholder="Выберите варианты"
                   :error="errors[0]"
+                  multiple
                   :options="getSelectValues('cuisines')"
                   @onSelect="(v) => (kitchen = v)"
                 />
@@ -95,13 +101,12 @@
             </div>
             <div class="col col-6 col-md-12">
               <div class="ui-group">
-                {{ parking }}
                 <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                   <UiSelect
                     :value="parking"
                     theme="description"
                     label="*Парковка"
-                    placeholder="Выберите варианты"
+                    placeholder="Выберите вариант"
                     :error="errors[0]"
                     :options="parkingOptions"
                     @onSelect="(v) => (parking = v)"
@@ -131,6 +136,7 @@
                     label="Стиль интерьера"
                     placeholder="Выберите варианты"
                     :error="errors[0]"
+                    multiple
                     :options="getSelectValues('interiors')"
                     @onSelect="(v) => (style = v)"
                   />
@@ -158,52 +164,52 @@
               </ValidationProvider>
             </div>
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Площадь зала, кв. м."
+                  label="*Площадь зала, кв. м."
                   placeholder="Площадь"
                   :value="hall.areaHall"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (hall.areaHall = v)"
                 />
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Кол-во мест/Банкет"
+                  label="*Кол-во мест/Банкет"
                   placeholder="Количество"
                   :value="hall.countPlaceBanquet"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (hall.countPlaceBanquet = v)"
                 />
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Кол-во мест/Фуршет"
+                  label="*Кол-во мест/Фуршет"
                   placeholder="Количество"
                   :value="hall.countPlaceBuffet"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (hall.countPlaceBuffet = v)"
                 />
               </ValidationProvider>
             </div>
             <div class="col col-3 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="">
+              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                 <UiInput
                   theme="description"
-                  label="Кол-во мест/рассадка «Театр»"
+                  label="*Кол-во мест/«Театр»"
                   placeholder="Количество"
                   :value="hall.countPlaceTheatre"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (hall.countPlaceTheatre = v)"
                 />
@@ -216,7 +222,7 @@
                   label="Кол-во мест/Еще"
                   placeholder="Количество"
                   :value="hall.countPlaceYet"
-                  type="text"
+                  type="number"
                   :error="errors[0]"
                   @onChange="(v) => (hall.countPlaceYet = v)"
                 />
@@ -237,13 +243,14 @@
         <div class="step__section">
           <div class="step__section-label h4-title">*Описание площадки</div>
 
-          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+          <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required|min:100|max:5000">
             <UiInput
               textarea
               :value="description"
               placeholder="Введите текст..."
               :rows="5"
               :error="errors[0]"
+              :show-error="true"
               @onChange="(v) => (description = v)"
             />
           </ValidationProvider>

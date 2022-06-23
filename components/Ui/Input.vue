@@ -9,7 +9,7 @@
       variant,
     ]"
   >
-    <label v-if="label" :for="_uid" class="input__label">{{ getLabel }}</label>
+    <label v-if="getLabel" :for="_uid" class="input__label">{{ getLabel }}</label>
     <div class="input__input" :class="[{ 'is-iconed': icon || clearable, 'is-clearable': isClearable }, iconPosition]">
       <input
         v-if="!isTextArea"
@@ -79,6 +79,10 @@ export default {
       type: [String, Boolean],
       required: false,
     },
+    showError: {
+      type: Boolean,
+      default: false,
+    },
     clearable: {
       type: Boolean,
       required: false,
@@ -127,7 +131,12 @@ export default {
       }
     },
     getLabel() {
-      return typeof this.error === 'string' && !this.isFocused ? this.parseVeeError(this.error) : this.label
+      if (this.showError) {
+        return typeof this.error === 'string' && this.parseVeeError(this.error)
+      } else {
+        if (!this.label) return false
+        return typeof this.error === 'string' && !this.isFocused ? this.parseVeeError(this.error) : this.label
+      }
     },
   },
   mounted() {

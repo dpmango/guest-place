@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { extend, ValidationProvider, ValidationObserver, setInteractionMode } from 'vee-validate'
-import { required, email, alpha, confirmed, min, max } from 'vee-validate/dist/rules'
+import { required, email, alpha, confirmed, min, max, oneOf } from 'vee-validate/dist/rules'
 
 extend('required', { ...required, message: 'Это поле не может быть пустым' })
 extend('email', { ...email, message: 'Неверный формат E-mail' })
@@ -8,6 +8,7 @@ extend('alpha', { ...alpha, message: 'Поле должно содержать �
 extend('confirmed', { ...confirmed, message: 'Пароли не совпадают' })
 extend('min', { ...min, message: 'Минимум {length} символов' })
 extend('max', { ...max, message: 'Максимум {length} символов' })
+extend('oneOf', { ...oneOf, message: 'Выберите один из вариантов' })
 
 extend('tel', {
   validate: (value) => {

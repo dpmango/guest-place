@@ -1,7 +1,7 @@
 <template>
   <div class="input" :class="[{ 'has-error': error }, theme, variant]">
     <div class="input__input">
-      <label :for="_uid" class="input__label">
+      <label :for="_uid" class="input__label" @click="handleClick">
         <input
           :id="_uid"
           :value="value"
@@ -9,7 +9,7 @@
           :type="type"
           v-bind="$attrs"
           v-on="$listeners"
-          @input="setValue"
+          @input="() => !clickEvent && setValue()"
         />
         <span class="input__box" :class="value && 'checked'">
           <UiSvgIcon name="checkmark" />
@@ -33,6 +33,10 @@ export default {
       type: String,
       default: 'checkbox',
     },
+    clickEvent: {
+      type: Boolean,
+      default: false,
+    },
     error: {
       type: [String, Boolean],
       required: false,
@@ -53,8 +57,14 @@ export default {
   },
 
   methods: {
+    handleClick(e) {
+      if (this.clickEvent) {
+        e.preventDefault()
+        this.setValue()
+      }
+    },
     setValue(e) {
-      console.log(!this.value)
+      console.log(e)
       this.$emit('onChange', !this.value)
     },
   },

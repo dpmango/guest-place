@@ -94,8 +94,7 @@
                   <UiCheckbox
                     label="Есть"
                     name="onlineView"
-                    :checked="true"
-                    :value="true"
+                    :value="onlineView === true"
                     type="radio"
                     @onChange="() => (onlineView = true)"
                   >
@@ -104,7 +103,7 @@
                   <UiCheckbox
                     label="Нет"
                     name="onlineView"
-                    :value="false"
+                    :value="onlineView === false"
                     type="radio"
                     @onChange="() => (onlineView = false)"
                   >
@@ -122,7 +121,7 @@
 
           <div class="row">
             <div class="col col-6 col-md-12">
-              <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+              <ValidationProvider v-slot="{ touched, errors }" class="ui-group" rules="required">
                 <div
                   v-click-outside="() => (showSuggestions = false)"
                   class="suggestions"
@@ -134,7 +133,7 @@
                     placeholder="Город, улица, номер здания"
                     :value="address"
                     type="text"
-                    :error="errors[0]"
+                    :error="errors[0] || (touched && !addressSelected && 'Выберите адрес из подсказки')"
                     @click="() => (showSuggestions = true)"
                     @onChange="(v) => handleAddressChange(v)"
                   />
@@ -172,6 +171,7 @@
                   label="Метро поблизости (если есть)"
                   placeholder="Впишите или выберите"
                   :error="errors[0]"
+                  multiple
                   :options="['option 1', 'option 2', 'option 3']"
                   @onSelect="(v) => (metro = v)"
                 />
@@ -219,6 +219,11 @@ export default {
       region: '',
       metro: '',
     }
+  },
+  computed: {
+    addressSelected() {
+      return Object.keys(this.addressData).length > 0
+    },
   },
   created() {
     this.requestDadataWithDebounce = debounce(this.handleSuggestion, 300)
