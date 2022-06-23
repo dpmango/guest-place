@@ -1,15 +1,14 @@
 import { rebuildSocket } from '~/helpers/RebuildSocket'
 
-const UPDATE_INTERVAL = 10 * 60 * 1000 // 10 mins
+const UPDATE_INTERVAL = 60 * 60 * 1000 // 10 mins
 
 async function refreshToken(context) {
   const token = context.store.state.auth.token
-
-  console.log('refreshing token', token)
+  const refreshToken = context.store.state.auth.refreshToken
 
   if (token) {
     try {
-      await context.store.dispatch('auth/refreshToken', { token })
+      await context.store.dispatch('auth/refreshToken', { token: token.split('Bearer ')[1], refreshToken })
       // rebuildSocket({
       //   $config: context.$config,
       //   $store: context.store,

@@ -34,7 +34,7 @@ export const getPlacesOnMapService = async ($api, request) => {
 
 export const getPlaceByIdService = async ($api, id) => {
   try {
-    const { data } = await $api.get(endpoints.place.find(id))
+    const { data } = await $api.get(endpoints.place.findById(id))
 
     return [null, mapData(data)]
   } catch (error) {

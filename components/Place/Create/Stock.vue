@@ -196,41 +196,41 @@
                       <UiCheckbox
                         label="Одноместное"
                         name="type"
-                        :value="stock.type === 'Одноместное'"
+                        :value="stock.type === 'SINGLE'"
                         type="radio"
-                        @onChange="() => (stock.type = 'Одноместное')"
+                        @onChange="() => (stock.type = 'SINGLE')"
                       >
                         Одноместное
                       </UiCheckbox>
                       <UiCheckbox
                         label="Двухместное"
                         name="type"
-                        :value="stock.type === 'Двухместное'"
+                        :value="stock.type === 'DOUBLE'"
                         type="radio"
-                        @onChange="() => (stock.type = 'Двухместное')"
+                        @onChange="() => (stock.type = 'DOUBLE')"
                       >
                         Двухместное
                       </UiCheckbox>
                       <UiCheckbox
                         label="Трехместное"
                         name="type"
-                        :value="stock.type === 'Трехместное'"
+                        :value="stock.type === 'TRIPLE'"
                         type="radio"
-                        @onChange="() => (stock.type = 'Трехместное')"
+                        @onChange="() => (stock.type = 'TRIPLE')"
                       >
                         Трехместное
                       </UiCheckbox>
                       <UiCheckbox
                         label="Другое"
                         name="type"
-                        :value="stock.type === 'Другое'"
+                        :value="stock.type === 'OTHER'"
                         type="radio"
-                        @onChange="() => (stock.type = 'Другое')"
+                        @onChange="() => (stock.type = 'OTHER')"
                       >
                         Другое
                       </UiCheckbox>
                     </div>
-                    <div v-if="stock.type === 'Другое'" class="mt-1">
+                    <div v-if="stock.type === 'OTHER'" class="mt-1">
                       <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
                         <UiInput
                           theme="description"
@@ -387,7 +387,7 @@ export default {
 
         rooms: this.stockList.map((r) => ({
           additionalInformation: r.description,
-          allocationType: r.type !== 'Другое' ? r.type : r.typeOther,
+          allocationType: r.type !== 'OTHER' ? r.type : r.typeOther,
           price: r.price,
           title: r.name,
         })),

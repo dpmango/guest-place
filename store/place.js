@@ -7,6 +7,7 @@ import {
 } from '~/api/place'
 
 export const state = () => ({
+  placeView: {},
   places: [],
   placesMeta: {
     page: 1,
@@ -19,6 +20,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getPlaceView: (state) => {
+    return state.placeView
+  },
   getSavedId: (state) => {
     return state.placeCreateSave.id || 11 // tmp dev
   },
@@ -41,6 +45,11 @@ export const mutations = {
       count: totalItems,
       countPages: totalPages,
       limit: pageSize,
+    }
+  },
+  setPlaceView(state, payload) {
+    state.placeView = {
+      ...payload,
     }
   },
   setSave(state, req) {
@@ -75,10 +84,13 @@ export const actions = {
 
     return result
   },
-  async getPlace({ commit }, request) {
-    const [err, result] = await getPlaceByIdService(this.$api, request)
+  async getPlace({ commit }, id) {
+    const [err, result] = await getPlaceByIdService(this.$api, id)
 
+    console.log(result)
     if (err) throw err
+
+    commit('setPlaceView', result)
 
     return result
   },
@@ -109,9 +121,9 @@ export const actions = {
         const [err, result] = await uploadMediaService(this.$api, { id, formData: file })
 
         if (err) {
-          errors[idx] = err
+          errors.push(err)
         } else {
-          responces[idx] = result
+          responces.push(result)
         }
       })
     )

@@ -85,8 +85,23 @@ export default {
         ? `<p class="p-body"><span class="c-light">Станция метро:</span> ${this.data.address.metroStationName}</p>`
         : ''
 
-      const capacity = this.data.address.metroStationName
-        ? '<p class="p-body"><span class="c-light">Вместимость (чел.):</span>35/100/150</p>'
+      let totalCapacities = null
+      if (this.data.halls && this.data.halls.length) {
+        totalCapacities = this.data.halls.reduce(
+          (acc, x) => {
+            acc[0] = acc[0] + x.banquetNumberOfSeats
+            acc[1] = acc[1] + x.buffetNumberOfSeats
+            acc[2] = acc[2] + x.seatingTheaterNumberOfSeats
+
+            return acc
+          },
+          [0, 0, 0]
+        )
+
+        totalCapacities = totalCapacities.join('/')
+      }
+      const capacity = totalCapacities
+        ? `<p class="p-body"><span class="c-light">Вместимость (чел.):</span> ${totalCapacities}</p>`
         : ''
 
       const services =

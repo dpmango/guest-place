@@ -21,7 +21,14 @@
         <br /><br />
         Рады Вам в любое время суток и в любое время года!
       </p>
-      <form action="#" class="request__form mt-3 mt-md-2">
+
+      <ValidationObserver
+        ref="form"
+        v-slot="{ invalid }"
+        tag="form"
+        class="request__form mt-3 mt-md-2"
+        @submit.prevent="handleSubmit"
+      >
         <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
           <UiInput
             theme="description"
@@ -33,30 +40,61 @@
             @onChange="(v) => (name = v)"
           />
         </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" class="ui-group" rules="required">
+        <ValidationProvider v-slot="{ errors }" class="ui-group" rules="tel|required">
           <UiInput
+            v-mask="'+7 (###) ###-####'"
             theme="description"
             label=""
             placeholder="Введите Ваш номер телефона"
             :value="phone"
-            type="text"
+            type="tel"
             :error="errors[0]"
             @onChange="(v) => (phone = v)"
           />
         </ValidationProvider>
         <UiButton class="request__button">Оставить заявку</UiButton>
-      </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   date() {
     return {
       name: null,
       phone: null,
     }
+  },
+  methods: {
+    async handleSubmit() {
+      this.error = null
+      const isValid = await this.$refs.form.validate()
+      if (!isValid) {
+        return
+      }
+      const { name, phone } = this
+
+      await this.formQuestion({
+        id: this.$route.params.id,
+        name,
+        phoneNumber: phone,
+      })
+        .then((_res) => {
+          this.$toast.global.success({ message: 'Запрос отправлен' })
+          this.resetForm()
+        })
+        .catch((err) => {
+          this.error = err.message
+        })
+    },
+    resetForm() {
+      this.name = null
+      this.phone = null
+    },
+    ...mapActions('feedback', ['formQuestion']),
   },
 }
 </script>

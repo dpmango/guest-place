@@ -10,7 +10,7 @@
 
             <div class="gallery">
               <div class="gallery__main">
-                <swiper ref="gallery" :options="gallerySwiperOptions">
+                <swiper ref="gallery" :options="gallerySwiperOptions" @slide-change="handleGalleryChange">
                   <swiper-slide v-for="(slide, idx) in gallery" :key="slide.id || idx">
                     <div class="gallery__slide" :class="'gallery__slide--' + slide.media.type">
                       <img :src="slide.preview" alt="gallery preview" />
@@ -29,7 +29,11 @@
               <div class="mt-1">
                 <swiper ref="thumbs" :options="thumbsSwiperOptions">
                   <swiper-slide v-for="(slide, idx) in gallery" :key="slide.id || idx">
-                    <div class="thumb">
+                    <div
+                      class="thumb"
+                      :class="[activeSlide === (slide.id || idx) && 'active']"
+                      @click="() => handleThumbClick(slide.id)"
+                    >
                       <img :src="slide.thumb" alt="gallery preview" />
                     </div>
                   </swiper-slide>
@@ -42,51 +46,53 @@
         <div class="scope__content col col-6 col-md-12">
           <div class="scope__row row">
             <div class="col col-6 col-sm-12">
-              <p class="h5-title">
+              <p v-if="place.address" class="h5-title">
                 <span class="c-light">Адрес:</span>
-                г. Москва Волоколамское шоссе, д.13
+                {{ place.address.cityType }} {{ place.address.cityName }} {{ place.address.street }}, д.{{
+                  place.address.houseNumber
+                }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.address && place.address.metroStationName" class="h5-title">
                 <span class="c-light">Метро:</span>
-                Сокольники
+                {{ place.address.metroStationName }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.workingHours" class="h5-title">
                 <span class="c-light">Время работы:</span>
-                Пн - Чт: с 12:00 до 22:00, Пт - Вс: с 10:00 до 24:00
+                {{ place.workingHours }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.averageCheckPerGuest" class="h5-title">
                 <span class="c-light">Средний чек: </span>
-                2500 р.
+                {{ place.averageCheckPerGuest }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.banquetMenuPerGuest" class="h5-title">
                 <span class="c-light">Банкетное меню от: </span>
-                4000 р.
+                {{ place.banquetMenuPerGuest }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.phoneNumbers" class="h5-title">
                 <span class="c-light">Телефон: </span>
-                +7 (495) 125 25 25
+                {{ place.phoneNumbers }}
               </p>
             </div>
             <div class="col col-6 col-sm-12">
-              <p class="h5-title">
+              <p v-if="place.halls && place.halls.length" class="h5-title">
                 <span class="c-light">Количество залов: :</span>
-                3
+                {{ place.halls.length }}
               </p>
-              <p class="h5-title">
+              <p v-if="totalCapacities" class="h5-title">
                 <span class="c-light">Количество мест: </span>
-                Пн - Чт: с 12:00 до 22:00, Пт - Вс: с 10:00 до 24:00
+                {{ totalCapacities }}
               </p>
-              <p class="h5-title">
+              <p v-if="placesArea" class="h5-title">
                 <span class="c-light">Площадь кв.м.: </span>
-                50/100/120
+                {{ placesArea }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.corkageFee" class="h5-title">
                 <span class="c-light">Пробковый сбор: </span>
-                да
+                {{ place.corkageFee }}
               </p>
-              <p class="h5-title">
+              <p v-if="place.rentPerHour" class="h5-title">
                 <span class="c-light">Аренда от: </span>
-                +3000 р./час
+                {{ place.rentPerHour }} р./час
               </p>
             </div>
           </div>
@@ -106,7 +112,7 @@
             </div>
           </div>
           <div class="scope__info-row row mt-1">
-            <div class="col col6">
+            <div v-if="place.onlineDisplay === 'Y'" class="col col6">
               <div class="scope__info" @click="() => setModal({ name: 'online', params: { id: placeId } })">
                 <h5 class="scope__info-title h5-title">
                   <UiSvgIcon name="monitor-play" class="scope__icon" />
@@ -142,9 +148,11 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   props: {
     className: String,
+    place: Object,
   },
   data() {
     return {
+      activeSlide: 0,
       gallerySwiperOptions: {
         slidesPerView: 1,
         navigation: {
@@ -156,35 +164,6 @@ export default {
         slidesPerView: 3,
         spaceBetween: 20,
       },
-      gallery: [
-        {
-          id: 1,
-          preview: require('~/assets/img/place-gallery-1-preview.jpg'),
-          thumb: require('~/assets/img/place-gallery-1-thumb.jpg'),
-          media: {
-            type: 'video',
-            url: require('~/assets/img/place-gallery-1-preview.jpg'),
-          },
-        },
-        {
-          id: 2,
-          preview: require('~/assets/img/place-gallery-1-preview.jpg'),
-          thumb: require('~/assets/img/place-gallery-1-thumb.jpg'),
-          media: {
-            type: 'image',
-            url: require('~/assets/img/place-gallery-1-preview.jpg'),
-          },
-        },
-        {
-          id: 3,
-          preview: require('~/assets/img/place-gallery-1-preview.jpg'),
-          thumb: require('~/assets/img/place-gallery-1-thumb.jpg'),
-          media: {
-            type: 'image',
-            url: require('~/assets/img/place-gallery-1-preview.jpg'),
-          },
-        },
-      ],
     }
   },
   computed: {
@@ -194,11 +173,70 @@ export default {
     swiperGallery() {
       return this.$refs.gallery.$swiper
     },
+
     swiperThumbs() {
       return this.$refs.thumbs.$swiper
     },
+    gallery() {
+      return this.place.media.map((x, idx) => ({
+        id: idx,
+        preview: x.url,
+        thumb: x.url,
+        media: {
+          type: x.fileType.toLowerCase(),
+          url: x.url,
+        },
+      }))
+    },
+    totalCapacities() {
+      let totalCapacities = null
+      if (this.place.halls && this.place.halls.length) {
+        totalCapacities = this.place.halls.reduce(
+          (acc, x) => {
+            acc[0] = acc[0] + x.banquetNumberOfSeats
+            acc[1] = acc[1] + x.buffetNumberOfSeats
+            acc[2] = acc[2] + x.seatingTheaterNumberOfSeats
+
+            return acc
+          },
+          [0, 0, 0]
+        )
+
+        if (totalCapacities.some((x) => x > 0)) {
+          totalCapacities = totalCapacities.join('/')
+        } else {
+          totalCapacities = null
+        }
+      }
+
+      return totalCapacities
+    },
+    placesArea() {
+      let areas = null
+      if (this.place.halls && this.place.halls.length) {
+        areas = this.place.halls.reduce((acc, x) => {
+          acc.push(x.area || 0)
+          return acc
+        }, [])
+
+        if (areas.some((x) => x > 0)) {
+          areas = areas.join('/')
+        } else {
+          areas = null
+        }
+      }
+
+      return areas
+    },
   },
   methods: {
+    handleGalleryChange(e) {
+      this.swiperThumbs.slideTo(e.realIndex)
+      this.activeSlide = e.realIndex
+    },
+    handleThumbClick(index) {
+      this.swiperGallery.slideTo(index)
+    },
     ...mapMutations('ui', ['setModal']),
     // ...mapActions('auth', ['logout']),
   },
@@ -257,13 +295,40 @@ export default {
 }
 
 .thumb {
+  position: relative;
+  font-size: 0;
+
+  &::after {
+    display: inline-block;
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid $colorPrimary;
+    opacity: 0;
+    transition: opacity 0.25s $ease;
+    pointer-events: none;
+  }
   img {
     width: 100%;
+  }
+  &.active {
+    &::after {
+      opacity: 1;
+    }
   }
 }
 
 .gallery {
   width: 100%;
+  .swiper-slide {
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   &__main {
     position: relative;
     .swiper-gallery-next,

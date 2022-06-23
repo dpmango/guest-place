@@ -18,19 +18,23 @@
       <div class="tab__wrapper">
         <!-- tab -->
         <div v-if="activeTab === 'description'" class="tab__content tab__content--description">
-          <p class="h5-title">
-            <span>Тип места:</span> Банкетный зал, Загородный ресторан, Ресторан для Банкета, Ресторан при отеле,
-            Бизнес-площадка
+          <p v-if="place.placeTypes && place.placeTypes.length" class="h5-title">
+            <span>Тип места:</span> {{ place.placeTypes.join(', ') }}
           </p>
-          <p class="h5-title"><span>Особенности:</span> Летняя веранда, Парковая зона, удобный подъезд</p>
-          <p class="h5-title"><span>Кухня:</span> Европейская, Русская</p>
-          <p class="h5-title">
-            <span>Услуги:</span> Wi-Fi, Бизнес-ланч, Выездная регистрация, Банкеты, Анимация, Тимбилдинг, Конференции,
-            Презентации, Номерной фонд, Детская комната, Детское меню, Детская площадка, Живая музыка
+          <p v-if="place.features && place.features.length" class="h5-title">
+            <span>Особенности:</span> {{ place.features.join(', ') }}
           </p>
-          <p class="h5-title"><span>Парковка:</span> на 5 АМ</p>
-          <p class="h5-title"><span>Оборудование:</span> Свет, Звук, микрофон, колонки, проектор</p>
-          <div class="table-wrapper">
+          <p v-if="place.cuisines && place.cuisines.length" class="h5-title">
+            <span>Кухня:</span> {{ place.cuisines.join(', ') }}
+          </p>
+          <p v-if="place.services && place.services.length" class="h5-title">
+            <span>Услуги:</span> {{ place.services.join(', ') }}
+          </p>
+          <p class="h5-title"><span>Парковка:</span> {{ place.parking }} {{ place.parkingSpace }}</p>
+          <p v-if="place.equipments && place.equipments.length" class="h5-title">
+            <span>Оборудование:</span> {{ place.equipments.join(', ') }}
+          </p>
+          <div v-if="place.halls && place.halls.length" class="table-wrapper">
             <table class="mt-3 mt-md-2">
               <tbody>
                 <tr>
@@ -41,13 +45,13 @@
                   <td>Рассадка «Театр»</td>
                   <td>Еще</td>
                 </tr>
-                <tr v-for="(description, index) in infoHall.description" :key="index">
-                  <td>{{ description.info }}</td>
-                  <td>{{ description.area }}</td>
-                  <td>{{ description.banquet }}</td>
-                  <td>{{ description.buffet }}</td>
-                  <td>{{ description.theatre }}</td>
-                  <td>{{ description.more }}</td>
+                <tr v-for="(hall, index) in place.halls" :key="index">
+                  <td>{{ hall.title }}</td>
+                  <td>{{ hall.area }}</td>
+                  <td>{{ hall.banquetNumberOfSeats }}</td>
+                  <td>{{ hall.buffetNumberOfSeats }}</td>
+                  <td>{{ hall.seatingTheaterNumberOfSeats }}</td>
+                  <td>{{ hall.moreNumberOfSeats }}</td>
                 </tr>
               </tbody>
             </table>
@@ -260,6 +264,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   props: {
     className: String,
+    place: Object,
   },
   data() {
     return {
@@ -274,33 +279,6 @@ export default {
       ],
 
       infoHall: {
-        hallId: '1',
-        description: [
-          {
-            info: '1 Атриум',
-            area: '50',
-            banquet: '25',
-            buffet: '25',
-            theatre: '40',
-            more: '40',
-          },
-          {
-            info: '2 Сафари',
-            area: '100',
-            banquet: '50',
-            buffet: '50',
-            theatre: '50',
-            more: '50',
-          },
-          {
-            info: '3 Королевский',
-            area: '200',
-            banquet: '50',
-            buffet: '50',
-            theatre: '50',
-            more: '50',
-          },
-        ],
         price: {
           checkMid: '2000 р.',
           checkBanq: '1200 р.',

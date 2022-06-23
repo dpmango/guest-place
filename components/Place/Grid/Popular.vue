@@ -7,9 +7,9 @@
         <PlaceCard v-for="place in places" :key="place.id" :data="place" />
       </div>
 
-      <div class="recents__cta mt-4">
+      <!-- <div class="recents__cta mt-4">
         <UiButton>Показать еще 18</UiButton>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -32,33 +32,6 @@ export default {
           location: 'Сокольники',
           stats: '35/100/150',
           price: '$$$',
-        },
-        {
-          id: 2,
-          title: 'Банкетный зал лофт Форест Холл',
-          img: require('~/assets/img/recent-2.jpg'),
-          rating: 4,
-          location: 'Сокольники',
-          stats: '35/100/150',
-          price: '$$',
-        },
-        {
-          id: 3,
-          title: 'Банкетный зал лофт Форест Холл',
-          img: require('~/assets/img/recent-1.jpg'),
-          rating: 5,
-          location: 'Сокольники',
-          stats: '35/100/150',
-          price: '$$$',
-        },
-        {
-          id: 4,
-          title: 'Банкетный зал лофт Форест Холл',
-          img: require('~/assets/img/recent-2.jpg'),
-          rating: 3.5,
-          location: 'Сокольники',
-          stats: '35/100/150',
-          price: '$',
         },
       ],
     }

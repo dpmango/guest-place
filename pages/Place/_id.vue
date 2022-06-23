@@ -1,8 +1,8 @@
 <template>
   <div class="">
-    <PlaceDetailHero :title="`${id} Банкетный зал лофт Форест Холл`" />
-    <PlaceDetailScope />
-    <PlaceDetailTabs class-name="mt-8 mb-8" />
+    <PlaceDetailHero :place="place" />
+    <PlaceDetailScope :place="place" />
+    <PlaceDetailTabs class-name="mt-8 mb-8" :place="place" />
     <PlaceRequest />
     <PlaceGridRecents class-name="mt-8" />
     <PlaceGridPopular class-name="mt-8 mb-8" />
@@ -12,12 +12,15 @@
 <script>
 export default {
   name: 'PlaceId',
-  asyncData(context) {
-    const pageParams = context.route.params
+  async asyncData({ route, store }) {
+    const pageParams = route.params
+
+    const place = await store.dispatch('place/getPlace', pageParams.id)
 
     // return id from URL
-    return pageParams
-    // return query_params
+    return {
+      place,
+    }
   },
 }
 </script>

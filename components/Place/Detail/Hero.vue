@@ -7,8 +7,8 @@
         </div>
 
         <h2 class="h2-title">
-          {{ title }} <br />
-          <span class="c-primary">Banquet hall Loft Forest Hall</span>
+          {{ place.title }} <br />
+          <span class="c-primary">TODO - eng description</span>
         </h2>
       </div>
     </div>
@@ -21,12 +21,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
     className: String,
-    title: String,
+    place: Object,
   },
-  data() {
-    return {
-      breadcrumbs: [{ to: '', label: this.title }],
-    }
+
+  computed: {
+    breadcrumbs() {
+      return [{ to: '', label: this.place.title }]
+    },
   },
   methods: {
     // ...mapActions('auth', ['logout']),
