@@ -36,7 +36,7 @@ export default function ({ $axios, $sentry, store, $config, redirect }, inject) 
 
   api.onError(async (error) => {
     if (error.response && !error.response.config.url.includes('auth')) {
-      if (parseInt(error.response && error.response.status) === 401) {
+      if ([401, 403].includes(parseInt(error.response && error.response.status))) {
         await store.dispatch('auth/logout')
       }
     }

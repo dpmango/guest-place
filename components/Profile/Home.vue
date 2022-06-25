@@ -88,6 +88,8 @@
                   <UiButton :is-loading="isLoading" type="submit" block>Сохранить изменения</UiButton>
                 </ValidationObserver>
               </client-only>
+
+              <UiButton class="mt-2" theme="outline" block @click="logout">Выйти</UiButton>
             </div>
           </div>
         </div>
@@ -200,7 +202,7 @@ export default {
           }
         })
     },
-    ...mapActions('auth', ['getUserInfo', 'update']),
+    ...mapActions('auth', ['getUserInfo', 'update', 'logout']),
   },
 }
 </script>

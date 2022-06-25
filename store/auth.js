@@ -10,6 +10,8 @@ import {
   userService,
   updateUserService,
 } from '~/api/auth'
+import { parseJwt } from '~/helpers/JWT'
+import { djs } from '~/helpers/Date'
 
 export const state = () => ({
   token: null,
@@ -56,10 +58,13 @@ export const mutations = {
     this.$cookies.remove('gp_token')
     this.$cookies.remove('gp_refresh_token')
     this.$api.setToken(false)
+
+    this.$router.push('/auth/login')
   },
   updateToken(state, { token, refreshToken }) {
     if (token) {
       state.token = token
+      // const {iat, exp, role} = parseJwt(token)
 
       this.$cookies.set('gp_token', token)
     }
@@ -178,19 +183,19 @@ export const actions = {
 
     return result
   },
-  async logout({ commit, dispatch }) {
-    const [err, result] = await logoutService(this.$api)
+  logout({ commit, dispatch }) {
+    // const [err, result] = await logoutService(this.$api)
 
-    if (err) throw err
+    // if (err) throw err
 
     commit('logOut')
 
     // dispatch('chat/disconnect', null, { root: true })
     // commit('chat/resetMessages', null, { root: true })
 
-    this.$router.push('/')
+    // this.$router.push('/')
 
-    return result
+    // return result
   },
   async update({ commit }, request) {
     const [err, result] = await updateUserService(this.$api, request)
