@@ -14,10 +14,10 @@ async function refreshToken(context) {
     const minutesLeft = expiration.diff(djs(), 'minute')
     const shouldRefresh = minutesLeft <= 2
 
-    if (!shouldRefresh) return
+    // if (!shouldRefresh) return
 
     try {
-      await context.store.dispatch('auth/refreshToken', { token: token.split('Bearer ')[1], refreshToken })
+      await context.store.dispatch('auth/refreshToken', { refreshToken })
       // rebuildSocket({
       //   $config: context.$config,
       //   $store: context.store,
@@ -39,8 +39,6 @@ export default async function (context, inject) {
     await refreshToken(context)
     // rebuildSocket();
   }
-
-  // TODO - add cookies timestamps
 
   setInterval(() => {
     refreshToken(context)
