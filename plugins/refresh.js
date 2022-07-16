@@ -14,7 +14,7 @@ async function refreshToken(context) {
     const minutesLeft = expiration.diff(djs(), 'minute')
     const shouldRefresh = minutesLeft <= 2
 
-    // if (!shouldRefresh) return
+    if (!shouldRefresh) return
 
     try {
       await context.store.dispatch('auth/refreshToken', { refreshToken })

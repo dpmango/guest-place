@@ -159,9 +159,9 @@ export const actions = {
 
     if (err) throw err
 
-    const { token } = result
+    const { token, refreshToken } = result
 
-    commit('updateToken', { token })
+    commit('updateToken', { token, refreshToken })
 
     return result
   },

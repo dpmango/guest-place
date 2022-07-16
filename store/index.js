@@ -11,7 +11,7 @@ export const actions = {
         // this.$api.setToken(token, 'JWT');
         try {
           await commit('auth/updateToken', { token, refreshToken })
-          await dispatch('auth/getUserInfo')
+          // await dispatch('auth/getUserInfo')
         } catch (e) {
           await commit('auth/logOut')
         }
